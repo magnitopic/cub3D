@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/05 10:36:03 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:30:37 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_game
 
 /* Functions */
 
-
+void	read_file(char **argv, t_game *game);
+void	raise_error(char *message);
 
 #endif
