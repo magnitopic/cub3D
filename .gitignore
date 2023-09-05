@@ -1,0 +1,6 @@
+.DS_Store
+test.c
+.vscode/
+*.out
+*.o
+cub3D
