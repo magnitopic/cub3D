@@ -14,8 +14,8 @@ LIBFT_SRC			=	./libft/
 # Compiler
 CC					=	gcc
 RM					=	rm -f
-CFLAGS				=	-Wall -Werror -Wextra 
-LIBX_FLAGS			=	#-Imlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS				=	-Wall -Werror -Wextra
+LIBX_FLAGS			=	-Imlx -lmlx -framework OpenGL -framework AppKit
 
 # Colours
 RED					=	\033[0;31m
