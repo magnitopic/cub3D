@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   run_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 12:41:25 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 17:57:02 by jsarabia         ###   ########.fr       */
+/*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
+/*   Updated: 2023/09/13 17:45:51 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-int	main(int argc, char **argv)
+int	exit_game(t_game *game)
 {
-	t_game	*game;
-	//char	*game_name;
+	mlx_clear_window(game->mlx, game->win);
+	mlx_destroy_window(game->mlx, game->win);
+	free_matrix(game->map);
+	exit(0);
+}
 
-	if (argc != 2)
-		raise_error("Expected one parameter");
-	game = ft_calloc(1, sizeof(t_game));
-	if (!game)
-		exit(1);
-	read_file(argv, game);
-	ft_printmatrix(game->map);
-	run_game(game);
-	return (0);
+void	run_game(t_game *game)
+{
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, 921, 600, "cub3D");
+	mlx_hook(game->win, 17, 0, exit_game, game);
+	mlx_loop(game->mlx);
 }
