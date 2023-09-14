@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 17:57:12 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:59:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ typedef struct s_game
 
 /* Functions */
 
-void	read_file(char **argv, t_game *game);
-void	raise_error(char *message);
 void	run_game(t_game *game);
+void	raise_error(char *message);
+void	read_file(char **argv, t_game *game);
+int		event_handler(enum e_keys key, t_game *game);
 
 #endif

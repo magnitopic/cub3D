@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/05 13:28:44 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:01:04 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ void	read_file(char **argv, t_game *game)
 	file = get_lines(fd);
 	close(fd);
 	game->map = ft_split(file, '\n');
-	//validate_map(game);
 	free(file);
 }

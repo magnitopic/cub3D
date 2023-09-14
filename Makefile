@@ -4,6 +4,7 @@ NAME				=	cub3D
 CUB3D_SRC			=	src/cub3D.c \
 						src/utils.c \
 						src/run_display.c \
+						src/event_handler.c \
 						src/parsing/read_map.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)
