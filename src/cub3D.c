@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:41:25 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 17:57:02 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:04:46 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 		raise_error("Expected one parameter");
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
-		exit(1);
+		return (1);
 	read_file(argv, game);
 	ft_printmatrix(game->map);
 	run_game(game);
