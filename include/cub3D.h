@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/14 14:59:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/15 09:38:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <mlx.h>
+# include "structs.h"
 # include "../libft/libft.h"
 
 /* Enum */
@@ -31,18 +32,10 @@ enum e_keys
 	ESC = 53
 };
 
-/* Struct */
-
-typedef struct s_game
-{
-	void	*mlx;
-	void	*win;
-	char	**map;
-}	t_game;
-
 /* Functions */
 
 void	run_game(t_game *game);
+int		exit_game(t_game *game);
 void	raise_error(char *message);
 void	read_file(char **argv, t_game *game);
 int		event_handler(enum e_keys key, t_game *game);
