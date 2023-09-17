@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/15 12:47:13 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:03:24 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ enum e_keys
 int		exit_game(t_game *game);
 void	raise_error(char *message);
 void	read_file(char **argv, t_game *game);
-void	run_game(t_game *game, char *map_src);
+void	run_game(t_game *game, char *map_name);
 int		event_handler(enum e_keys key, t_game *game);
 
 #endif
