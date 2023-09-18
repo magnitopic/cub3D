@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/17 13:15:01 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:52:00 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	set_graphics(t_game *game)
 {
-	t_texture	img;
-
-	img.img = mlx_new_image(game->mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
-			&img.endian);
+	game->img.img = mlx_new_image(game->mlx, 4, 4);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_length,&game->img.endian);
+	ft_memcpy(game->img.addr, "sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5", 16*4);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 10, 10);
 }
 
 void	run_game(t_game *game, char *map_name)
@@ -27,10 +26,10 @@ void	run_game(t_game *game, char *map_name)
 
 	name_aux = ft_strjoin(PROGRAM_NAME, map_name);
 	game->mlx = mlx_init();
-	//game->win = mlx_new_window(game->mlx, 1920, 1080, name_aux);
+	game->win = mlx_new_window(game->mlx, SCREEN_WITH, SCREEN_HEIGHT, name_aux);
 	free(name_aux);
 	set_graphics(game);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, event_handler, game);
-	//mlx_loop(game->mlx);
+	mlx_loop(game->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/17 13:03:24 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:05:35 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "../libft/libft.h"
 
 # define PROGRAM_NAME "cub3d - "
+# define SCREEN_WITH 1920
+# define SCREEN_HEIGHT 1080
 
 /* Enum */
 
