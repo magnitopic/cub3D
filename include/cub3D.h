@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 12:39:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:59:30 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,9 @@ void	read_file(char **argv, t_game *game);
 void	run_game(t_game *game, char *map_name);
 int		ft_rgba(int r, int g, int b, int alpha);
 int		event_handler(enum e_keys key, t_game *game);
+int		map_width(char **map);
+
+/* Parsing */
+void	check_walls(t_game *game);
 
 #endif

@@ -1,12 +1,13 @@
 # cub3D
 NAME				=	cub3D
 
-CUB3D_SRC			=	src/cub3D.c \
+CUB3D_SRC			=	src/draw.c \
+						src/cub3D.c \
 						src/utils.c \
 						src/run_display.c \
 						src/event_handler.c \
-						src/draw.c \
 						src/parsing/read_map.c \
+						src/parsing/check_walls.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)
 
