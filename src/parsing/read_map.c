@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:21 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:52:38 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static void	check_map(t_game *game)
 	if (game->map_data.map[5][0] != 'C' || game->map_data.map[5][1] != ' ')
 		raise_error("Invalid coordinates");
 	check_walls(game);
+	check_weird_char(game);
+	check_config(game);
 }
 
 void	read_file(char **argv, t_game *game)

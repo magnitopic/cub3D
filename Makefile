@@ -7,7 +7,9 @@ CUB3D_SRC			=	src/draw.c \
 						src/run_display.c \
 						src/event_handler.c \
 						src/parsing/read_map.c \
+						src/parsing/check_chars.c \
 						src/parsing/check_walls.c \
+						src/parsing/check_config.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)
 
