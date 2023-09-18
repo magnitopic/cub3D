@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:41:25 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/15 12:58:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:01:05 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (1);
 	read_file(argv, game);
-	ft_printmatrix(game->map);
+	ft_printmatrix(game->map_data.map);
 	run_game(game, argv[1]);
 	return (0);
 }
