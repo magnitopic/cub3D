@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 10:05:35 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:46:52 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../libft/libft.h"
 
 # define PROGRAM_NAME "cub3d - "
-# define SCREEN_WITH 1920
+# define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 
 /* Enum */
@@ -42,6 +42,7 @@ int		exit_game(t_game *game);
 void	raise_error(char *message);
 void	read_file(char **argv, t_game *game);
 void	run_game(t_game *game, char *map_name);
+void	draw_ceiling_floor(t_game *game);
 int		event_handler(enum e_keys key, t_game *game);
 
 #endif

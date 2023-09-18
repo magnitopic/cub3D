@@ -5,6 +5,7 @@ CUB3D_SRC			=	src/cub3D.c \
 						src/utils.c \
 						src/run_display.c \
 						src/event_handler.c \
+						src/draw.c \
 						src/parsing/read_map.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)
@@ -16,7 +17,7 @@ LIBFT_SRC			=	./libft/
 # Compiler
 CC					=	gcc
 RM					=	rm -f
-CFLAGS				=	-Wall -Werror -Wextra
+CFLAGS				=	-Wall -Werror -Wextra -g3 -fsanitize=address
 LIBX_FLAGS			=	-Imlx -lmlx -framework OpenGL -framework AppKit
 
 # Colours
