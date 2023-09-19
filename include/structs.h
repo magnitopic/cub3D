@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 12:59:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/19 10:37:33 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ typedef struct s_img
 typedef struct s_map_data
 {
 	char	**map;
+	char	texture_no;
+	char	texture_so;
+	char	texture_we;
+	char	texture_ea;
 	t_color	floor;
 	t_color	celling;
 }	t_map_data;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:55:34 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/18 18:01:57 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:05:52 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int	*check_top_closed(int *checker, t_game *game)
 				free(checker);
 				raise_error("The map in not correctly closed by walls");
 			}
+			else if (game->map_data.map[n][i] == ' ')
+				checker[i] = 0;
 			i++;
 		}
 		i = 0;
@@ -95,6 +97,8 @@ static void	check_bottom_closed(int *checker, t_game *game)
 				free(checker);
 				raise_error("The map in not correctly closed by walls");
 			}
+			else if (game->map_data.map[n][i] == ' ')
+				checker[i] = 1;
 			i++;
 		}
 		i = 0;

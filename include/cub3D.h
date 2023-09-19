@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 18:52:48 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/19 10:34:55 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,27 @@ enum e_keys
 	ESC = 53
 };
 
+/**
+ * Representing the type of value is found in the file line.
+ * If no type if found, ERROR is returned
+*/
+enum e_values
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	ERROR
+};
+
 /* Functions */
 
 int		exit_game(t_game *game);
 void	raise_error(char *message);
 void	draw_ceiling_floor(t_game *game);
-void	read_file(char **argv, t_game *game);
+char	**read_file(char **argv, t_game *game);
 void	run_game(t_game *game, char *map_name);
 void	check_weird_char(t_game *game);
 void	check_config(t_game *game);

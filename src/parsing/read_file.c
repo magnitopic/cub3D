@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/18 18:52:38 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:07:24 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*get_lines( int fd)
 	return (file);
 }
 
-static void	check_map(t_game *game)
+/* static void	check_map(t_game *game)
 {
 	if (game->map_data.map[0][0] != 'N' || game->map_data.map[0][1] != 'O')
 		raise_error("Invalid coordinates");
@@ -76,13 +76,15 @@ static void	check_map(t_game *game)
 	check_walls(game);
 	check_weird_char(game);
 	check_config(game);
-}
+} */
 
-void	read_file(char **argv, t_game *game)
+char	**read_file(char **argv, t_game *game)
 {
 	char	*file;
 	int		fd;
+	char	**file_con;
 
+	(void)game; // TODO: remove this cast
 	check_extension(argv);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -91,7 +93,9 @@ void	read_file(char **argv, t_game *game)
 		raise_error("Empty map file");
 	file = get_lines(fd);
 	close(fd);
-	game->map_data.map = ft_split(file, '\n');
-	check_map(game);
+	file_con = ft_split(file, '\n');
+	//check_map(game);
+	game->map_data.map = argv;
 	free(file);
+	return (file_con);
 }
