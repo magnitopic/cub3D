@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_chars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:16:43 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/18 18:32:28 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:04:56 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
+// ? is this file necessary
 void	check_weird_char(t_game *game)
 {
 	int		n;

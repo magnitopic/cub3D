@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:48:04 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/18 18:55:54 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:03:47 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
+
+// ? is this file necessary
 
 static void	check_coords(char **matrix, int n, t_game *game)
 {
