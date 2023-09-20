@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:37:30 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 08:07:16 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:29:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	exit_game(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
-	//free_matrix(game->map_data.map);
 	exit(0);
 }
 

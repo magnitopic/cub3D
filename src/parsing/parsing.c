@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 08:04:38 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:47:00 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 static enum e_values	identify_line_value(char *line)
 {
-	while (*line && ft_isprint(*line))
+	while (*line && (*line == ' ' || *line == '	'))
 		line++;
-	if (ft_strcmp(line, "NO ") || ft_strcmp(line, "NO	"))
+	if (ft_strnstr(line, "NO ", 3) || ft_strnstr(line, "NO	", 3))
 		return (NO);
-	if (ft_strcmp(line, "SO ") || ft_strcmp(line, "SO	"))
+	if (ft_strnstr(line, "SO ", 3) || ft_strnstr(line, "SO	", 3))
 		return (SO);
-	if (ft_strcmp(line, "WE ") || ft_strcmp(line, "WE	"))
+	if (ft_strnstr(line, "WE ", 3) || ft_strnstr(line, "WE	", 3))
 		return (WE);
-	if (ft_strcmp(line, "EA ") || ft_strcmp(line, "EA	"))
+	if (ft_strnstr(line, "EA ", 3) || ft_strnstr(line, "EA	", 3))
 		return (EA);
-	if (ft_strcmp(line, "F ") || ft_strcmp(line, "F	"))
+	if (ft_strnstr(line, "F ", 2) || ft_strnstr(line, "F	", 2))
 		return (F);
-	if (ft_strcmp(line, "C ") || ft_strcmp(line, "C	"))
+	if (ft_strnstr(line, "C ", 2) || ft_strnstr(line, "C	", 2))
 		return (C);
 	return (ERROR);
 }
 
+/**
+ * Get the RGB value from the floor and ceiling parameters. If and invalid value
+ * is found an error is raised.
+*/
 static t_color	get_color_value(char *line)
 {
 	t_color	color;
@@ -38,7 +42,7 @@ static t_color	get_color_value(char *line)
 	char	**values;
 
 	color.alpha = 0;
-	while (*line && ft_isprint(*line))
+	while (*line && (*line == ' ' || *line == '	'))
 		line++;
 	line++;
 	aux = ft_strtrim(line, " 	");
@@ -54,19 +58,23 @@ static t_color	get_color_value(char *line)
 	color.green = ft_atoi(values[1]);
 	color.blue = ft_atoi(values[2]);
 	if (color.red > 255 || color.green > 255 || color.blue > 255
-		|| color.red > 0 || color.green > 0 || color.blue > 0) 
+		|| color.red < 0 || color.green < 0 || color.blue < 0)
 		raise_error("Value for colors must be between 0 and 255");
-	free(aux);
+	(free(aux), free_matrix(values));
 	return (color);
 }
 
+/**
+ * The first 6 rows must contain the map values: wall textures, floor and
+ * ceiling colours. If an invalid value is found an error is raised.
+ */
 static void	get_values(t_game *game, char **file_con)
 {
 	int				i;
 	enum e_values	value_type;
 
 	i = -1;
-	while (file_con[++i])
+	while (++i < 6)
 	{
 		value_type = identify_line_value(file_con[i]);
 		if (value_type == ERROR)
@@ -91,9 +99,7 @@ void	parsing(char **argv, t_game *game)
 	char	**file_content;
 
 	(void)file_content;
-	file_content = read_file(argv, game);
+	file_content = read_file(argv);
 	get_values(game, file_content);
-	/* handle_map();
-	   -	check_map(map);
-	get_values(values); */
+	// check_map();
 }

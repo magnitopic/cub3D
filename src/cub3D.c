@@ -6,24 +6,28 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:41:25 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/19 13:07:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:33:31 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
+void	ft_leaks(void)
+{
+	system("Leaks -q cub3D");
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	//char	*game_name;
 
+	atexit(ft_leaks);
 	if (argc != 2)
 		raise_error("Expected one parameter");
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 		return (1);
-	read_file(argv, game);
-	ft_printmatrix(game->map_data.map);
+	parsing(argv, game);
 	run_game(game, argv[1]);
 	return (0);
 }
