@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 10:47:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:02:14 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static t_color	get_color_value(char *line)
 	line++;
 	aux = ft_strtrim(line, " 	");
 	if (ft_strlen(aux) == 0)
-		raise_error("Empty value found in ceiling or floor.");
+		raise_error("Empty value found for floor or ceiling.");
 	values = ft_split(aux, ',');
 	if (ft_get_matrix_size(values) != 3)
 		raise_error("Value for colors must be in R,G,B");
 	if (!ft_strisnum(values[0]) || !ft_strisnum(values[1])
 		|| !ft_strisnum(values[2]))
-		raise_error("Non numeric value found in ceiling or floor.");
+		raise_error("Non numeric value found in floor or ceiling.");
 	color.red = ft_atoi(values[0]);
 	color.green = ft_atoi(values[1]);
 	color.blue = ft_atoi(values[2]);
@@ -64,6 +64,19 @@ static t_color	get_color_value(char *line)
 	return (color);
 }
 
+static char	*get_texture_value(char *line)
+{
+	char	*texture_path;
+
+	while (*line && (*line == ' ' || *line == '	'))
+		line++;
+	line += 2;
+	texture_path = ft_strtrim(line, " 	");
+	if (!ft_strlen(texture_path))
+		raise_error("Empty value found for wall textures");
+	return (texture_path);
+}
+
 /**
  * The first 6 rows must contain the map values: wall textures, floor and
  * ceiling colours. If an invalid value is found an error is raised.
@@ -72,26 +85,29 @@ static void	get_values(t_game *game, char **file_con)
 {
 	int				i;
 	enum e_values	value_type;
+	char			**aux;
 
 	i = -1;
+	aux = file_con;
 	while (++i < 6)
 	{
 		value_type = identify_line_value(file_con[i]);
 		if (value_type == ERROR)
 			raise_error("Invalid value for textures and colors");
 		if (value_type == NO)
-			game->map_data.texture_no = file_con[i];
+			game->map_data.texture_no = get_texture_value(file_con[i]);
 		else if (value_type == SO)
-			game->map_data.texture_so = file_con[i];
+			game->map_data.texture_so = get_texture_value(file_con[i]);
 		else if (value_type == WE)
-			game->map_data.texture_we = file_con[i];
+			game->map_data.texture_we = get_texture_value(file_con[i]);
 		else if (value_type == EA)
-			game->map_data.texture_ea = file_con[i];
+			game->map_data.texture_ea = get_texture_value(file_con[i]);
 		else if (value_type == C)
 			game->map_data.celling = get_color_value(file_con[i]);
 		else if (value_type == F)
 			game->map_data.floor = get_color_value(file_con[i]);
 	}
+	free_matrix(file_con);
 }
 
 void	parsing(char **argv, t_game *game)

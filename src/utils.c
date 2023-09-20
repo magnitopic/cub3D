@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:37:30 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 10:29:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:55:25 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int	exit_game(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
+	free(game->map_data.texture_ea);
+	free(game->map_data.texture_no);
+	free(game->map_data.texture_we);
+	free(game->map_data.texture_so);
 	exit(0);
 }
 
