@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/19 20:28:43 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/21 07:56:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_img
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		line_len;
 	int		endian;
 }	t_img;
 
@@ -42,7 +42,7 @@ typedef struct s_map_data
 	char	*texture_we;
 	char	*texture_ea;
 	t_color	floor;
-	t_color	celling;
+	t_color	ceiling;
 }	t_map_data;
 
 typedef struct s_game

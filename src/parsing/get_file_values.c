@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:50:52 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 20:57:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:25:44 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	get_values(t_game *game, char **file_con)
 		else if (value_type == EA)
 			game->map_data.texture_ea = get_texture_value(file_con[i]);
 		else if (value_type == C)
-			game->map_data.celling = get_color_value(file_con[i]);
+			game->map_data.ceiling = get_color_value(file_con[i]);
 		else if (value_type == F)
 			game->map_data.floor = get_color_value(file_con[i]);
 	}

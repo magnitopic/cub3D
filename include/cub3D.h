@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 20:57:32 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:24:10 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	**read_file(char **argv);
 void	raise_error(char *message);
 void	check_config(t_game *game);
 void	check_weird_char(t_game *game);
-void	draw_ceiling_floor(t_game *game);
 void	parsing(char **argv, t_game *game);
 void	run_game(t_game *game, char *map_name);
 int		ft_rgba(int r, int g, int b, int alpha);
 void	get_values(t_game *game, char **file_con);
 int		event_handler(enum e_keys key, t_game *game);
+void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
 
 /* Parsing */
 void	check_walls(t_game *game);
