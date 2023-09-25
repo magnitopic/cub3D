@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:18:09 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:03:02 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ static t_player	get_player_direction(t_game *game)
 void	start_game(t_game *game)
 {
 	game->player = get_player_direction(game);
+	game->player.plane_x = 0;
+	game->player.plane_y = 0.66;
 	minimap(game, game->map_data.map);
 }
