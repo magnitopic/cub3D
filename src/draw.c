@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 09:26:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:41:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,10 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 		}
 	}
 	//mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+}
+
+void	re_draw_screen(t_game *game)
+{
+	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
+	minimap(game, game->map_data.map);
 }

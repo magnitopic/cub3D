@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/21 07:56:29 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:15:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,28 @@ typedef struct s_map_data
 	t_color	ceiling;
 }	t_map_data;
 
+/**
+ * Player position and direction
+*/
+typedef struct s_player
+{
+	float		x;
+	float		y;
+	float		direction;
+}	t_player;
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
 	t_map_data	map_data;
 	t_img		img;
+	t_player	player;
 }	t_game;
 
 typedef struct s_camera
 {
 	int	fov;
 }	t_camera;
-
-/**
- * Player position and direction
-*/
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	int		direction;
-}	t_player;
 
 #endif

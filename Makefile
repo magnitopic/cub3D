@@ -7,7 +7,7 @@ CUB3D_SRC			=	src/draw.c \
 						src/run_display.c \
 						src/event_handler.c \
 						src/game/game.c \
-						src/gmae/minimap.c \
+						src/game/minimap.c \
 						src/parsing/parsing.c \
 						src/parsing/read_file.c \
 						src/parsing/check_chars.c \
