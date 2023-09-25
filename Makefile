@@ -6,6 +6,8 @@ CUB3D_SRC			=	src/draw.c \
 						src/utils.c \
 						src/run_display.c \
 						src/event_handler.c \
+						src/game/game.c \
+						src/gmae/minimap.c \
 						src/parsing/parsing.c \
 						src/parsing/read_file.c \
 						src/parsing/check_chars.c \
@@ -22,7 +24,7 @@ LIBFT_SRC			=	./libft/
 # Compiler
 CC					=	gcc
 RM					=	rm -f
-CFLAGS				=	-Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS				=	-Wall -Werror -Wextra -g3 -fsanitize=address
 LIBX_FLAGS			=	-Imlx -lmlx -framework OpenGL -framework AppKit
 
 # Colours

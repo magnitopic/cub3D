@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 09:17:39 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:58:22 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,10 @@ void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
 
 /* Parsing */
 void	check_walls(t_game *game);
+
+/* Game */
+
+void	start_game(t_game *game);
+void	minimap(t_game *game, char **map);
 
 #endif
