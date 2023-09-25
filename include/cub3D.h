@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 12:42:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:14:22 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define PROGRAM_NAME "cub3d - "
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
+# define WALL_SIZE 20
+# define PLAYER_SIZE WALL_SIZE/3
+# define PI 3.14159265
 
 /* Enum */
 
