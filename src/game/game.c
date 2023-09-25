@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 16:19:40 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:18:09 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ static t_player	get_player_direction(t_game *game)
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'N')
 	{
 		game->player.direction = PI / 2;
-		game->player.dx = cos(game->player.direction);
-		game->player.dy = sin(game->player.direction);
+		game->player.dx = cos(game->player.direction) * 5;
+		game->player.dy = sin(game->player.direction) * 5;
 	}
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'E')
 	{
 		game->player.direction = 2 * PI;
-		game->player.dx = cos(game->player.direction);
-		game->player.dy = sin(game->player.direction);
+		game->player.dx = cos(game->player.direction) * 5;
+		game->player.dy = sin(game->player.direction) * 5;
 	}
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'W')
 	{
 		game->player.direction = PI;
-		game->player.dx = cos(game->player.direction);
-		game->player.dy = sin(game->player.direction);
+		game->player.dx = cos(game->player.direction) * 5;
+		game->player.dy = sin(game->player.direction) * 5;
 	}
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'S')
 	{
 		game->player.direction = 2 * PI / 3;
-		game->player.dx = cos(game->player.direction);
-		game->player.dy = sin(game->player.direction);
+		game->player.dx = cos(game->player.direction) * 5;
+		game->player.dy = sin(game->player.direction) * 5;
 	}
 	return (game->player);
 }
