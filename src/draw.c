@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:15:54 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:32:55 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@
 void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 {
 	int		color;
-	char	*pixel;
 
 	color = ft_rgba(rgb.red, rgb.green, rgb.blue, 0);
-	pixel = img.addr + (y * img.line_len + x * (img.bpp / 8));
-	*(unsigned int *)pixel = color;
+	if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
+		*(int *)&img.addr[((x * img.bpp) >> 3) + (y * img.line_len)] = color;
 }
 
 void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)

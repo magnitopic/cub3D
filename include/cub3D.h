@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:15:37 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:35:03 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define WALL_SIZE 20
-# define PLAYER_SIZE WALL_SIZE/3
+# define PLAYER_SIZE WALL_SIZE / 3
 # define PI 3.14159265
 
 /* Enum */

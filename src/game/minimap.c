@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:55 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 16:26:08 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:20:46 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ static void	draw_player(t_game *game, int color)
 	{
 		j = 0;
 		while (++j <= PLAYER_SIZE)
-		{
 			mlx_pixel_put(game->mlx, game->win, game->player.x + j, game->player.y + i, color);
-		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 16:44:03 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:38:32 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	event_handler(enum e_keys key, t_game *game)
 {
 	if (key == ESC)
 		exit_game(game);
-	else if (key == W)
+	else if (key == W || key == UP)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
@@ -25,8 +25,14 @@ int	event_handler(enum e_keys key, t_game *game)
 		re_draw_screen(game);
 	}
 	else if (key == A)
-		game->player.y -= 1;
-	else if (key == S)
+	{
+		game->player.old_x = game->player.x;
+		game->player.old_y = game->player.y;
+		game->player.x -= game->player.dy;
+		game->player.y -= game->player.dx;
+		re_draw_screen(game);
+	}
+	else if (key == S || key == DOWN)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
@@ -35,7 +41,13 @@ int	event_handler(enum e_keys key, t_game *game)
 		re_draw_screen(game);
 	}
 	else if (key == D)
-		game->player.y += 1;
+	{
+		game->player.old_x = game->player.x;
+		game->player.old_y = game->player.y;
+		game->player.x += game->player.dy;
+		game->player.y += game->player.dx;
+		re_draw_screen(game);
+	}
 	else if (key == LEFT)
 	{
 		game->player.direction -= 0.1;
