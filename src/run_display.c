@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/21 07:56:29 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/21 09:40:22 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	set_graphics(t_game *game)
 {
 	game->img.img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_len, &game->img.endian);
-	//ft_memcpy(game->img.addr, "sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5sfv5", 16*4);
-	//mlx_put_image_to_window(game->mlx, game->win, game->img.img, 10, 10);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
+			&game->img.line_len, &game->img.endian);
 	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
 }
 

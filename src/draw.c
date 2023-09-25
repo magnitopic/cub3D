@@ -6,17 +6,17 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/21 08:00:07 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:26:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
+// ! Bugged function
 void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 {
 	int		color;
 	char	*pixel;
-
 
 	color = ft_rgba(rgb.red, rgb.green, rgb.blue, 0);
 	pixel = img.addr + (y * img.line_len + x * (img.bpp / 8));
@@ -35,10 +35,16 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 		while (x++ < SCREEN_WIDTH)
 		{
 			if (y < SCREEN_HEIGHT / 2)
-				ft_put_pixel(game->img, x, y, floor);
+			{
+				//ft_put_pixel(game->img, x, y, floor);
+				mlx_pixel_put(game->mlx, game->win, x, y, ft_rgba(ceiling.red, ceiling.green, ceiling.blue, 0));
+			}
 			else
-				ft_put_pixel(game->img, x, y, ceiling);
+			{
+				//ft_put_pixel(game->img, x, y, ceiling);
+				mlx_pixel_put(game->mlx, game->win, x, y, ft_rgba(floor.red, floor.green, floor.blue, 0));
+			}
 		}
 	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	//mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

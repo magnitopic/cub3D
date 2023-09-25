@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 21:24:10 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:17:39 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <mlx.h>
 # include "structs.h"
 # include "../libft/libft.h"
+# include <math.h>
+# include <stdio.h>
 
 # define PROGRAM_NAME "cub3d - "
 # define SCREEN_WIDTH 1920
