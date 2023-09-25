@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 15:12:30 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:27:05 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_player
 	float		y;
 	float		dx;
 	float		dy;
+	float		old_x;
+	float		old_y;
 	float		direction;
 }	t_player;
 
