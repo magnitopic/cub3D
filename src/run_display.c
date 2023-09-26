@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/26 17:34:32 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:49:17 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	run_game(t_game *game, char *map_name)
 	free(aux);
 	set_graphics(game);
 	start_game(game);
-	//raycasting(game);
+	raycasting(game);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, event_handler, game);
 	mlx_loop(game->mlx);

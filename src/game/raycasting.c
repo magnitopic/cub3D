@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/26 17:34:18 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:34:32 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 void	check_horizontal_lines(t_game *game)
 {
 	game->camera.dof = 0;
+	game->camera.map_pos = 0;
 	game->camera.angle_tan = -1 / tan(game->camera.ray_angle);
 	if (game->camera.angle_tan > PI)
 	{
@@ -49,8 +50,9 @@ void	check_horizontal_lines(t_game *game)
 	{
 		game->camera.max_x = (int)game->camera.ray_x / WALL_SIZE;
 		game->camera.max_y = (int)game->camera.ray_y / WALL_SIZE;
-		game->camera.map_pos = game->camera.max_y * game->map_data.max_x
+		game->camera.map_pos = (game->camera.max_y * game->map_data.max_x)
 			- game->camera.max_x;
+		ft_printf("%d\n", game->camera.map_pos); // Peta aqui porque la x no la pilla bien y no sé por qué
 		if (game->camera.map_pos < game->map_data.max_x * game->map_data.max_y
 			&& game->map_data.map[game->camera.map_pos / game->map_data.max_x][game->camera.map_pos % game->map_data.max_x] == '1')
 				game->camera.dof = 8;
@@ -61,7 +63,7 @@ void	check_horizontal_lines(t_game *game)
 			game->camera.dof += 1;
 		}
 	}
-	//ft_printf("%d, %d\n", game->camera.ray_x, game->camera.ray_y);
+	ft_printf("%d, %d\n", game->camera.ray_x, game->camera.ray_y);
 }
 
 void	raycasting(t_game *game)
