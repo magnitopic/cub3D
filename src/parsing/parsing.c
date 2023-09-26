@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 16:18:44 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:47:21 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	check_map(t_game *game, char **map)
 void	parsing(char **argv, t_game *game)
 {
 	char	**file_content;
-	char	**aux;
+	//char	**aux;
 
 	file_content = read_file(argv);
-	aux = file_content;
+	//aux = file_content;
 	get_values(game, file_content);
 	file_content += 6;
 	check_map(game, file_content);

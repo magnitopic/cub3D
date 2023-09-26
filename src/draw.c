@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:32:55 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:47:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 
 void	re_draw_screen(t_game *game)
 {
-	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
+	//draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
 	minimap(game, game->map_data.map);
 }
