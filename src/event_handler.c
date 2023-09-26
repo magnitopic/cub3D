@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:38:32 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:40:21 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	event_handler(enum e_keys key, t_game *game)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
-		game->player.x += game->player.dx;
-		game->player.y += game->player.dy;
+		game->player.x -= game->player.dx;
+		game->player.y -= game->player.dy;
 		re_draw_screen(game);
 	}
 	else if (key == A)
@@ -36,8 +36,8 @@ int	event_handler(enum e_keys key, t_game *game)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
-		game->player.x -= game->player.dx;
-		game->player.y -= game->player.dy;
+		game->player.x += game->player.dx;
+		game->player.y += game->player.dy;
 		re_draw_screen(game);
 	}
 	else if (key == D)

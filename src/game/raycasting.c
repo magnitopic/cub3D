@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/26 16:24:18 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:34:18 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_horizontal_lines(t_game *game)
 			game->camera.dof += 1;
 		}
 	}
-	ft_printf("%d, %d\n", game->camera.ray_x, game->camera.ray_y);
+	//ft_printf("%d, %d\n", game->camera.ray_x, game->camera.ray_y);
 }
 
 void	raycasting(t_game *game)

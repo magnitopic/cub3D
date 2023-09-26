@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 19:03:02 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:39:42 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_player	get_player_direction(t_game *game)
 	}
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'S')
 	{
-		game->player.direction = 2 * PI / 3;
+		game->player.direction = 3 * PI / 2;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
 	}
