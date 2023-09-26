@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 17:35:03 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:51:48 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	check_walls(t_game *game);
 void	start_game(t_game *game);
 void	minimap(t_game *game, char **map);
 void	re_draw_screen(t_game *game);
+void	raycasting(t_game *game);
 
 #endif
