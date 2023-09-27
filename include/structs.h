@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/27 12:56:14 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:11:20 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,10 @@ typedef struct s_player
 typedef struct s_camera
 {
 	int		fov;
-	double	max_x;
-	double	max_y;
-	int		map_pos;
-	float	ray_y;
-	float	ray_x;
-	float	ray_diry;
-	float	ray_dirx;
-	float	ray_angle;
+	float	distance;
+	float	vertical;
+	float	horizontal;
 	float	angle_tan;
-	int		dof;
-	float	y_offset;
-	float	x_offset;
 }	t_camera;
 
 typedef struct s_game

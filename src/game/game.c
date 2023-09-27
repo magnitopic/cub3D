@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/26 17:39:42 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:04:47 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static t_player	get_player_direction(t_game *game)
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
 	}
+	game->player.direction = 3 * PI / 4;
+	game->player.dx = cos(game->player.direction) * 5;
+		game->player.dy = sin(game->player.direction) * 5;
 	return (game->player);
 }
 
