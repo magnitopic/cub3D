@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/27 18:14:40 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:49 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,42 @@ void	check_horizontal_lines(t_game *game)
 	auxy = y;
 	x = game->player.x / WALL_SIZE;
 	auxx = x;
-	if (game->player.dy > 0) //looking UP
+	if (game->camera.dy > 0)
 	{
 		while (hit != 1)
 		{
 			auxy--;
-			x += game->player.dx;
+			x += game->camera.dx;
 			auxx = x;
-			if (game->map_data.map[auxy][auxx] == '1')
+			if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			if (auxy <= 0 || auxx <= 0)
+				hit = 1;
+			if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
 		}
 	}
-	else if (game->player.dy < 0) //looking DOWN
+	if (game->camera.dy < 0)
 	{
 		while (hit != 1)
 		{
 			auxy++;
-			x += game->player.dx;
+			x += game->camera.dx;
 			auxx = x;
-			if (game->map_data.map[auxy][auxx] == '1')
+			if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			if (auxy <= 0 || auxx <= 0)
+				hit = 1;
+			if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
 		}
 	}
-	printf("wall at map[%d][%d]\n", auxy, auxx);
 	game->camera.horizontal = pow(auxx, 2) + pow(auxy, 2);
 }
 
@@ -64,42 +77,63 @@ void	check_vertical_lines(t_game *game)
 	auxy = y;
 	x = game->player.x / WALL_SIZE;
 	auxx = x;
-	if (game->player.dx > 0) //looking RIGHT
+	if (game->camera.dx > 0)
 	{
 		while (hit != 1)
 		{
 			auxx++;
-			y += game->player.dx;
+			y += game->camera.dx;
 			auxy = y;
-			if (game->map_data.map[auxy][auxx] == '1')
+			if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			if (auxy <= 0 || auxx <= 0)
+				hit = 1;
+			if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
 		}
 	}
-	if (game->player.dx > 0) //looking LEFT*/
+	else if (game->camera.dx > 0)
 	{
 		while (hit != 1)
 		{
 			auxx--;
-			y += game->player.dx;
+			y += game->camera.dx;
 			auxy = y;
+			if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			if (auxy <= 0 || auxx <= 0)
+				hit = 1;
 			if (game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
 		}
 	}
-	printf("wall at map[%d][%d]\n", auxy, auxx);
-	game->camera.vertical = pow(auxx, 2) + pow(auxy,  2);
+	game->camera.vertical = pow(auxx, 2) + pow(auxy, 2);
 }
 
 void	raycasting(t_game *game)
 {
-	int	rays;
-
-	rays = -1;
-	check_horizontal_lines(game);
-	check_vertical_lines(game);
-	if (game->camera.vertical < game->camera.horizontal)
-		game->camera.distance  = game->camera.vertical;
-	else
-		game->camera.distance  = game->camera.horizontal;
-	printf("distance: %f\n", game->camera.distance);
+	game->camera.fov = 0;
+	game->camera.direction = game->player.direction - (PI / 6);
+	while (game->camera.fov < 60)
+	{
+		game->camera.dx = cos(game->camera.direction) * 5;
+		game->camera.dy = sin(game->camera.direction) * 5;
+		check_horizontal_lines(game);
+		check_vertical_lines(game);
+		if (game->camera.vertical < game->camera.horizontal)
+			game->camera.distance = game->camera.vertical;
+		else
+			game->camera.distance = game->camera.horizontal;
+		printf("distance: %f  %f\n", game->camera.distance, game->camera.fov);
+		game->camera.direction += 0.00163541666;
+		game->camera.fov += 0.03125;
+	}
 }

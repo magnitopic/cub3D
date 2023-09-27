@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/27 12:56:54 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:53:25 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,5 @@ void	parsing(char **argv, t_game *game)
 	file_content += 6;
 	check_map(game, file_content);
 	game->map_data.map = file_content;
-	game->camera.max_x = 0;
-	game->camera.max_y = 0.66;
 	//free_matrix(aux);
 }

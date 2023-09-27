@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/27 18:11:20 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:52:56 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ typedef struct s_player
 
 typedef struct s_camera
 {
-	int		fov;
+	double	fov;
+	float	dx;
+	float	dy;
 	float	distance;
+	float	direction;
 	float	vertical;
 	float	horizontal;
 	float	angle_tan;
