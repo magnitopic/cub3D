@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/26 18:34:32 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:55:32 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,64 +17,22 @@
 
 }*/
 
-void	check_horizontal_lines(t_game *game)
+void	check_horizontal_lines(t_game *game, int rays)
 {
-	game->camera.dof = 0;
-	game->camera.map_pos = 0;
-	game->camera.angle_tan = -1 / tan(game->camera.ray_angle);
-	if (game->camera.angle_tan > PI)
-	{
-		game->camera.ray_y = ((int)game->player.y / WALL_SIZE) * WALL_SIZE
-			- 0.0001;
-		game->camera.ray_x = game->player.y - game->camera.ray_y
-			* game->camera.angle_tan + game->player.x;
-		game->camera.y_offset = WALL_SIZE * (-1);
-		game->camera.x_offset = game->camera.y_offset * game->camera.angle_tan;
-	}
-	if (game->camera.angle_tan < PI)
-	{
-		game->camera.ray_y = ((int)game->player.y / WALL_SIZE) * WALL_SIZE
-			+ WALL_SIZE;
-		game->camera.ray_x = game->player.y - game->camera.ray_y
-			* game->camera.angle_tan + game->player.x;
-		game->camera.y_offset = WALL_SIZE;
-		game->camera.x_offset = game->camera.y_offset * game->camera.angle_tan;
-	}
-	if (game->camera.angle_tan == PI || game->camera.angle_tan == 0)
-	{
-		game->camera.ray_x = game->player.x;
-		game->camera.ray_y = game->player.y;
-		game->camera.dof = 8;
-	}
-	while (game->camera.dof != 8)
-	{
-		game->camera.max_x = (int)game->camera.ray_x / WALL_SIZE;
-		game->camera.max_y = (int)game->camera.ray_y / WALL_SIZE;
-		game->camera.map_pos = (game->camera.max_y * game->map_data.max_x)
-			- game->camera.max_x;
-		ft_printf("%d\n", game->camera.map_pos); // Peta aqui porque la x no la pilla bien y no sé por qué
-		if (game->camera.map_pos < game->map_data.max_x * game->map_data.max_y
-			&& game->map_data.map[game->camera.map_pos / game->map_data.max_x][game->camera.map_pos % game->map_data.max_x] == '1')
-				game->camera.dof = 8;
-		else
-		{
-			game->camera.ray_x += game->camera.x_offset;
-			game->camera.ray_y += game->camera.y_offset;
-			game->camera.dof += 1;
-		}
-	}
-	ft_printf("%d, %d\n", game->camera.ray_x, game->camera.ray_y);
+	game->camera.ray_x = 2 * game->player.x / (double)rays - 1;
+	game->camera.ray_dirx = game->player.dx + game->camera.max_x * game->camera.ray_x;
+	game->camera.ray_diry = game->player.dy + game->camera.max_y * game->camera.ray_x;
 }
 
 void	raycasting(t_game *game)
 {
 	int	rays;
 
-	rays = 1;
+	rays = 0;
 	game->camera.ray_angle = game->player.direction;
-	while (rays-- > 0)
+	while (rays++ < SCREEN_WIDTH)
 	{
-		check_horizontal_lines(game);
+		check_horizontal_lines(game, rays);
 		//check_vertical_lines(game);
 	}
 }
