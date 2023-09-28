@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 13:22:07 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:40:03 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ void	ft_draw_wall(t_game *game)
 	int			j;
 
 	y = 0;
-	j = (150 / game->camera.distance) * 255;
+	j = (30 / game->camera.distance) * 1080;
+	printf("j: %d\n", j);
 	if (x == 1920)
 		x = 0;
 	if (j < 50)
 		j = 50;
 	y = SCREEN_HEIGHT / 2 - j / 2;
-	count = 0;
+	count = y;
 	while (count < j)
 	{
 		if (game->camera.offset == 0)
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
+			mlx_pixel_put(game->mlx, game->win, x, count, 0xffffff);
 		else
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffafaf);
-		y++;
+			mlx_pixel_put(game->mlx, game->win, x, count, 0xffafaf);
 		count++;
 	}
 	x++;
@@ -78,6 +78,6 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 void	re_draw_screen(t_game *game)
 {
 	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
-	raycasting(game);
 	minimap(game, game->map_data.map);
+	raycasting(game);
 }

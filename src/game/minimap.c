@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:55 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 13:19:03 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:07:57 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	draw_wall(int x, int y, t_game *game, int color)
 
 	i = 0;
 	j = 0;
-	 while (++i <= WALL_SIZE)
+	while (++i <= WALL_SIZE)
 	{
 		j = 0;
 		while (++j <= WALL_SIZE)
