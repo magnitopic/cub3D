@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/27 19:17:49 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:13:49 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,43 +25,45 @@ void	check_horizontal_lines(t_game *game)
 	auxy = y;
 	x = game->player.x / WALL_SIZE;
 	auxx = x;
-	if (game->camera.dy > 0)
+	if (game->player.direction > PI)
 	{
 		while (hit != 1)
 		{
-			auxy--;
-			x += game->camera.dx;
 			auxx = x;
-			if (auxy < ft_get_matrix_size(game->map_data.map)
-				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+			if (auxy < 0 || auxx < 0)
+				hit = 1;
+			else if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (int)ft_strlen(game->map_data.map[auxy])
 				&& game->map_data.map[auxy][auxx] == '1')
 				hit = 1;
-			if (auxy <= 0 || auxx <= 0)
-				hit = 1;
-			if (auxy >= ft_get_matrix_size(game->map_data.map)
+			else if (auxy >= ft_get_matrix_size(game->map_data.map)
 				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
-		}
-	}
-	if (game->camera.dy < 0)
-	{
-		while (hit != 1)
-		{
 			auxy++;
-			x += game->camera.dx;
-			auxx = x;
-			if (auxy < ft_get_matrix_size(game->map_data.map)
-				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
-				&& game->map_data.map[auxy][auxx] == '1')
-				hit = 1;
-			if (auxy <= 0 || auxx <= 0)
-				hit = 1;
-			if (auxy >= ft_get_matrix_size(game->map_data.map)
-				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
-				hit = 1;
+			x += game->camera.dx / WALL_SIZE;
 		}
 	}
-	game->camera.horizontal = pow(auxx, 2) + pow(auxy, 2);
+	if (game->player.direction > 0 && game->player.direction < PI)
+	{
+		while (hit != 1)
+		{
+			auxx = x;
+			if (auxy < 0 || auxx < 0)
+				hit = 1;
+			else if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (int)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			else if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
+				hit = 1;
+			auxy--;
+			x += game->camera.dx / WALL_SIZE;
+		}
+	}
+	game->camera.horizontal = pow((game->player.x / WALL_SIZE) * WALL_SIZE - (x * WALL_SIZE), 2)
+		+ pow((game->player.y / WALL_SIZE) * WALL_SIZE - (auxy * WALL_SIZE), 2);
+	game->camera.horizontal = sqrt(game->camera.horizontal);
 }
 
 void	check_vertical_lines(t_game *game)
@@ -77,45 +79,45 @@ void	check_vertical_lines(t_game *game)
 	auxy = y;
 	x = game->player.x / WALL_SIZE;
 	auxx = x;
-	if (game->camera.dx > 0)
+	if (game->player.direction > PI  / 2 && game->player.direction < 3 * PI  / 2)
 	{
 		while (hit != 1)
 		{
+			auxy = y;
+			if (auxy < 0 || auxx < 0)
+				hit = 1;
+			else if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (int)ft_strlen(game->map_data.map[auxy])
+				&& game->map_data.map[auxy][auxx] == '1')
+				hit = 1;
+			else if (auxy >= ft_get_matrix_size(game->map_data.map)
+				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
+				hit = 1;
 			auxx++;
-			y += game->camera.dx;
-			auxy = y;
-			if (auxy < ft_get_matrix_size(game->map_data.map)
-				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
-				&& game->map_data.map[auxy][auxx] == '1')
-				hit = 1;
-			if (auxy <= 0 || auxx <= 0)
-				hit = 1;
-			if (auxy >= ft_get_matrix_size(game->map_data.map)
-				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
-				hit = 1;
+			y += game->camera.dy / WALL_SIZE;
 		}
 	}
-	else if (game->camera.dx > 0)
+	else
 	{
 		while (hit != 1)
 		{
-			auxx--;
-			y += game->camera.dx;
 			auxy = y;
-			if (auxy < ft_get_matrix_size(game->map_data.map)
-				&& auxx < (float)ft_strlen(game->map_data.map[auxy])
+			if (auxy < 0 || auxx < 0)
+				hit = 1;
+			else if (auxy < ft_get_matrix_size(game->map_data.map)
+				&& auxx < (int)ft_strlen(game->map_data.map[auxy])
 				&& game->map_data.map[auxy][auxx] == '1')
 				hit = 1;
-			if (auxy <= 0 || auxx <= 0)
-				hit = 1;
-			if (game->map_data.map[auxy][auxx] == '1')
-				hit = 1;
-			if (auxy >= ft_get_matrix_size(game->map_data.map)
+			else if (auxy >= ft_get_matrix_size(game->map_data.map)
 				|| auxx >= (float)ft_strlen(game->map_data.map[auxy]))
 				hit = 1;
+			auxx--;
+			y += game->camera.dy / WALL_SIZE;
 		}
 	}
-	game->camera.vertical = pow(auxx, 2) + pow(auxy, 2);
+	game->camera.vertical = pow((game->player.x / WALL_SIZE) * WALL_SIZE - (auxx * WALL_SIZE), 2)
+		+ pow((game->player.y / WALL_SIZE) * WALL_SIZE - (y * WALL_SIZE), 2);
+	game->camera.vertical = sqrt(game->camera.vertical);
 }
 
 void	raycasting(t_game *game)
@@ -128,12 +130,16 @@ void	raycasting(t_game *game)
 		game->camera.dy = sin(game->camera.direction) * 5;
 		check_horizontal_lines(game);
 		check_vertical_lines(game);
-		if (game->camera.vertical < game->camera.horizontal)
+		if (game->camera.vertical < game->camera.horizontal
+			|| game->camera.horizontal == 0)
 			game->camera.distance = game->camera.vertical;
 		else
 			game->camera.distance = game->camera.horizontal;
 		printf("distance: %f  %f\n", game->camera.distance, game->camera.fov);
+		ft_draw_wall(game);
 		game->camera.direction += 0.00163541666;
 		game->camera.fov += 0.03125;
 	}
 }
+
+//TODO: hacer que cuando los ángulos sean menores a 0º o mayores a 360º no den la vuelta
