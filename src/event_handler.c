@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 11:06:37 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:42:43 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	event_handler(enum e_keys key, t_game *game)
 			game->player.direction += 2 * M_PI;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
+		re_draw_screen(game);
 	}
 	else if (key == RIGHT)
 	{
@@ -63,6 +64,7 @@ int	event_handler(enum e_keys key, t_game *game)
 			game->player.direction -= 2 * M_PI;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
+		re_draw_screen(game);
 	}
 	return (0);
 }
