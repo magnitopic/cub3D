@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 12:09:38 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:11:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	check_walls(t_game *game);
 
 void	start_game(t_game *game);
 void	minimap(t_game *game, char **map);
-void	re_draw_screen(t_game *game);
+void	draw_screen(t_game *game);
 void	raycasting(t_game *game);
 void	ft_draw_wall(t_game *game);
 

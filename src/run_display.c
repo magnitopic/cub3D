@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   run_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/26 17:49:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:21:48 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-void	set_graphics(t_game *game)
+static void	init_img(t_game *game)
 {
 	game->img.img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
@@ -28,7 +28,7 @@ void	run_game(t_game *game, char *map_name)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, aux);
 	free(aux);
-	set_graphics(game);
+	init_img(game);
 	start_game(game);
 	raycasting(game);
 	mlx_hook(game->win, 17, 0, exit_game, game);
