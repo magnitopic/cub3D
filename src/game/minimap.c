@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:55 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 12:41:42 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:19:03 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,36 @@ static int	check_if_movement(t_game *game)
 static void	draw_player(t_game *game, int color)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	color = 0;
+	j = 0;
 	if (!check_if_movement(game))
 	{
 		game->player.x = game->player.old_x;
 		game->player.y = game->player.old_y;
 	}
-	/* while (++i <= PLAYER_SIZE)
+	while (++i <= PLAYER_SIZE)
 	{
 		j = 0;
 		while (++j <= PLAYER_SIZE)
 			mlx_pixel_put(game->mlx, game->win, game->player.x + j, game->player.y + i, color);
-	} */
+	}
 }
 
 static void	draw_wall(int x, int y, t_game *game, int color)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	color = 0;
-	x = 0;
-	y = 0;
-	(void)game;
-	/* while (++i <= WALL_SIZE)
+	j = 0;
+	 while (++i <= WALL_SIZE)
 	{
 		j = 0;
 		while (++j <= WALL_SIZE)
 			mlx_pixel_put(game->mlx, game->win, x + j, y + i, color);
-	} */
+	}
 }
 
 void	minimap(t_game *game, char **map)

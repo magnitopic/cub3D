@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/27 18:52:56 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:01:30 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_camera
 	double	fov;
 	float	dx;
 	float	dy;
+	float	offset;
 	float	distance;
 	float	direction;
 	float	vertical;

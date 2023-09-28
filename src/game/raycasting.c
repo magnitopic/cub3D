@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/28 12:13:49 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:16:41 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,15 @@ void	raycasting(t_game *game)
 		check_vertical_lines(game);
 		if (game->camera.vertical < game->camera.horizontal
 			|| game->camera.horizontal == 0)
+		{
 			game->camera.distance = game->camera.vertical;
+			game->camera.offset = 1;
+		}
 		else
+		{
 			game->camera.distance = game->camera.horizontal;
-		printf("distance: %f  %f\n", game->camera.distance, game->camera.fov);
+			game->camera.offset = 0;
+		}
 		ft_draw_wall(game);
 		game->camera.direction += 0.00163541666;
 		game->camera.fov += 0.03125;
