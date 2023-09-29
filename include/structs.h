@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/29 10:56:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:42:55 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ typedef struct s_player
 
 typedef struct s_camera
 {
+	int		offset;
 	double	fov;
 	float	dx;
 	float	dy;
-	float	offset;
 	float	distance;
 	float	direction;
 	float	vertical;

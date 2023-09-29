@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/29 13:52:52 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:19:17 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	check_horizontal_lines(t_game *game)
 		}
 	}
 	game->camera.horizontal = pow((game->player.x - auxx), 2) + pow((game->player.y - auxy), 2);
-	game->camera.horizontal =  sqrt(game->camera.horizontal);
+	game->camera.horizontal = sqrt(game->camera.horizontal);
 }
 
 void	check_vertical_lines(t_game *game)
@@ -71,7 +71,7 @@ void	check_vertical_lines(t_game *game)
 			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
 				hit = 1;
 			x--;
-			auxy += (game->player.x / x) / tan(game->camera.direction);
+			auxy += (game->player.x / x) * tan(game->camera.direction);
 			auxx = x;
 		}
 	}
@@ -82,7 +82,7 @@ void	check_vertical_lines(t_game *game)
 			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
 				hit = 1;
 			x++;
-			auxy += (x / game->player.x) / tan(game->camera.direction);
+			auxy += (x / game->player.x) * tan(game->camera.direction);
 			auxx = x;
 		}
 	}
@@ -93,6 +93,10 @@ void	check_vertical_lines(t_game *game)
 void	raycasting(t_game *game)
 {
 	game->camera.fov = 0;
+	if (game->player.direction < 0)
+		game->player.direction += 2 * M_PI;
+	if (game->player.direction > 2 * M_PI)
+		game->player.direction -= 2 * M_PI;
 	game->camera.direction = game->player.direction - (PI / 6);
 	while (game->camera.fov < 60)
 	{
@@ -117,8 +121,8 @@ void	raycasting(t_game *game)
 		}
 		ft_draw_wall(game);
 		game->camera.direction += 0.00054541539;
+		//game->camera.direction += 0.03125;
 		game->camera.fov += 0.03125;
 	}
+	game->camera.direction = game->player.direction - (PI / 6);
 }
-
-//TODO: hacer que cuando los ángulos sean menores a 0º o mayores a 360º no den la vuelta

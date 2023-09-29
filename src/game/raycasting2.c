@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 09:00:07 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/29 11:20:15 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:26:40 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static double	check_horizontal_lines(t_game *game)
 	int			ya;
 	int			xa;
 
-	if (ft_ray_facing_up())
+	if (game->camera.direction < PI)
 	{
 		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE - 1;
 		ya = -WALL_SIZE;
@@ -33,7 +33,7 @@ static double	check_horizontal_lines(t_game *game)
 		ya = WALL_SIZE;
 	}
 	xa = WALL_SIZE / tan(game->player.direction);
-	while (!game->map_data.map[curr_point.x][curr_point.y] == 1)
+	while (game->map_data.map[curr_point.x][curr_point.y] != '1')
 	{
 		prev_point = curr_point;
 		curr_point.y = prev_point.y + ya;
@@ -51,7 +51,7 @@ static double	check_vertical_lines(t_game *game)
 	int			ya;
 	int			xa;
 
-	if (ft_ray_facing_up())
+	if (game->camera.direction < 2 * PI / 3 && game->camera.direction > PI) //facing up
 	{
 		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE
 			+ WALL_SIZE;
@@ -63,7 +63,7 @@ static double	check_vertical_lines(t_game *game)
 		xa = WALL_SIZE;
 	}
 	ya = WALL_SIZE / tan(game->player.direction);
-	while (!game->map_data.map[curr_point.x][curr_point.y] == 1)
+	while (game->map_data.map[curr_point.x][curr_point.y] != '1')
 	{
 		prev_point = curr_point;
 		curr_point.y = prev_point.y + ya;
