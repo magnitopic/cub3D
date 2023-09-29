@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 15:40:03 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:33:31 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ void	ft_draw_wall(t_game *game)
 	int			j;
 
 	y = 0;
-	j = (30 / game->camera.distance) * 1080;
-	printf("j: %d\n", j);
+	j = (WALL_SIZE / game->camera.distance) * 1080;
 	if (x == 1920)
 		x = 0;
 	if (j < 50)
 		j = 50;
 	y = SCREEN_HEIGHT / 2 - j / 2;
-	count = y;
+	count = 0;
 	while (count < j)
 	{
 		if (game->camera.offset == 0)
-			mlx_pixel_put(game->mlx, game->win, x, count, 0xffffff);
+			mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
 		else
-			mlx_pixel_put(game->mlx, game->win, x, count, 0xffafaf);
+			mlx_pixel_put(game->mlx, game->win, x, y, 0xffafaf);
 		count++;
+		y++;
 	}
 	x++;
 }
