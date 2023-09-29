@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/29 13:24:50 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:52:52 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	check_vertical_lines(t_game *game)
 void	raycasting(t_game *game)
 {
 	game->camera.fov = 0;
-	game->camera.direction = game->player.direction + (PI / 6);
+	game->camera.direction = game->player.direction - (PI / 6);
 	while (game->camera.fov < 60)
 	{
 		if (game->camera.direction < 0)
@@ -116,7 +116,7 @@ void	raycasting(t_game *game)
 			game->camera.offset = 0;
 		}
 		ft_draw_wall(game);
-		game->camera.direction -= 0.00054541539;
+		game->camera.direction += 0.00054541539;
 		game->camera.fov += 0.03125;
 	}
 }
