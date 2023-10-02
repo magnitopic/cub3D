@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/29 18:19:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:27:43 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,90 +14,59 @@
 
 void	check_horizontal_lines(t_game *game)
 {
-	float	auxx;
-	float	auxy;
-	int		x;
-	int		y;
-	int		hit;
 
-	hit = 0;
-	auxx = game->player.x;
-	auxy = game->player.y;
-	x = auxx;
-	y = auxy;
-	if (game->camera.direction < PI) // looking up
-	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			y--;
-			auxx += (game->player.y / y) / tan(game->camera.direction);
-			auxy = y;
-		}
-	}
-	else if (game->camera.direction != PI)							// looking down
-	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			y++;
-			auxx += (y / game->player.y) / tan(game->camera.direction);
-			auxy = y;
-		}
-	}
-	game->camera.horizontal = pow((game->player.x - auxx), 2) + pow((game->player.y - auxy), 2);
-	game->camera.horizontal = sqrt(game->camera.horizontal);
 }
 
 void	check_vertical_lines(t_game *game)
 {
-	float	auxx;
-	float	auxy;
 	int		x;
 	int		y;
-	int		hit;
+	float	aux;
 
-	auxx = game->player.x;
-	auxy = game->player.y;
-	x = auxx;
-	y = auxy;
-	hit = 0;
-	if (game->camera.direction < 2 * PI / 3 && game->camera.direction > PI) // looking left
+	if (game->camera.inter_x > 0)
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			x--;
-			auxy += (game->player.x / x) * tan(game->camera.direction);
-			auxx = x;
-		}
+		x = game->camera.grid_x + 1;
+		aux = game->camera.y + (game->camera.inter_x * sin(game->camera.direction));
+		y = aux;
+		if (game->map_data.map[y][x] == '1')
+			game->camera.hit = 1;
+		else
+			game->camera.v_x += 64 - (game->player.x - (game->camera.grid_x * WALL_SIZE));
 	}
-	else						// looking down
+
+}
+
+void	check_next_square(t_game *game)
+{
+	game->camera.v_x = 64 - (game->player.x - (game->camera.grid_x * WALL_SIZE));
+	game->camera.v_y = 64 - (game->player.y - (game->camera.grid_y * WALL_SIZE));
+	while (game->camera.hit != 1)
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			x++;
-			auxy += (x / game->player.x) * tan(game->camera.direction);
-			auxx = x;
-		}
+		game->camera.inter_y = game->camera.v_y / sin(game->camera.direction);
+		game->camera.inter_x = game->camera.v_x / cos(game->camera.direction);
+		if (ft_abs(game->camera.inter_y) < ft_abs(game->camera.inter_x))
+			check_horizontal_lines(game);
+		else
+			check_vertical_lines(game);
 	}
-	game->camera.vertical = pow((game->player.x - auxx), 2) + pow((game->player.y - auxy), 2);
-	game->camera.vertical =  sqrt(game->camera.vertical);
+	printf("%f\n%f\n", game->camera.inter_y, game->camera.inter_x);
+}
+
+t_game	*set_starting_camvalues(t_game *game)
+{
+	game->camera.x = game->player.x / WALL_SIZE;
+	game->camera.y = game->player.y / WALL_SIZE;
+	game->camera.grid_x = game->camera.x;
+	game->camera.grid_y = game->camera.y;
+	game->camera.direction = game->player.direction + (PI / 6);
+	game->camera.fov = 0;
+	game->camera.hit = 0;
+	return (game);
 }
 
 void	raycasting(t_game *game)
 {
-	game->camera.fov = 0;
-	if (game->player.direction < 0)
-		game->player.direction += 2 * M_PI;
-	if (game->player.direction > 2 * M_PI)
-		game->player.direction -= 2 * M_PI;
-	game->camera.direction = game->player.direction - (PI / 6);
+	game = set_starting_camvalues(game);
 	while (game->camera.fov < 60)
 	{
 		if (game->camera.direction < 0)
@@ -106,8 +75,8 @@ void	raycasting(t_game *game)
 			game->camera.direction -= 2 * M_PI;
 		game->camera.dx = cos(game->camera.direction);
 		game->camera.dy = sin(game->camera.direction);
-		check_horizontal_lines(game);
-		check_vertical_lines(game);
+		check_next_square(game);
+		exit(0);
 		if (game->camera.vertical < game->camera.horizontal
 			|| game->camera.horizontal == 0)
 		{
@@ -120,7 +89,7 @@ void	raycasting(t_game *game)
 			game->camera.offset = 0;
 		}
 		ft_draw_wall(game);
-		game->camera.direction += 0.00054541539;
+		game->camera.direction -= 0.00054541539;
 		//game->camera.direction += 0.03125;
 		game->camera.fov += 0.03125;
 	}
