@@ -6,123 +6,91 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/02 15:13:56 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:09:24 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-static void	check_horizontal_lines(t_game *game)
-{
-	float	auxx;
-	float	auxy;
-	int		x;
-	int		y;
-	int		hit;
+// WALL_SIZE is 64 in the tutorial, we should decide how big we want our walls
 
-	hit = 0;
-	auxx = game->player.x;
-	auxy = game->player.y;
-	x = auxx;
-	y = auxy;
-	if (game->camera.direction < PI) // looking up
+static double	check_horizontal_lines(t_game *game)
+{
+	t_vector	curr_point;
+	t_vector	prev_point;
+	int			ya;
+	int			xa;
+
+	ya = WALL_SIZE;
+	if (game->camera.direction < PI)
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			y--;
-			auxx += (game->player.y / y) / tan(game->camera.direction);
-			auxy = y;
-		}
+		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE - 1;
+		ya = -WALL_SIZE;
 	}
-	else if (game->camera.direction != PI)							// looking down
+	else
+		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE
+			+ WALL_SIZE;
+	curr_point.x = game->player.x + (game->player.y - curr_point.y)
+		/ tan(game->player.direction);
+	xa = WALL_SIZE / tan(game->player.direction);
+	while (!(game->map_data.map[curr_point.y / 64][curr_point.x / 64]))
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			y++;
-			auxx += (y / game->player.y) / tan(game->camera.direction);
-			auxy = y;
-		}
+		prev_point = curr_point;
+		curr_point.y = prev_point.y + ya;
+		curr_point.x = prev_point.x + xa;
 	}
-	game->camera.horizontal = pow((game->player.x - auxx), 2) + pow((game->player.y - auxy), 2);
-	game->camera.horizontal = sqrt(game->camera.horizontal);
+	return (sqrt(pow(game->player.x - curr_point.x, 2)
+			+ pow(game->player.y - curr_point.y, 2)));
 }
 
-static void	check_vertical_lines(t_game *game)
+static double	check_vertical_lines(t_game *game)
 {
-	float	auxx;
-	float	auxy;
-	int		x;
-	int		y;
-	int		hit;
+	t_vector	curr_point;
+	t_vector	prev_point;
+	int			ya;
+	int			xa;
 
-	auxx = game->player.x;
-	auxy = game->player.y;
-	x = auxx;
-	y = auxy;
-	hit = 0;
-	if (game->camera.direction < 2 * PI / 3 && game->camera.direction > PI) // looking left
+	xa = WALL_SIZE;
+	if (game->camera.direction < PI)
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			x--;
-			auxy += (game->player.x / x) * tan(game->camera.direction);
-			auxx = x;
-		}
+		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE
+			+ WALL_SIZE;
+		xa = -WALL_SIZE;
 	}
-	else						// looking down
+	else
+		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE - 1;
+	ya = WALL_SIZE / tan(game->player.direction);
+	curr_point.y = game->player.y + (game->player.x - curr_point.x)
+		/ tan(game->player.direction);
+	while (!(game->map_data.map[curr_point.y / 64][curr_point.x / 64]))
 	{
-		while (hit != 1)
-		{
-			if (game->map_data.map[y / WALL_SIZE][x / WALL_SIZE] == '1')
-				hit = 1;
-			x++;
-			auxy += (x / game->player.x) * tan(game->camera.direction);
-			auxx = x;
-		}
+		prev_point = curr_point;
+		curr_point.y = prev_point.y + ya;
+		curr_point.x = prev_point.x + xa;
 	}
-	game->camera.vertical = pow((game->player.x - auxx), 2) + pow((game->player.y - auxy), 2);
-	game->camera.vertical =  sqrt(game->camera.vertical);
+	return (sqrt(pow(game->player.x - curr_point.x, 2)
+			+ pow(game->player.y - curr_point.y, 2)));
 }
 
+/**
+ * Player FOV will be 60
+*/
 void	raycasting(t_game *game)
 {
+	float	v_distance;
+	float	h_distance;
+
 	game->camera.fov = 0;
-	if (game->player.direction < 0)
-		game->player.direction += 2 * M_PI;
-	if (game->player.direction > 2 * M_PI)
-		game->player.direction -= 2 * M_PI;
 	game->camera.direction = game->player.direction - (PI / 6);
 	while (game->camera.fov < 60)
 	{
-		if (game->camera.direction < 0)
-			game->camera.direction += 2 * M_PI;
-		if (game->camera.direction > 2 * M_PI)
-			game->camera.direction -= 2 * M_PI;
-		game->camera.dx = cos(game->camera.direction);
-		game->camera.dy = sin(game->camera.direction);
-		check_horizontal_lines(game);
-		check_vertical_lines(game);
-		if (game->camera.vertical < game->camera.horizontal
-			|| game->camera.horizontal == 0)
-		{
-			game->camera.distance = game->camera.vertical;
-			game->camera.offset = 1;
-		}
-		else
-		{
-			game->camera.distance = game->camera.horizontal;
-			game->camera.offset = 0;
-		}
+		h_distance = check_horizontal_lines(game);
+		v_distance = check_vertical_lines(game);
+		game->camera.distance = v_distance;
+		if (h_distance < v_distance)
+			game->camera.distance = h_distance;
 		ft_draw_wall(game);
 		game->camera.direction += 0.00054541539;
-		//game->camera.direction += 0.03125;
 		game->camera.fov += 0.03125;
 	}
-	game->camera.direction = game->player.direction - (PI / 6);
 }

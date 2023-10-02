@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/02 15:13:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:13:48 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_draw_wall(t_game *game)
 	int			j;
 
 	y = 0;
-	j = (WALL_SIZE / game->camera.distance) * 1000;
+	j = (WALL_SIZE / game->camera.distance) * 20;
 	if (x == 1920)
 		x = 0;
-	if (j < 50)
-		j = 50;
+	if (j < 20)
+		j = 20;
 	y = SCREEN_HEIGHT / 2 - j / 2;
 	count = 0;
 	while (count < j)

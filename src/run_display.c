@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/28 15:21:48 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:11:11 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	run_game(t_game *game, char *map_name)
 	free(aux);
 	init_img(game);
 	start_game(game);
+	minimap(game, game->map_data.map);
 	raycasting(game);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, event_handler, game);
