@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/09/29 18:19:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:13:56 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-void	check_horizontal_lines(t_game *game)
+static void	check_horizontal_lines(t_game *game)
 {
 	float	auxx;
 	float	auxy;
@@ -51,7 +51,7 @@ void	check_horizontal_lines(t_game *game)
 	game->camera.horizontal = sqrt(game->camera.horizontal);
 }
 
-void	check_vertical_lines(t_game *game)
+static void	check_vertical_lines(t_game *game)
 {
 	float	auxx;
 	float	auxy;
