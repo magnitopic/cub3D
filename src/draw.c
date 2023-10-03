@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/03 15:16:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:30:01 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	ft_draw_wall(t_game *game)
 	int			j;
 
 	y = 0;
-	game->camera.distance *= cos(game->camera.direction);
-	printf("%f\n", game->camera.distance);
-	j = (WALL_SIZE / game->camera.distance) * 500;
+	//game->camera.distance *= cos(game->player.direction);
+	j = (WALL_SIZE / game->camera.distance) * 1000;
 	if (x == 1920)
 		x = 0;
 	if (j < 50)
@@ -49,6 +48,7 @@ void	ft_draw_wall(t_game *game)
 		y++;
 	}
 	x++;
+	printf("%d\n", x);
 }
 
 void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
