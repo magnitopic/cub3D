@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/29 17:42:55 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:08:49 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ typedef struct s_color
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		img_height;
+	int		img_width;
 }	t_img;
 
 typedef struct s_map_data
@@ -83,6 +85,16 @@ typedef struct s_camera
 	float	angle_tan;
 }	t_camera;
 
+typedef struct s_rays
+{
+	t_vector	direction;
+	t_vector	plane;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	t_vector	step;
+	double		perp_wall_dist;
+}	t_rays;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -91,6 +103,8 @@ typedef struct s_game
 	t_img		img;
 	t_player	player;
 	t_camera	camera;
+	int			buf[480][620];
+	int			**texture;
 }	t_game;
 
 #endif
