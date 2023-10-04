@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/04 13:08:49 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:42:57 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_game
 	t_player	player;
 	t_camera	camera;
 	int			buf[480][620];
-	int			**texture;
+	int			*texture;
 }	t_game;
 
 #endif

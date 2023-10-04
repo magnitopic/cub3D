@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/04 13:23:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:48:48 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,23 @@ void	check_ray_direction(double rayDirectionX, double rayDirectionY, t_rays *ray
 	if (rayDirectionX < 0)
 	{
 		rays->step.x = -1;
-		rays->side_dist.x = (game->player.x - mapx) * rays->delta_dist.x;
+		printf("%f %d\n", game->player.x / WALL_SIZE, mapx);
+		rays->side_dist.x = ((game->player.x / WALL_SIZE) - mapx) * rays->delta_dist.x;
 	}
 	else
 	{
 		rays->step.x = 1;
-		rays->side_dist.x = (mapx + 1.0 - game->player.x) * rays->delta_dist.x;
+		rays->side_dist.x = (mapx + 1.0 - (game->player.x / WALL_SIZE)) * rays->delta_dist.x;
 	}
 	if (rayDirectionY < 0)
 	{
 		rays->step.y = -1;
-		rays->side_dist.y = (game->player.y - mapy) * rays->delta_dist.y;
+		rays->side_dist.y = ((game->player.y / WALL_SIZE) - mapy) * rays->delta_dist.y;
 	}
 	else
 	{
 		rays->step.y = 1;
-		rays->side_dist.y = (mapy + 1.0 - game->player.y) * rays->delta_dist.y;
+		rays->side_dist.y = (mapy + 1.0 - (game->player.y / WALL_SIZE)) * rays->delta_dist.y;
 	}
 }
 
@@ -120,8 +121,10 @@ void	start_values(t_rays *rays)
 
 void    load_image(t_game *game, int *texture, char *path, t_img *img)
 {
-    game->img.img = mlx_xpm_file_to_image(game->mlx, path, &game->img.img_width, &game->img.img_height);
-    game->img.addr = (int *)mlx_get_data_addr(img->img, &img->bpp, &game->img.line_len, &img->endian);
+	(void)img;
+	game->img.img = mlx_xpm_file_to_image(game->mlx, path, &game->img.img_width, &game->img.img_height);
+	game->img.addr = (int *)mlx_get_data_addr(game->img.img, &game->img.bpp,
+			&game->img.line_len, &game->img.endian);
     for (int y = 0; y < game->img.img_height; y++)
     {
         for (int x = 0; x < game->img.img_width; x++)
@@ -129,7 +132,7 @@ void    load_image(t_game *game, int *texture, char *path, t_img *img)
             texture[game->img.img_width * y + x] = game->img.addr[game->img.img_width * y + x];
         }
     }
-    mlx_destroy_image(game->mlx, img->img);
+    //mlx_destroy_image(game->mlx, img->img);
 }
 
 void	raycasting(t_game *game)
@@ -139,19 +142,24 @@ void	raycasting(t_game *game)
 
 	i = 0;
 	start_values(rays);
+	game->texture = malloc(sizeof(int) * (WALL_SIZE * WALL_SIZE));
 	while (i < SCREEN_WIDTH)
 	{
 		double cameraX = (2 * i / (double)(SCREEN_WIDTH)) - 1;
 		double rayDirectionX = rays->direction.x + rays->plane.x * cameraX;
 		double rayDirectionY = rays->direction.y + rays->plane.y * cameraX;
-		int	mapx = (int)(game->player.x);
-		int	mapy = (int)(game->player.y);
+		int	mapx = (int)(game->player.x) / WALL_SIZE;
+		int	mapy = (int)(game->player.y) / WALL_SIZE;
 		rays->delta_dist.x = fabs(1 / rayDirectionX);
 		rays->delta_dist.y = fabs(1 / rayDirectionY);
 		double perpWallDist;
 		int hit = 0;
 		int side;
+		printf("RayX: %f\n", rays->delta_dist.x);
+		printf("RayY: %f\n", rays->delta_dist.y);
 		check_ray_direction(rayDirectionX, rayDirectionX, rays, game, mapx, mapy);
+		printf("RayX: %f\n", rays->side_dist.x);
+		printf("RayY: %f\n_______________________________________\n", rays->side_dist.y);
 		while (hit == 0)
 		{
 			if (rays->side_dist.x < rays->side_dist.y)
@@ -159,7 +167,6 @@ void	raycasting(t_game *game)
 				rays->side_dist.x += rays->delta_dist.x;
 				mapx += rays->step.x;
 				side = 0;
-				
 			}
 			else
 			{
@@ -167,25 +174,25 @@ void	raycasting(t_game *game)
 				mapy += rays->step.y;
 				side = 1;
 			}
-			if (game->map_data.map[mapx / WALL_SIZE][mapy / WALL_SIZE] > 0)
+			if (game->map_data.map[mapy][mapx] == '1')
                 hit = 1;
 		}
 		if (side == 0)
-			perpWallDist = (mapx - game->player.x + (1 - rays->step.x) / 2) / rayDirectionX;
+			perpWallDist = (mapx - (game->player.x / WALL_SIZE) + (1 - rays->step.x) / 2) / rayDirectionX;
 		else
-			perpWallDist = (mapy - game->player.y + (1 - rays->step.y) / 2) / rayDirectionY;
+			perpWallDist = (mapy - (game->player.y / WALL_SIZE) + (1 - rays->step.y) / 2) / rayDirectionY;
 
 		int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
+		
+		printf("distance: %d\n", lineHeight);
 
-		int drawStart = (-lineHeight / 2) + (SCREEN_HEIGHT / 2);
+		int drawStart = (-1 * lineHeight / 2) + (SCREEN_HEIGHT / 2);
 		if (drawStart < 0)
 			drawStart = 0;
 		int drawEnd = (lineHeight / 2) * (SCREEN_HEIGHT / 2);
 		if (drawEnd >= SCREEN_HEIGHT)
 			drawEnd = SCREEN_HEIGHT - 1;
-		
-		int	textNum = game->map_data.map[mapx][mapy] - 1;
-		
+				
 		double wallX;
 		if (side == 0)
 			wallX = game->player.y + perpWallDist * rayDirectionY;
@@ -200,14 +207,15 @@ void	raycasting(t_game *game)
 		
 		double step = 1.0 * WALL_SIZE / lineHeight;
 
-		load_image(game, game->texture[1], "textures/redbrick.xpm", game->img.img);
+		printf("%d  %d\n", mapx, mapy);
+		load_image(game, game->texture, "textures/redbrick.xpm", game->img.img);
 
 		double textPos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * step;
 		for (int y = drawStart; y < drawEnd ; y++)
 		{
 			int texY = (int)textPos & (WALL_SIZE - 1);
 			textPos += step;
-			int color = game->texture[textNum][WALL_SIZE * texY + texX];
+			int color = game->texture[WALL_SIZE * texY + texX];
 			if (side == 1)
 				color = (color >> 1) & 8355711;
 			game->buf[y][i] = color;

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/02 21:13:48 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:01:28 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 void	draw_screen(t_game *game)
 {
 	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
-	minimap(game, game->map_data.map);
+	//minimap(game, game->map_data.map);
 	raycasting(game);
 }

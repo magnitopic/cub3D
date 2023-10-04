@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/02 15:33:33 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:00:59 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PROGRAM_NAME "cub3d - "
 # define SCREEN_WIDTH 620
 # define SCREEN_HEIGHT 480
-# define WALL_SIZE 10
+# define WALL_SIZE 64
 # define PLAYER_SIZE WALL_SIZE / 3
 # define PI 3.14159265
 
