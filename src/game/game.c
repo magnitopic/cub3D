@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 11:21:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:26:17 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 static t_player	get_player_direction(t_game *game)
 {
 	
+	// TODO: Change this
+	game->plane.x = 0.0;
+	game->plane.y = 0.66;
+
 	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'N')
 	{
 		game->player.direction = 1.570796325;
@@ -53,7 +57,5 @@ static t_player	get_player_direction(t_game *game)
 void	start_game(t_game *game)
 {
 	game->player = get_player_direction(game);
-	game->player.plane_x = 0;
-	game->player.plane_y = 0.66;
 	//minimap(game, game->map_data.map);
 }

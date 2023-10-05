@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 11:08:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:21:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ typedef struct s_player
 	float		old_y;
 	float		dx;
 	float		dy;
-	float		plane_x;
-	float		plane_y;
 	float		camera;
 	float		direction;
 	t_vector	test_direction;
@@ -104,6 +102,7 @@ typedef struct s_game
 	t_camera	camera;
 	int			buf[480][620];
 	int			*texture;
+	t_vector	plane;
 }	t_game;
 
 #endif

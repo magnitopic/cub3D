@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/05 11:18:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:21:34 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ void	raycasting(t_game *game)
 	while (i < SCREEN_WIDTH)
 	{
 		double cameraX = (2 * i / (double)(SCREEN_WIDTH)) - 1;
-		double rayDirectionX = game->player.test_direction.x + game->player.test_direction.x * cameraX;
-		double rayDirectionY = game->player.test_direction.y + game->player.test_direction.y * cameraX;
+		double rayDirectionX = game->player.test_direction.x + game->plane.x * cameraX;
+		double rayDirectionY = game->player.test_direction.y + game->plane.y * cameraX;
 		int	mapx = (int)(game->player.x) / WALL_SIZE;
 		int	mapy = (int)(game->player.y) / WALL_SIZE;
 		rays->delta_dist.x = fabs(1 / rayDirectionX);
