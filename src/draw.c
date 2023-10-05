@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/04 15:01:28 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:21:20 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,22 @@ void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 		*(int *)&img.addr[((x * img.bpp) >> 3) + (y * img.line_len)] = color;
 }
 
-void	ft_draw_wall(t_game *game)
+void	ft_draw_wall(t_game *game, int x)
 {
-	static int	x = 0;
-	int			count;
 	int			y;
-	int			j;
 
-	y = 0;
-	j = (WALL_SIZE / game->camera.distance) * 20;
-	if (x == 1920)
-		x = 0;
-	if (j < 20)
-		j = 20;
-	y = SCREEN_HEIGHT / 2 - j / 2;
-	count = 0;
-	while (count < j)
+	int drawStart = (-game->camera.distance / 2) + (SCREEN_HEIGHT / 2);
+	if (drawStart < 0)
+		drawStart = 0;
+	int drawEnd = (game->camera.distance / 2) + (SCREEN_HEIGHT / 2);
+	if (drawEnd >= SCREEN_HEIGHT)
+		drawEnd = SCREEN_HEIGHT - 1;
+	y = drawStart;
+	while (y != drawEnd)
 	{
-		if (game->camera.offset == 0)
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
-		else
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffafaf);
-		count++;
+		mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
 		y++;
 	}
-	x++;
 }
 
 void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
@@ -78,6 +69,6 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 void	draw_screen(t_game *game)
 {
 	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
-	//minimap(game, game->map_data.map);
 	raycasting(game);
+	minimap(game, game->map_data.map);
 }

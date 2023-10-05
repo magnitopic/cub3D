@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 15:23:51 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:16:33 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static void	ft_handle_arrows_and_d(enum e_keys key, t_game *game)
 			game->player.direction += 2 * M_PI;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
+		double oldDirectionX = game->player.test_direction.x;
+        game->player.test_direction.x = game->player.test_direction.x * cos(0.05) - game->player.test_direction.y * sin(0.5);
+        game->player.test_direction.y = oldDirectionX * sin(0.5) + game->player.test_direction.y * cos(0.5);
+        double oldPlaneX = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(0.5) - game->player.plane_y * sin(0.5);
+        game->player.plane_y = oldPlaneX * sin(0.5) + game->player.plane_y * cos(0.5);
 	}
 	else if (key == RIGHT)
 	{
@@ -61,6 +67,12 @@ static void	ft_handle_arrows_and_d(enum e_keys key, t_game *game)
 			game->player.direction -= 2 * M_PI;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
+		double oldDirectionX = game->player.test_direction.x;
+        game->player.test_direction.x = game->player.test_direction.x * cos(-0.05) - game->player.test_direction.y * sin(-0.05);
+        game->player.test_direction.y = oldDirectionX * sin(-0.05) + game->player.test_direction.y * cos(-0.05);
+        double oldPlaneX = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(-0.05) - game->player.plane_y * sin(-0.05);
+        game->player.plane_y = oldPlaneX * sin(-0.05) + game->player.plane_y * cos(-0.05);
 	}
 }
 

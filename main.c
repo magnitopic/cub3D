@@ -72,7 +72,7 @@ int calculateAndSaveToMap(t_info *info);
 void imageDraw(t_info *info);
 
 // 바뀐 맵.
-int    worldMap[mapWidth][mapHeight] =
+int worldMap[mapWidth][mapHeight] =
 {
   {8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
   {8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
@@ -188,9 +188,12 @@ int calculateAndSaveToMap(t_info *info)
             mapX + 1에서 실제 위치 playerPositionX를 빼주고 deltaDistX를 곱한 결과다.
             반대의 경우 playerPositionX에서 mapX를 빼주고 deltaDistX를 곱한 결과다.
         */
+        printf("RayX: %f\n", deltaDistX);
+		printf("RayY: %f\n", deltaDistY);
         if (rayDirectionX < 0)
         {
             stepX = -1;
+            //printf("%f %d\n", info->playerPositionX, mapX);
             sideDistX = (info->playerPositionX - mapX) * deltaDistX;
         }
         else
@@ -198,19 +201,22 @@ int calculateAndSaveToMap(t_info *info)
             stepX = 1;
             sideDistX = (mapX + 1.0 - info->playerPositionX) * deltaDistX;
         }
+    	printf("rayDirection: %f\n", rayDirectionY);
         if (rayDirectionY < 0)
         {
             stepY = -1;
+		    printf("yes\n");
             sideDistY = (info->playerPositionY - mapY) * deltaDistY;
         }
         else
         {
             stepY = 1;
+		    printf("no\n");
             sideDistY = (mapY + 1.0 - info->playerPositionY) * deltaDistY;
         }
 
-        printf("RayX: %f\n", sideDistX);
-		printf("RayY: %f\n", sideDistY);
+        printf("Side_sitX: %f\n", sideDistX);
+		printf("Side_sitY: %f\n", sideDistY);
 
         /*
             DDAgorithm 세팅을 완료했고, 이제 그것을 시작하는 부분.
@@ -336,6 +342,7 @@ int calculateAndSaveToMap(t_info *info)
                 color = (color >> 1) & 8355711;
             info->buf[y][x] = color;
         }
+        printf("_______________________________________\n");
         x++;
     }
 

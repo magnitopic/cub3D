@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:55 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 15:07:57 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:24:42 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void	draw_player(t_game *game, int color)
 		game->player.x = game->player.old_x;
 		game->player.y = game->player.old_y;
 	}
-	while (++i <= PLAYER_SIZE)
+	while (++i <= 3)
 	{
 		j = 0;
-		while (++j <= PLAYER_SIZE)
-			mlx_pixel_put(game->mlx, game->win, game->player.x + j, game->player.y + i, color);
+		while (++j <= 3)
+			mlx_pixel_put(game->mlx, game->win, game->player.x / 64 * 5 + j, game->player.y / 64 * 5 + i, color);
 	}
 }
 
@@ -48,10 +48,10 @@ static void	draw_wall(int x, int y, t_game *game, int color)
 
 	i = 0;
 	j = 0;
-	while (++i <= WALL_SIZE)
+	while (++i <= 5)
 	{
 		j = 0;
-		while (++j <= WALL_SIZE)
+		while (++j <= 5)
 			mlx_pixel_put(game->mlx, game->win, x + j, y + i, color);
 	}
 }
@@ -69,12 +69,11 @@ void	minimap(t_game *game, char **map)
 		while (map[y][++x])
 		{
 			if (map[y][x] == '1')
-				draw_wall(x * WALL_SIZE, y * WALL_SIZE, game, ft_rgba(0, 0, 255, 0));
+				draw_wall(x * 5, y * 5, game, ft_rgba(0, 0, 255, 0));
 			else if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'E'
 				|| map[y][x] == 'W' || map[y][x] == 'S')
-				draw_wall(x * WALL_SIZE, y * WALL_SIZE, game, ft_rgba(128, 128, 128, 0));
+				draw_wall(x * 5, y * 5, game, ft_rgba(128, 128, 128, 0));
 		}
 	}
-	draw_wall(x * WALL_SIZE, y * WALL_SIZE, game, ft_rgba(128, 128, 128, 0));
 	draw_player(game, ft_rgba(0, 255, 0, 0));
 }

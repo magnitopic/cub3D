@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/04 14:42:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:08:30 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_player
 	float		plane_y;
 	float		camera;
 	float		direction;
+	t_vector	test_direction;
 }	t_player;
 
 typedef struct s_camera
@@ -87,8 +88,6 @@ typedef struct s_camera
 
 typedef struct s_rays
 {
-	t_vector	direction;
-	t_vector	plane;
 	t_vector	side_dist;
 	t_vector	delta_dist;
 	t_vector	step;

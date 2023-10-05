@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/04 15:48:48 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:18:57 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,19 @@ void	check_ray_direction(double rayDirectionX, double rayDirectionY, t_rays *ray
 		rays->step.x = 1;
 		rays->side_dist.x = (mapx + 1.0 - (game->player.x / WALL_SIZE)) * rays->delta_dist.x;
 	}
+	printf("rayDirection: %f\n", rayDirectionY);
 	if (rayDirectionY < 0)
 	{
 		rays->step.y = -1;
+		printf("yes\n");
 		rays->side_dist.y = ((game->player.y / WALL_SIZE) - mapy) * rays->delta_dist.y;
 	}
 	else
 	{
 		rays->step.y = 1;
+		printf("no\n");
 		rays->side_dist.y = (mapy + 1.0 - (game->player.y / WALL_SIZE)) * rays->delta_dist.y;
 	}
-}
-
-void	start_values(t_rays *rays)
-{
-	rays->direction.x = -1.0;
-	rays->direction.y = 0;
-	rays->plane.x = 0;
-	rays->plane.y = 0.66;
 }
 
 void    load_image(t_game *game, int *texture, char *path, t_img *img)
@@ -141,13 +136,11 @@ void	raycasting(t_game *game)
 	t_rays	*rays = malloc(sizeof(t_rays));
 
 	i = 0;
-	start_values(rays);
-	game->texture = malloc(sizeof(int) * (WALL_SIZE * WALL_SIZE));
 	while (i < SCREEN_WIDTH)
 	{
 		double cameraX = (2 * i / (double)(SCREEN_WIDTH)) - 1;
-		double rayDirectionX = rays->direction.x + rays->plane.x * cameraX;
-		double rayDirectionY = rays->direction.y + rays->plane.y * cameraX;
+		double rayDirectionX = game->player.test_direction.x + game->player.test_direction.x * cameraX;
+		double rayDirectionY = game->player.test_direction.y + game->player.test_direction.y * cameraX;
 		int	mapx = (int)(game->player.x) / WALL_SIZE;
 		int	mapy = (int)(game->player.y) / WALL_SIZE;
 		rays->delta_dist.x = fabs(1 / rayDirectionX);
@@ -158,8 +151,8 @@ void	raycasting(t_game *game)
 		printf("RayX: %f\n", rays->delta_dist.x);
 		printf("RayY: %f\n", rays->delta_dist.y);
 		check_ray_direction(rayDirectionX, rayDirectionX, rays, game, mapx, mapy);
-		printf("RayX: %f\n", rays->side_dist.x);
-		printf("RayY: %f\n_______________________________________\n", rays->side_dist.y);
+		printf("Side_sitX: %f\n", rays->side_dist.x);
+		printf("SideDistY: %f\n", rays->side_dist.y);
 		while (hit == 0)
 		{
 			if (rays->side_dist.x < rays->side_dist.y)
@@ -175,7 +168,10 @@ void	raycasting(t_game *game)
 				side = 1;
 			}
 			if (game->map_data.map[mapy][mapx] == '1')
-                hit = 1;
+			{
+				hit = 1;
+				printf("x: %d y: %d\n", mapx, mapy);
+			}
 		}
 		if (side == 0)
 			perpWallDist = (mapx - (game->player.x / WALL_SIZE) + (1 - rays->step.x) / 2) / rayDirectionX;
@@ -184,7 +180,6 @@ void	raycasting(t_game *game)
 
 		int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
 		
-		printf("distance: %d\n", lineHeight);
 
 		int drawStart = (-1 * lineHeight / 2) + (SCREEN_HEIGHT / 2);
 		if (drawStart < 0)
@@ -192,34 +187,11 @@ void	raycasting(t_game *game)
 		int drawEnd = (lineHeight / 2) * (SCREEN_HEIGHT / 2);
 		if (drawEnd >= SCREEN_HEIGHT)
 			drawEnd = SCREEN_HEIGHT - 1;
-				
-		double wallX;
-		if (side == 0)
-			wallX = game->player.y + perpWallDist * rayDirectionY;
-		else
-			wallX = game->player.x + perpWallDist * rayDirectionY;
-		wallX -= floor(wallX);
-		int texX = (int) (wallX * (double)WALL_SIZE);
-		if (side == 0 && rayDirectionX > 0)
-			texX = WALL_SIZE - texX - 1;
-		if (side == 1 && rayDirectionY < 0)
-		texX = WALL_SIZE - texX - 1;
-		
-		double step = 1.0 * WALL_SIZE / lineHeight;
+		printf("distance: %d\n", lineHeight / 64);
+		game->camera.distance = lineHeight;
+		ft_draw_wall(game, i);
 
-		printf("%d  %d\n", mapx, mapy);
-		load_image(game, game->texture, "textures/redbrick.xpm", game->img.img);
-
-		double textPos = (drawStart - SCREEN_HEIGHT / 2 + lineHeight / 2) * step;
-		for (int y = drawStart; y < drawEnd ; y++)
-		{
-			int texY = (int)textPos & (WALL_SIZE - 1);
-			textPos += step;
-			int color = game->texture[WALL_SIZE * texY + texX];
-			if (side == 1)
-				color = (color >> 1) & 8355711;
-			game->buf[y][i] = color;
-		}
+		printf("_______________________________________\n");
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/04 15:00:59 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:07:37 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	check_walls(t_game *game);
 /* Game */
 
 void	start_game(t_game *game);
-void	minimap(t_game *game, char **map);
-void	draw_screen(t_game *game);
 void	raycasting(t_game *game);
-void	ft_draw_wall(t_game *game);
+void	draw_screen(t_game *game);
+void	minimap(t_game *game, char **map);
+void	ft_draw_wall(t_game *game, int x);
 
 #endif
