@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/02 18:10:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:14:37 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 
 # define PROGRAM_NAME "cub3d - "
-# define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
 # define WALL_SIZE 64
 # define PLAYER_SIZE WALL_SIZE / 3
 # define PI 3.14159265
@@ -81,5 +81,6 @@ void	minimap(t_game *game, char **map);
 void	re_draw_screen(t_game *game);
 void	raycasting(t_game *game);
 void	ft_draw_wall(t_game *game);
+void	raycasting(t_game *game);
 
 #endif
