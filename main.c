@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-// WASD
+// WASD`
 # define KEY_W 13
 # define KEY_A 0
 # define KEY_S 1
@@ -22,17 +22,6 @@
 #define X_EVENT_KEY_PRESS   2
 #define X_EVENT_KEY_EXIT    17
 
-
-
-/*
-    texture를 입히기 위해서는 verLine() 함수를 이용해 수직선을 그리는 방식은 버려야 한다.
-    대신, 픽셀을 하나하나 그려줄 것이다.
-    우리가 사용할 방식을 쉽게 설명하면 2차원짜리 '버퍼'를 이용, 
-    한번에 (변경된)화면을 출력하는 것이다.
-
-    아래의 texWidth, texHeight는 텍스쳐의 텍셀 너비, 높이 값이다.
-
-*/
 #define texWidth 64
 #define texHeight 64
 
@@ -131,63 +120,24 @@ int calculateAndSaveToMap(t_info *info)
         double cameraX = (2 * x / (double)(screenWidth)) - 1;
         // cameraPlaneX == 0; cameraPlaneY == 0.66; dirVecX = -1; dirVecY = 0;
         // 광선의 방향은 방향벡터 + 카메라평면 * 배수.
+        
         double rayDirectionX = info->directionVectorX + info->planeX * cameraX;
         double rayDirectionY = info->directionVectorY + info->planeY * cameraX;
+        printf("%f + %f * %f = %f\n", info->directionVectorX, info->planeX, cameraX, rayDirectionX);
 
-        /*
-            DDAgorithm
-        */
-        // 현재 player가 위치한 맵 내 위치.(which box of the map)
+
         int mapX = (int)(info->playerPositionX);
         int mapY = (int)(info->playerPositionY);
-
-        // 현재 위치에서 다음 x사이드 또는 y사이드까지의 거리.
-        // 이를 이하 '첫 번째 x면 및 y면'이라고 부를 것.
         double sideDistX;
         double sideDistY;
-
-        // 아래 두 변수가 왜 저렇게 구해지는지에 대해서는 ii2r github #6 참고. 
-        // deltaDistX는 첫 번째 x면에서 그 다음 x면까지의 광선의 이동거리.
-        // 이 경우 x는 1만큼 이동.
-        // abs함수는 정수 절대값
-        // fabs함수는 실수 절대값
         double deltaDistX = fabs(1 / rayDirectionX);
-        // deltaDistY는 첫 번째 y면에서 그 다음 y면까지의 광선의 이동거리.
-        // 이 경우 y는 1만큼 이동.
         double deltaDistY = fabs(1 / rayDirectionY);
-
-        // 광선의 이동거리를 계산할 때 사용할 변수.
         double perpWallDist;
-
-        // DDAgorithm은 반복문을 실행할 때마다 x, y방향으로 딱 한 칸씩 점프.
-        // 광선의 방향에 따라 어느 방향으로 건너뛰는지 달라짐.
-        // 그 정보는 stepX, Y에 +1, -1 둘 중 하나로 저장됨.
         int stepX;
         int stepY;
-
-        /*
-            hit은 벽과 부딪혔는지 판별하기 위한 변수임.
-            부딪힌다는 것은 루프를 종료하기 위한 조건이 됨.
-            만약 벽에 부딪혔는데 그게 x면에 부딪힌 거라면 side = 0임.
-            y면에 부딪혔다면 1이 됨.
-            한편 x면, y면은 어떤 칸의 경계가 되는 선을 의미함.
-        */
         int hit = 0;
         int side;
 
-        /*
-            DDAgorithm을 시작하기 전에 
-            stepX, Y 그리고 sideDistX, Y에 값을 넣어주는 부분이다.
-            rayDirectionX가 음수라는 말은 player기준 왼각이라는 뜻이고,
-            양수라는 말은 player기준 오른각이라는 뜻이다.
-            sideDistX의 값은 rayDirectionX 값이 양수인 경우
-            광선의 오른쪽으로 이동하다 처음 만나는 x면까지의 거리가 된다.
-            sideDistY의 값은 rayDirectionY 값이 양수인 경우
-            광선의 위쪽으로 이동하다 처음 만나는 y면까지의 거리가 된다.
-            rayDirectionX가 양수일 경우 sideDistX는 
-            mapX + 1에서 실제 위치 playerPositionX를 빼주고 deltaDistX를 곱한 결과다.
-            반대의 경우 playerPositionX에서 mapX를 빼주고 deltaDistX를 곱한 결과다.
-        */
         printf("RayX: %f\n", deltaDistX);
 		printf("RayY: %f\n", deltaDistY);
         if (rayDirectionX < 0)
@@ -467,12 +417,6 @@ int main()
         for (int j = 0; j < texHeight * texWidth; j++)
             info.texture[i][j] = 0;
 
-    /*
-        info.texture 변수는 다음과 같이 선언돼 있는데,
-            int        texture[8][texHeight * texWidth];
-        이것이 의미하는 바는 총 8가지 종류의 텍스쳐를 저장할 수 있고,
-        그 크기가 texHeight * texWidth 라는 뜻이다.
-    */
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < texHeight * texWidth; j++)
             info.texture[i][j] = 0;
@@ -488,5 +432,5 @@ int main()
     // https://42kchoi.tistory.com/229
     mlx_loop_hook(info.mlx, &main_loop, &info);
     mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
-    mlx_loop(info.mlx);    
+    mlx_loop(info.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/05 16:21:34 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:02:51 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,48 +86,43 @@ void imageDraw(t_game *game)
 /**
  * Player FOV will be 60
 */
-void	check_ray_direction(double rayDirectionX, double rayDirectionY, t_rays *rays, t_game *game, int mapx, int mapy)
+void	check_ray_direction(t_vector rayDirection, t_rays *rays, t_game *game, int mapx, int mapy)
 {
-	if (rayDirectionX < 0)
+	if (rayDirection.x < 0)
 	{
 		rays->step.x = -1;
-		printf("%f %d\n", game->player.x / WALL_SIZE, mapx);
-		rays->side_dist.x = ((game->player.x / WALL_SIZE) - mapx) * rays->delta_dist.x;
+		rays->side_dist.x = (game->player.x - mapx) * rays->delta_dist.x;
 	}
 	else
 	{
 		rays->step.x = 1;
-		rays->side_dist.x = (mapx + 1.0 - (game->player.x / WALL_SIZE)) * rays->delta_dist.x;
+		rays->side_dist.x = (mapx + 1.0 - game->player.x) * rays->delta_dist.x;
 	}
-	printf("rayDirection: %f\n", rayDirectionY);
-	if (rayDirectionY < 0)
+	if (rayDirection.y < 0)
 	{
 		rays->step.y = -1;
-		printf("yes\n");
-		rays->side_dist.y = ((game->player.y / WALL_SIZE) - mapy) * rays->delta_dist.y;
+		rays->side_dist.y = (game->player.y - mapy) * rays->delta_dist.y;
 	}
 	else
 	{
 		rays->step.y = 1;
-		printf("no\n");
-		rays->side_dist.y = (mapy + 1.0 - (game->player.y / WALL_SIZE)) * rays->delta_dist.y;
+		rays->side_dist.y = (mapy + 1.0 - game->player.y) * rays->delta_dist.y;
 	}
 }
 
-void    load_image(t_game *game, int *texture, char *path, t_img *img)
+void	load_image(t_game *game, int *texture, char *path, t_img *img)
 {
 	(void)img;
 	game->img.img = mlx_xpm_file_to_image(game->mlx, path, &game->img.img_width, &game->img.img_height);
 	game->img.addr = (int *)mlx_get_data_addr(game->img.img, &game->img.bpp,
 			&game->img.line_len, &game->img.endian);
-    for (int y = 0; y < game->img.img_height; y++)
-    {
-        for (int x = 0; x < game->img.img_width; x++)
-        {
-            texture[game->img.img_width * y + x] = game->img.addr[game->img.img_width * y + x];
-        }
-    }
-    //mlx_destroy_image(game->mlx, img->img);
+	for (int y = 0; y < game->img.img_height; y++)
+	{
+		for (int x = 0; x < game->img.img_width; x++)
+		{
+			texture[game->img.img_width * y + x] = game->img.addr[game->img.img_width * y + x];
+		}
+	}
 }
 
 void	raycasting(t_game *game)
@@ -139,18 +134,18 @@ void	raycasting(t_game *game)
 	while (i < SCREEN_WIDTH)
 	{
 		double cameraX = (2 * i / (double)(SCREEN_WIDTH)) - 1;
-		double rayDirectionX = game->player.test_direction.x + game->plane.x * cameraX;
-		double rayDirectionY = game->player.test_direction.y + game->plane.y * cameraX;
+		t_vector	rayDirection;
+		rayDirection.x = game->player.direction.x + game->plane.x * cameraX;
+		rayDirection.y = game->player.direction.y + game->plane.y * cameraX;
 		int	mapx = (int)(game->player.x) / WALL_SIZE;
 		int	mapy = (int)(game->player.y) / WALL_SIZE;
-		rays->delta_dist.x = fabs(1 / rayDirectionX);
-		rays->delta_dist.y = fabs(1 / rayDirectionY);
+		rays->delta_dist.x = fabs(1 / rayDirection.x);
+		rays->delta_dist.y = fabs(1 / rayDirection.y);
 		double perpWallDist;
 		int hit = 0;
 		int side;
-		printf("RayX: %f\n", rays->delta_dist.x);
-		printf("RayY: %f\n", rays->delta_dist.y);
-		check_ray_direction(rayDirectionX, rayDirectionX, rays, game, mapx, mapy);
+		
+		check_ray_direction(rayDirection, rays, game, mapx, mapy);
 		printf("Side_sitX: %f\n", rays->side_dist.x);
 		printf("SideDistY: %f\n", rays->side_dist.y);
 		while (hit == 0)
@@ -163,7 +158,7 @@ void	raycasting(t_game *game)
 			}
 			else
 			{
-				rays->side_dist.y += rays->delta_dist.x;
+				rays->side_dist.y += rays->delta_dist.y;
 				mapy += rays->step.y;
 				side = 1;
 			}
@@ -174,12 +169,11 @@ void	raycasting(t_game *game)
 			}
 		}
 		if (side == 0)
-			perpWallDist = (mapx - (game->player.x / WALL_SIZE) + (1 - rays->step.x) / 2) / rayDirectionX;
+			perpWallDist = (mapx - (game->player.x / WALL_SIZE) + (1 - rays->step.x) / 2) / rayDirection.x;
 		else
-			perpWallDist = (mapy - (game->player.y / WALL_SIZE) + (1 - rays->step.y) / 2) / rayDirectionY;
+			perpWallDist = (mapy - (game->player.y / WALL_SIZE) + (1 - rays->step.y) / 2) / rayDirection.y;
 
 		int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
-		
 
 		int drawStart = (-1 * lineHeight / 2) + (SCREEN_HEIGHT / 2);
 		if (drawStart < 0)

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 10:07:37 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:31:57 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,20 @@ enum e_values
 
 /* Functions */
 
-int		map_width(char **map);
 int		exit_game(t_game *game);
-char	**read_file(char **argv);
 void	raise_error(char *message);
+int		ft_rgba(int r, int g, int b, int alpha);
+int		event_handler(enum e_keys key, t_game *game);
+
+/* Parsing */
+
+int		map_width(char **map);
+char	**read_file(char **argv);
+void	check_walls(t_game *game);
 void	check_config(t_game *game);
 void	check_weird_char(t_game *game);
 void	parsing(char **argv, t_game *game);
-void	run_game(t_game *game, char *map_name);
-int		ft_rgba(int r, int g, int b, int alpha);
 void	get_values(t_game *game, char **file_con);
-int		event_handler(enum e_keys key, t_game *game);
-void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
-
-/* Parsing */
-void	check_walls(t_game *game);
 
 /* Game */
 
@@ -81,5 +80,9 @@ void	raycasting(t_game *game);
 void	draw_screen(t_game *game);
 void	minimap(t_game *game, char **map);
 void	ft_draw_wall(t_game *game, int x);
+void	run_game(t_game *game, char *map_name);
+void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
+double 	deg_to_rad(double degrees);
+double 	rad_to_deg(double radians);
 
 #endif

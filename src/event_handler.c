@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 16:27:11 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:09:12 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ static void	ft_handle_was(enum e_keys key, t_game *game)
 {
 	if (key == W || key == UP)
 	{
-		game->player.old_x = game->player.x;
-		game->player.old_y = game->player.y;
-		game->player.x -= game->player.dx;
-		game->player.y -= game->player.dy;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)(game->player.x + game->player.direction.x * 10) / WALL_SIZE] != '1')
+			game->player.x += game->player.direction.x;
+		if (game->map_data.map[(int)(game->player.y + game->player.direction.y * 10) / WALL_SIZE][(int)game->player.x / WALL_SIZE] != '1')
+			game->player.y += game->player.direction.y;
 	}
 	else if (key == A)
 	{
-		game->player.old_x = game->player.x;
-		game->player.old_y = game->player.y;
-		game->player.x -= game->player.dy;
-		game->player.y -= game->player.dx;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)(game->player.x + game->player.direction.y * 10) / WALL_SIZE] != '1')
+			game->player.x += game->player.direction.y;
+		if (game->map_data.map[(int)(game->player.y - game->player.direction.x * 10) / WALL_SIZE][(int)game->player.x / WALL_SIZE] != '1')
+			game->player.y -= game->player.direction.x;
 	}
 	else if (key == S || key == DOWN)
 	{
-		game->player.old_x = game->player.x;
-		game->player.old_y = game->player.y;
-		game->player.x += game->player.dx;
-		game->player.y += game->player.dy;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)(game->player.x - game->player.direction.x * 10) / WALL_SIZE] != '1')
+			game->player.x -= game->player.direction.x;
+		if (game->map_data.map[(int)(game->player.y - game->player.direction.y * 10) / WALL_SIZE][(int)game->player.x / WALL_SIZE] != '1')
+			game->player.y -= game->player.direction.y;
 	}
 }
 
@@ -41,38 +41,28 @@ static void	ft_handle_arrows_and_d(enum e_keys key, t_game *game)
 {
 	if (key == D)
 	{
-		game->player.old_x = game->player.x;
-		game->player.old_y = game->player.y;
-		game->player.x += game->player.dy;
-		game->player.y += game->player.dx;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)(game->player.x - game->player.direction.y * 10) / WALL_SIZE] != '1')
+			game->player.x -= game->player.direction.y;
+		if (game->map_data.map[(int)(game->player.y + game->player.direction.x * 10) / WALL_SIZE][(int)game->player.x / WALL_SIZE] != '1')
+			game->player.y += game->player.direction.x;
 	}
 	else if (key == LEFT)
 	{
-		game->player.direction -= 0.1;
-		if (game->player.direction < 0)
-			game->player.direction += 2 * M_PI;
-		game->player.dx = cos(game->player.direction) * 5;
-		game->player.dy = sin(game->player.direction) * 5;
-		double oldDirectionX = game->player.test_direction.x;
-        game->player.test_direction.x = game->player.test_direction.x * cos(0.05) - game->player.test_direction.y * sin(0.5);
-        game->player.test_direction.y = oldDirectionX * sin(0.5) + game->player.test_direction.y * cos(0.5);
-        double oldPlaneX = game->plane.x;
-        game->plane.x = game->plane.x * cos(0.5) - game->plane.y * sin(0.5);
-        game->plane.y = oldPlaneX * sin(0.5) + game->plane.y * cos(0.5);
+		double oldDirectionX = game->player.direction.x;
+		game->player.direction.x = game->player.direction.x * cos(-0.05) - game->player.direction.y * sin(-0.05);
+		game->player.direction.y = oldDirectionX * sin(-0.05) + game->player.direction.y * cos(-0.05);
+		double oldPlaneX = game->plane.x;
+		game->plane.x = game->plane.x * cos(-0.05) - game->plane.y * sin(-0.05);
+		game->plane.y = oldPlaneX * sin(-0.05) + game->plane.y * cos(-0.05);
 	}
 	else if (key == RIGHT)
 	{
-		game->player.direction += 0.1;
-		if (game->player.direction > 2 * M_PI)
-			game->player.direction -= 2 * M_PI;
-		game->player.dx = cos(game->player.direction) * 5;
-		game->player.dy = sin(game->player.direction) * 5;
-		double oldDirectionX = game->player.test_direction.x;
-        game->player.test_direction.x = game->player.test_direction.x * cos(-0.05) - game->player.test_direction.y * sin(-0.05);
-        game->player.test_direction.y = oldDirectionX * sin(-0.05) + game->player.test_direction.y * cos(-0.05);
-        double oldPlaneX = game->plane.x;
-        game->plane.x = game->plane.x * cos(-0.05) - game->plane.y * sin(-0.05);
-        game->plane.y = oldPlaneX * sin(-0.05) + game->plane.y * cos(-0.05);
+		double oldDirectionX = game->player.direction.x;
+		game->player.direction.x = game->player.direction.x * cos(0.05) - game->player.direction.y * sin(0.5);
+		game->player.direction.y = oldDirectionX * sin(0.5) + game->player.direction.y * cos(0.5);
+		double oldPlaneX = game->plane.x;
+		game->plane.x = game->plane.x * cos(0.5) - game->plane.y * sin(0.5);
+		game->plane.y = oldPlaneX * sin(0.5) + game->plane.y * cos(0.5);
 	}
 }
 

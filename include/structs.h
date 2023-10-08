@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 16:21:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:52:01 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ typedef struct s_player
 	float		dx;
 	float		dy;
 	float		camera;
-	float		direction;
-	t_vector	test_direction;
+	t_vector	direction;
 }	t_player;
 
 typedef struct s_camera
