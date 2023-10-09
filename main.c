@@ -140,10 +140,10 @@ int calculateAndSaveToMap(t_info *info)
 
         printf("RayX: %f\n", deltaDistX);
 		printf("RayY: %f\n", deltaDistY);
+        printf("plater position: %f %f\n", info->playerPositionX, info->playerPositionY);
         if (rayDirectionX < 0)
         {
             stepX = -1;
-            //printf("%f %d\n", info->playerPositionX, mapX);
             sideDistX = (info->playerPositionX - mapX) * deltaDistX;
         }
         else
@@ -168,13 +168,6 @@ int calculateAndSaveToMap(t_info *info)
         printf("Side_sitX: %f\n", sideDistX);
 		printf("Side_sitY: %f\n", sideDistY);
 
-        /*
-            DDAgorithm 세팅을 완료했고, 이제 그것을 시작하는 부분.
-            아래 while문은 `벽에 부딪힐 때까지` 매번 한 칸씩 광선 이동.
-            반복할 때마다 x방향으로 한 칸 또는 y방향으로 한 칸 점프.
-            만약 광선의 방향이 x축 방향과 완전히 일치한다면, x방향으로만 한 칸 점프하면 됨.
-            광선이 점프할 때마다 <sideDistX, Y>에는 <deltaDistX, Y>가 더해지면서 업데이트됨.
-        */
         while (hit == 0)
         {
             // 다음 map 박스로 이동하거나 x, y 방향 둘 중 하나로 이동한다.
@@ -190,50 +183,32 @@ int calculateAndSaveToMap(t_info *info)
                 mapY += stepY; // stepY는 1, -1 중 하나.
                 side = 1; // y면에 부딪혔다면 side = 1
             }
-            // ray가 벽을 만났는지 확인하는 작업
+			printf("wall position: %d %d\n", mapX, mapY);
             if (worldMap[mapX][mapY] > 0)
                 hit = 1;
         }
-        /*
-            벽을 만나 DDAgorithm이 완료됨.
-            이제 광선의 시작점에서 벽까지의 이동거리를 계산할 차례임.
-            광선의 시작점에서 벽까지의 이동거리는 벽의 높이를 계산하는 데 쓰임.
-            H------------ :wall
-            | \          \: 실제거리
-            |  \         |: 벽에서 camera plane까지의 거리.
-            -----P------- :camera plane
-            P를 기준으로 벽까지의 실제거리를 사용한다면 fisheye 부작용이 나타남.
-            따라서 벽으로부터 cameraPlane까지의 거리를 사용해야.
-            이에 대한 자세한 설명은 로데브 설명 참고.
-            따라서 아래 if-else문은 fisheye (side)effect를 방지하는 코드.
-            (1 - stepX) / 2는 stepX가 -1이면 1이되고 1이면 0이 된다.(-1 or 0)
-            해당 연산은 mapX - playerPositionX가 < 0 일 때, 즉 벽 밖으로 갈 때
-            길이에 1을 더해주기 위한 코드이다.
-            수직거리를 계산하는 방법은 이렇다. 
-            만약 광선이 처음으로 부딪힌 면이 x면이면 
-                mapX - playerPositionX + (1 - stepX / 2)는
-                광선이 x방향으로 몇 칸이나 갔는지를 나타낸다.(정수 아니어도 됨.)
-                rayDirectionX로 나눠주는 이유는 구해진 값이 수직거리보다 크기 때문.
-            y면에 처음 부딪혔을 때도 같은 원리로 동작.
-            mapX - playerPostionX가 음수더라도 음수인 rayDirectionX로 나누기 때문에
-            계산된 값은 항상 양수임.
-        */
+
+        int a = 0;
+		while (a < 24)
+		{
+			int b = 0;
+			while (b < 24)
+			{
+				if (a == mapX && b == mapY)
+					printf("\033[0;31m%d\033[0m", worldMap[a][b]);
+				else
+					printf("%d", worldMap[a][b]);
+				b++;
+			}
+			printf("\n");
+			a++;
+        }
         if (side == 0)
             perpWallDist = (mapX - info->playerPositionX + (1 - stepX) / 2) / rayDirectionX;
         else
             perpWallDist = (mapY - info->playerPositionY + (1 - stepY) / 2) / rayDirectionY;
 
-        // 스크린에 그릴 line의 높이를 계산.
         int lineHeight = (int)(screenHeight / perpWallDist);
-        /*
-            이제 계산한 거리를 가지고 화면에 그려야 하는 선의 높이를 구할 수 있다.
-            벽을 더 높게 그리거나 낮게 그리고 싶으면 2 * lineHeight 같은 값을 넣을 수도 있다.
-            위에서 구한 lineHeight로부터 우리는 선을 그릴 위치의 시작점과 끝점을 구해낼 수 있다.
-            만약에 벽의 범위 (0 ~ screenHeight)를 벗어나는 경우 
-            각각 0과 screenHeight - 1을 대입한다.
-                +) drawStart와 End에 2로 나눈 값들을 더하는 이유는
-                   screenHeight보다 drawEnd가 커지면 될까 안될까를 생각해보면 알 수 있다.
-        */
         printf("distance: %d\n", lineHeight);
         int drawStart = (-lineHeight / 2) + (screenHeight / 2);
         if (drawStart < 0)
@@ -242,17 +217,7 @@ int calculateAndSaveToMap(t_info *info)
         if (drawEnd >= screenHeight)
             drawEnd = screenHeight - 1;
 
-        // texturing calculations
-        // 1을 빼주는 이유는 0번째 텍스쳐도 0, 벽이 없어도 0이기 때문.
-        // 1을 빼지 않는다면 어떻게 될까?
-        // 아마 시작하자마자 뒷방향을 보고 앞으로 걸어나가려고 하면 
-        // segmentation fault가 뜰 것이다.
         int texNum = worldMap[mapX][mapY] - 1;
-        // int textNum = worldMap[mapX][mapY];
-
-        // wallX의 값은 벽의 x면과 부딪힌 경우(side == 0)
-        // 벽의 Y좌표가 된다.
-        // wallX의 값은 텍스처의 x좌표에 대해서만 사용한다.
         double wallX;
         if (side == 0)
             wallX = info->playerPositionY + perpWallDist * rayDirectionY;
@@ -260,34 +225,20 @@ int calculateAndSaveToMap(t_info *info)
             wallX = info->playerPositionX + perpWallDist * rayDirectionX;
         wallX -= floor(wallX);
 
-        // texX는 texture의 x좌표를 나타낸다.
-        // x coordinate on the texture
         int texX = (int)(wallX * (double)texWidth);
         if (side == 0 && rayDirectionX > 0)
             texX = texWidth - texX - 1;
         if (side == 1 && rayDirectionY < 0)
             texX = texWidth - texX - 1;
 
-        /*
-            texY를 지정하는 반복문.
-            step은 스크린 픽셀당 texture 좌표를 얼마나 증가시켜줄 건지를 결정.
-            buffer[y][x]에 넣을 color는 texture 배열에서 가져온다.
-        */
-        // How much to increase the texture coordinate perscreen pixel
         double step = 1.0 * texHeight / lineHeight;
-        // Starting texture coordinate
         double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
         for (int y = drawStart; y < drawEnd; y++)
         {
-            // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
             int texY = (int)texPos & (texHeight - 1);
             texPos += step;
             int color = info->texture[texNum][texHeight * texY + texX];
-            // 광선이 벽의 y면에 부딪힌 경우(side == 1).
-            // 조명표현을 위해 색상을 더 검게 만든다.
-            // 이진수를 2로 나눔으로써 RGB값을 반감시킨다.
-            // 시프트 연산을 하고 01111111 01111111 01111111(835711)을 & 연산하면
-            // 어두운 값을 줄 수 있다는데 그냥 외워야 쓰것다.
+
             if (side == 1)
                 color = (color >> 1) & 8355711;
             info->buf[y][x] = color;

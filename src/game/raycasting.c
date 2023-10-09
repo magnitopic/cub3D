@@ -6,72 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/08 14:02:51 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/09 09:08:06 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-// WALL_SIZE is 64 in the tutorial, we should decide how big we want our walls
-
-
-/* static double	check_horizontal_lines(t_game *game)
-{
-	t_vector	curr_point;
-	t_vector	prev_point;
-	int			ya;
-	int			xa;
-
-	ya = WALL_SIZE;
-	if (game->camera.direction < PI)
-	{
-		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE - 1;
-		ya = -WALL_SIZE;
-	}
-	else
-		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE
-			+ WALL_SIZE;
-	curr_point.x = game->player.x + (game->player.y - curr_point.y)
-		/ tan(game->player.direction);
-	xa = WALL_SIZE / tan(game->player.direction);
-	while (!(game->map_data.map[(int)curr_point.y / 64][(int)curr_point.x / 64]))
-	{
-		prev_point = curr_point;
-		curr_point.y = prev_point.y + ya;
-		curr_point.x = prev_point.x + xa;
-	}
-	return (sqrt(pow(game->player.x - curr_point.x, 2)
-			+ pow(game->player.y - curr_point.y, 2)));
-} */
-
-/* static double	check_vertical_lines(t_game *game)
-{
-	t_vector	curr_point;
-	t_vector	prev_point;
-	int			ya;
-	int			xa;
-
-	xa = WALL_SIZE;
-	if (game->camera.direction < PI)
-	{
-		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE
-			+ WALL_SIZE;
-		xa = -WALL_SIZE;
-	}
-	else
-		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE - 1;
-	ya = WALL_SIZE / tan(game->player.direction);
-	curr_point.y = game->player.y + (game->player.x - curr_point.x)
-		/ tan(game->player.direction);
-	while (!(game->map_data.map[(int)curr_point.y / 64][(int)curr_point.x / 64]))
-	{
-		prev_point = curr_point;
-		curr_point.y = prev_point.y + ya;
-		curr_point.x = prev_point.x + xa;
-	}
-	return (sqrt(pow(game->player.x - curr_point.x, 2)
-			+ pow(game->player.y - curr_point.y, 2)));
-} */
-
 
 void imageDraw(t_game *game)
 {
@@ -82,31 +21,31 @@ void imageDraw(t_game *game)
     mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
-
 /**
  * Player FOV will be 60
 */
 void	check_ray_direction(t_vector rayDirection, t_rays *rays, t_game *game, int mapx, int mapy)
 {
+	printf("player position: %f %f\n", game->player.x / WALL_SIZE, game->player.y / WALL_SIZE);
 	if (rayDirection.x < 0)
 	{
 		rays->step.x = -1;
-		rays->side_dist.x = (game->player.x - mapx) * rays->delta_dist.x;
+		rays->side_dist.x = (game->player.x / WALL_SIZE - mapx) * rays->delta_dist.x;
 	}
 	else
 	{
 		rays->step.x = 1;
-		rays->side_dist.x = (mapx + 1.0 - game->player.x) * rays->delta_dist.x;
+		rays->side_dist.x = (mapx + 1.0 - game->player.x / WALL_SIZE) * rays->delta_dist.x;
 	}
 	if (rayDirection.y < 0)
 	{
 		rays->step.y = -1;
-		rays->side_dist.y = (game->player.y - mapy) * rays->delta_dist.y;
+		rays->side_dist.y = (game->player.y / WALL_SIZE - mapy) * rays->delta_dist.y;
 	}
 	else
 	{
 		rays->step.y = 1;
-		rays->side_dist.y = (mapy + 1.0 - game->player.y) * rays->delta_dist.y;
+		rays->side_dist.y = (mapy + 1.0 - game->player.y /WALL_SIZE) * rays->delta_dist.y;
 	}
 }
 
@@ -137,7 +76,7 @@ void	raycasting(t_game *game)
 		t_vector	rayDirection;
 		rayDirection.x = game->player.direction.x + game->plane.x * cameraX;
 		rayDirection.y = game->player.direction.y + game->plane.y * cameraX;
-		int	mapx = (int)(game->player.x) / WALL_SIZE;
+		int	mapx = (int)(game->player.x / WALL_SIZE);
 		int	mapy = (int)(game->player.y) / WALL_SIZE;
 		rays->delta_dist.x = fabs(1 / rayDirection.x);
 		rays->delta_dist.y = fabs(1 / rayDirection.y);
@@ -159,20 +98,32 @@ void	raycasting(t_game *game)
 			else
 			{
 				rays->side_dist.y += rays->delta_dist.y;
-				mapy += rays->step.y;
+				mapx += rays->step.x;
 				side = 1;
 			}
+			printf("wall position: %d %d\n", mapx, mapy);
 			if (game->map_data.map[mapy][mapx] == '1')
-			{
 				hit = 1;
-				printf("x: %d y: %d\n", mapx, mapy);
-			}
 		}
+		/* int a = 0;
+		while (a < ft_get_matrix_size(game->map_data.map))
+		{
+			int b = 0;
+			while (b < (int)ft_strlen(game->map_data.map[a]))
+			{
+				if (a == mapy && b == mapx)
+					printf("\033[0;31m%c\033[0m", game->map_data.map[a][b]);
+				else
+					printf("%c", game->map_data.map[a][b]);
+				b++;
+			}
+			printf("\n");
+			a++;
+		} */
 		if (side == 0)
-			perpWallDist = (mapx - (game->player.x / WALL_SIZE) + (1 - rays->step.x) / 2) / rayDirection.x;
+			perpWallDist = (mapx - game->player.x / WALL_SIZE + (1 - rays->step.x) / 2) / rayDirection.x;
 		else
-			perpWallDist = (mapy - (game->player.y / WALL_SIZE) + (1 - rays->step.y) / 2) / rayDirection.y;
-
+			perpWallDist = (mapy - game->player.y + (1 - rays->step.y) / 2) / rayDirection.y;
 		int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
 
 		int drawStart = (-1 * lineHeight / 2) + (SCREEN_HEIGHT / 2);
@@ -184,7 +135,6 @@ void	raycasting(t_game *game)
 		printf("distance: %d\n", lineHeight / 64);
 		game->camera.distance = lineHeight;
 		ft_draw_wall(game, i);
-
 		printf("_______________________________________\n");
 		i++;
 	}
