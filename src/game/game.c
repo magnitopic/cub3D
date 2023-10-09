@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/06 18:34:36 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:26:22 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	start_game(t_game *game)
 	get_player_direction(game);
 	game->camera.planey = 0;
 	game->camera.planex = 0.66;
+	game->camera.grid_y = game->player.y / WALL_SIZE;
+	game->camera.grid_x = game->player.x / WALL_SIZE;
 	raycasting(game);
 	//minimap(game, game->map_data.map);
 }

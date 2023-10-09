@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/06 18:34:26 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:45:33 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ typedef struct s_camera
 	int		offset;
 	int		grid_x;
 	int		grid_y;
-	double	fov;
 	float	x;
 	float	y;
+	float	stepx;
+	float	stepy;
 	float	camerax;
 	float	directionx;
 	float	directiony;
@@ -86,19 +87,14 @@ typedef struct s_camera
 	float	raydiry;
 	float	mapx;
 	float	mapy;
-	int		xa;
-	int		ya;
-	float	v_x;
-	float	v_y;
 	float	dx;
 	float	dy;
+	float	sidedx;
+	float	sidedy;
 	float	inter_x;
 	float	inter_y;
 	float	distance;
-	float	direction;
-	float	vertical;
-	float	horizontal;
-	float	angle_tan;
+	float	lineheight;
 }	t_camera;
 
 typedef struct s_game

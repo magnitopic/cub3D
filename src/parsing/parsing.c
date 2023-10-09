@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/06 18:20:56 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:25:17 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	ft_check_chars(t_game *game, char **map)
 				map[y][x] == 'W')
 			{
 				game->player.x = x * WALL_SIZE;
+				game->camera.grid_x = x;
 				game->player.y = y * WALL_SIZE;
+				game->camera.grid_y = y;
 			}
 			x++;
 		}
