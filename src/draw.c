@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/09 14:59:00 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:57:10 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_draw_wall(t_game *game)
 	y = 0;
 	//game->camera.distance *= cos(game->player.direction);
 	j = (int)(SCREEN_HEIGHT / game->camera.distance);
+		printf("%d\n", j);
 	if (x == SCREEN_WIDTH)
 		x = 0;
 	if (j < 50)
@@ -48,7 +49,6 @@ void	ft_draw_wall(t_game *game)
 		y++;
 	}
 	x++;
-	printf("%d\n", x);
 }
 
 void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
@@ -80,6 +80,6 @@ void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 void	re_draw_screen(t_game *game)
 {
 	draw_ceiling_floor(game, game->map_data.ceiling, game->map_data.floor);
-	minimap(game, game->map_data.map);
+	//minimap(game, game->map_data.map);
 	raycasting(game);
 }

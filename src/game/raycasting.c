@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/09 15:47:58 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:14:49 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,26 @@ void	raycasting(t_game *game)
 	{
 		game->camera.camerax = (2 * x / (double)SCREEN_WIDTH) - 1;
 		game->camera.raydirx = game->camera.directionx
-			- game->camera.planex * game->camera.camerax;
+			+ game->camera.planex * game->camera.camerax;
 		game->camera.raydiry = game->camera.directiony
-			- game->camera.planey * game->camera.camerax;
+			+ game->camera.planey * game->camera.camerax;
 		game->camera.grid_x = game->player.x / WALL_SIZE;
 		game->camera.grid_y = game->player.y / WALL_SIZE;
-		game->camera.dx = ft_abs(1 / game->camera.raydirx);
-		game->camera.dy = ft_abs(1 / game->camera.raydiry);
+		if (game->camera.raydirx == 0)
+			game->camera.dx = 10000000000;
+		else
+			game->camera.dx = fabs(1 / game->camera.raydirx);
+		if (game->camera.raydiry == 0)
+			game->camera.dy = 10000000000;
+		else
+			game->camera.dy = fabs(1 / game->camera.raydiry);
 		check_ray_direction(game);
 		dda_algorithm(game);
 		if (game->camera.offset == 0)
 			game->camera.distance = game->camera.sidedx - game->camera.dx;
 		else
 			game->camera.distance = game->camera.sidedy - game->camera.dy;
-		printf("hi %f\n", game->camera.distance);
 		ft_draw_wall(game);
 		x++;
 	}
-	//exit (0);
 }
