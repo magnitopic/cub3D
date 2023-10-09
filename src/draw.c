@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/05 11:21:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/06 10:29:19 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 		*(int *)&img.addr[((x * img.bpp) >> 3) + (y * img.line_len)] = color;
 }
 
-void	ft_draw_wall(t_game *game, int x)
+void	ft_draw_wall(t_game *game, int x, int side)
 {
 	int			y;
 
@@ -35,7 +35,10 @@ void	ft_draw_wall(t_game *game, int x)
 	y = drawStart;
 	while (y != drawEnd)
 	{
-		mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
+		int color = 0xffffff;
+		if (side == 1)
+			color = (color >> 1) & 8355711;
+		mlx_pixel_put(game->mlx, game->win, x, y, color);
 		y++;
 	}
 }

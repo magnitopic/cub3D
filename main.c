@@ -21,7 +21,6 @@
 // EVENT KEY
 #define X_EVENT_KEY_PRESS   2
 #define X_EVENT_KEY_EXIT    17
-
 #define texWidth 64
 #define texHeight 64
 
@@ -60,7 +59,6 @@ typedef struct    s_info
 int calculateAndSaveToMap(t_info *info);
 void imageDraw(t_info *info);
 
-// 바뀐 맵.
 int worldMap[mapWidth][mapHeight] =
 {
   {8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
@@ -109,23 +107,17 @@ void imageDraw(t_info *info)
 
 int calculateAndSaveToMap(t_info *info)
 {
-    // 화면 생성 후 게임 루프 시작.
-    // while문은 전체 프레임을 그려내고 입력을 읽는 역할을 함.
     int x;
 
         x = 0;
     while (x < screenWidth)
     {
-        // cameraX 는 for문의 x값이 카메라 평면 상에 있을 때의 x좌표.
         double cameraX = (2 * x / (double)(screenWidth)) - 1;
-        // cameraPlaneX == 0; cameraPlaneY == 0.66; dirVecX = -1; dirVecY = 0;
-        // 광선의 방향은 방향벡터 + 카메라평면 * 배수.
-        
+        printf("planeX: %f\n", info->planeX);
+        printf("planeY: %f\n", info->planeY);
+        printf("LOL: %f %f %f\n", info->directionVectorY, info->planeY, cameraX);
         double rayDirectionX = info->directionVectorX + info->planeX * cameraX;
         double rayDirectionY = info->directionVectorY + info->planeY * cameraX;
-        printf("%f + %f * %f = %f\n", info->directionVectorX, info->planeX, cameraX, rayDirectionX);
-
-
         int mapX = (int)(info->playerPositionX);
         int mapY = (int)(info->playerPositionY);
         double sideDistX;
@@ -137,7 +129,6 @@ int calculateAndSaveToMap(t_info *info)
         int stepY;
         int hit = 0;
         int side;
-
         printf("RayX: %f\n", deltaDistX);
 		printf("RayY: %f\n", deltaDistY);
         printf("plater position: %f %f\n", info->playerPositionX, info->playerPositionY);
@@ -167,21 +158,19 @@ int calculateAndSaveToMap(t_info *info)
 
         printf("Side_sitX: %f\n", sideDistX);
 		printf("Side_sitY: %f\n", sideDistY);
-
         while (hit == 0)
         {
-            // 다음 map 박스로 이동하거나 x, y 방향 둘 중 하나로 이동한다.
             if (sideDistX < sideDistY)
             {
                 sideDistX += deltaDistX;
-                mapX += stepX; // stepX 는 1, -1 중 하나.
-                side = 0; // x면에 부딪혔다면 side = 0
+                mapX += stepX;
+                side = 0;
             }
             else
             {
                 sideDistY += deltaDistY;
-                mapY += stepY; // stepY는 1, -1 중 하나.
-                side = 1; // y면에 부딪혔다면 side = 1
+                mapY += stepY;
+                side = 1;
             }
 			printf("wall position: %d %d\n", mapX, mapY);
             if (worldMap[mapX][mapY] > 0)
@@ -207,7 +196,6 @@ int calculateAndSaveToMap(t_info *info)
             perpWallDist = (mapX - info->playerPositionX + (1 - stepX) / 2) / rayDirectionX;
         else
             perpWallDist = (mapY - info->playerPositionY + (1 - stepY) / 2) / rayDirectionY;
-
         int lineHeight = (int)(screenHeight / perpWallDist);
         printf("distance: %d\n", lineHeight);
         int drawStart = (-lineHeight / 2) + (screenHeight / 2);
@@ -216,7 +204,6 @@ int calculateAndSaveToMap(t_info *info)
         int drawEnd = (lineHeight / 2) + (screenHeight / 2);
         if (drawEnd >= screenHeight)
             drawEnd = screenHeight - 1;
-
         int texNum = worldMap[mapX][mapY] - 1;
         double wallX;
         if (side == 0)
@@ -224,13 +211,11 @@ int calculateAndSaveToMap(t_info *info)
         else
             wallX = info->playerPositionX + perpWallDist * rayDirectionX;
         wallX -= floor(wallX);
-
         int texX = (int)(wallX * (double)texWidth);
         if (side == 0 && rayDirectionX > 0)
             texX = texWidth - texX - 1;
         if (side == 1 && rayDirectionY < 0)
             texX = texWidth - texX - 1;
-
         double step = 1.0 * texHeight / lineHeight;
         double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
         for (int y = drawStart; y < drawEnd; y++)
@@ -238,12 +223,11 @@ int calculateAndSaveToMap(t_info *info)
             int texY = (int)texPos & (texHeight - 1);
             texPos += step;
             int color = info->texture[texNum][texHeight * texY + texX];
-
             if (side == 1)
                 color = (color >> 1) & 8355711;
             info->buf[y][x] = color;
         }
-        printf("_______________________________________\n");
+		printf("_______________________________________\n");
         x++;
     }
 
@@ -259,27 +243,13 @@ int key_press(int key, t_info *info)
         if (!worldMap[(int)(info->playerPositionX)][(int)(info->playerPositionY + info->directionVectorY * info->moveSpeed)])
             info->playerPositionY += info->directionVectorY * info->moveSpeed;
     }
-
     if (key == KEY_S)
     {
-        /*  
-            S키를 누르면 뒤로 이동한다.
-            이때, 이동하고자 하는 위치는 맵 상에서 무조건 0이어야 한다.
-            왜냐하면 맵 위에서 1~4가 의미하는 바는 통과할 수 없는 장애물이기 때문이다.
-            만약 [2][2]맵이 있다고 할 때,
-            위치의 오른쪽 위 지점에서 오른쪽 위를 바라보고 s키를 누르면
-            왼쪽 아래 지점으로 이동해야 한다.
-            이를 위해서는 x를 한칸 왼쪽으로 이동시키고,
-            y를 한칸 아래로 이동시키면 된다.
-            아래는 다음을 구체적으로 구현한 것이다.
-        */
         if (!worldMap[(int)(info->playerPositionX - info->directionVectorX * info->moveSpeed)][(int)(info->playerPositionY)])
             info->playerPositionX -= info->directionVectorX * info->moveSpeed;
         if (!worldMap[(int)(info->playerPositionX)][(int)(info->playerPositionY - info->directionVectorY * info->moveSpeed)])
             info->playerPositionY -= info->directionVectorY * info->moveSpeed;
     }
-
-   // AD
     if (key == KEY_A)
     {
         double oldDirectionX = info->directionVectorX;
@@ -289,10 +259,6 @@ int key_press(int key, t_info *info)
         info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
         info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
     }
-
-    // https://github.com/ChoiKanghun/images/blob/master/1024_1.jpg?raw=true 
-    // 위 이미지를 브라우저에 검색하자. 핵심이 되는 공식이다. 이 공식에 대한 자세한 설명은
-    // https://github.com/minckim0/cub3d_lect 해당 깃 레포 내 pdf 62~66 페이지 참고.
     if (key == KEY_D)
     {
         double oldDirectionX = info->directionVectorX;
@@ -307,12 +273,6 @@ int key_press(int key, t_info *info)
     return (0);
 }
 
-/*
-    https://42kchoi.tistory.com/229?category=886844
-    위 링크에서 설명했듯이 mlx_png_file_to_image는 메모리 누수 이슈가 있기 때문에,
-    mlx_xpm_file_to_image를 사용한다.
-    참고로 여기서 path는 상대경로다.
-*/
 void    load_image(t_info *info, int *texture, char *path, t_img *img)
 {
     img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
@@ -340,7 +300,6 @@ void    load_texture(t_info *info)
     load_image(info, info->texture[6], "textures/wood.xpm", &img);
     load_image(info, info->texture[7], "textures/colorstone.xpm", &img);
 }
-
 
 int main()
 {

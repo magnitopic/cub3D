@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/08 12:31:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/09 09:24:23 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 
 # define PROGRAM_NAME "cub3d - "
-# define SCREEN_WIDTH 620
+# define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 # define WALL_SIZE 64
 # define PLAYER_SIZE WALL_SIZE / 3
@@ -79,7 +79,7 @@ void	start_game(t_game *game);
 void	raycasting(t_game *game);
 void	draw_screen(t_game *game);
 void	minimap(t_game *game, char **map);
-void	ft_draw_wall(t_game *game, int x);
+void	ft_draw_wall(t_game *game, int x, int side);
 void	run_game(t_game *game, char *map_name);
 void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
 double 	deg_to_rad(double degrees);

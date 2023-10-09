@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/09 09:08:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/09 09:25:10 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ void	raycasting(t_game *game)
 			drawEnd = SCREEN_HEIGHT - 1;
 		printf("distance: %d\n", lineHeight / 64);
 		game->camera.distance = lineHeight;
-		ft_draw_wall(game, i);
+		ft_draw_wall(game, i, side);
+
 		printf("_______________________________________\n");
 		i++;
 	}

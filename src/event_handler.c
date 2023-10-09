@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/08 14:09:12 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/09 09:24:40 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_handle_was(enum e_keys key, t_game *game)
 {
+	
 	if (key == W || key == UP)
 	{
 		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)(game->player.x + game->player.direction.x * 10) / WALL_SIZE] != '1')
@@ -46,7 +47,7 @@ static void	ft_handle_arrows_and_d(enum e_keys key, t_game *game)
 		if (game->map_data.map[(int)(game->player.y + game->player.direction.x * 10) / WALL_SIZE][(int)game->player.x / WALL_SIZE] != '1')
 			game->player.y += game->player.direction.x;
 	}
-	else if (key == LEFT)
+	if (key == LEFT)
 	{
 		double oldDirectionX = game->player.direction.x;
 		game->player.direction.x = game->player.direction.x * cos(-0.05) - game->player.direction.y * sin(-0.05);
