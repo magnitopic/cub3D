@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/27 18:53:25 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/09 12:09:51 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_check_chars(t_game *game, char **map)
 	int	y;
 
 	y = 0;
+	
 	while (map[y])
 	{
 		x = 0;
@@ -30,8 +31,8 @@ void	ft_check_chars(t_game *game, char **map)
 			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' ||
 				map[y][x] == 'W')
 			{
-				game->player.x = x * WALL_SIZE;
-				game->player.y = y * WALL_SIZE;
+				game->player.x = y;
+				game->player.y = x;
 			}
 			x++;
 		}

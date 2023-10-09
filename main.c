@@ -92,7 +92,6 @@ int main_loop(t_info *info)
     calculateAndSaveToMap(info);
     imageDraw(info);
 
-    // warning 방지용.
     return (0);
 }
 
@@ -206,10 +205,13 @@ int calculateAndSaveToMap(t_info *info)
             drawEnd = screenHeight - 1;
         int texNum = worldMap[mapX][mapY] - 1;
         double wallX;
+
+        printf("WTFY: %d %d %f\n", mapY, stepY, rayDirectionY);
         if (side == 0)
             wallX = info->playerPositionY + perpWallDist * rayDirectionY;
         else
             wallX = info->playerPositionX + perpWallDist * rayDirectionX;
+            
         wallX -= floor(wallX);
         int texX = (int)(wallX * (double)texWidth);
         if (side == 0 && rayDirectionX > 0)
