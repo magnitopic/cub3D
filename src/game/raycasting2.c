@@ -3,94 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/02 09:45:29 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:17:37 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-// WALL_SIZE is 64 in the tutorial, we should decide how big we want our walls
-
-static double	check_horizontal_lines(t_game *game)
+void	dda_algorithm2(t_game *game)
 {
-	t_vector	curr_point;
-	t_vector	prev_point;
-	int			ya;
-	int			xa;
-
-	ya = WALL_SIZE;
-	if (game->camera.direction < PI)
+	game->camera.hit = 0;
+	while (game->camera.hit == 0)
 	{
-		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE - 1;
-		ya = -WALL_SIZE;
+		printf("aver: %d %d\n", game->camera.grid_x, game->camera.grid_y);
+		if (game->camera.sidedx < game->camera.sidedy)
+		{
+			game->camera.sidedx += game->camera.dx;
+			game->camera.grid_x += game->camera.stepx;
+			game->camera.offset = 0;
+		}
+		else
+		{
+			game->camera.sidedy += game->camera.dy;
+			game->camera.grid_y += game->camera.stepy;
+			game->camera.offset = 1;
+		}
+		if (game->map_data.map[game->camera.grid_y][game->camera.grid_x]
+			== '1')
+			game->camera.hit = 1;
 	}
-	else
-		curr_point.y = (int)floor(game->player.y / WALL_SIZE) * WALL_SIZE
-			+ WALL_SIZE;
-	curr_point.x = game->player.x + (game->player.y - curr_point.y)
-		/ tan(game->player.direction);
-	xa = WALL_SIZE / tan(game->player.direction);
-	while (!(game->map_data.map[curr_point.y / 64][curr_point.x / 64]))
-	{
-		prev_point = curr_point;
-		curr_point.y = prev_point.y + ya;
-		curr_point.x = prev_point.x + xa;
-	}
-	return (sqrt(pow(game->player.x - curr_point.x, 2)
-			+ pow(game->player.y - curr_point.y, 2)));
 }
 
-static double	check_vertical_lines(t_game *game)
+void	check_ray_direction2(t_game *game)
 {
-	t_vector	curr_point;
-	t_vector	prev_point;
-	int			ya;
-	int			xa;
-
-	xa = WALL_SIZE;
-	if (game->camera.direction < PI)
+	printf("eeee: %f %f\n", game->camera.raydirx, game->camera.raydiry);
+	if (game->camera.raydirx < 0)
 	{
-		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE
-			+ WALL_SIZE;
-		xa = -WALL_SIZE;
+		game->camera.stepx = -1;
+		game->camera.sidedx = ((game->player.x / WALL_SIZE)
+				- game->camera.grid_x) * game->camera.dx;
 	}
 	else
-		curr_point.x = (int)floor(game->player.x / WALL_SIZE) * WALL_SIZE - 1;
-	ya = WALL_SIZE / tan(game->player.direction);
-	curr_point.y = game->player.y + (game->player.x - curr_point.x)
-		/ tan(game->player.direction);
-	while (!(game->map_data.map[curr_point.y / 64][curr_point.x / 64]))
 	{
-		prev_point = curr_point;
-		curr_point.y = prev_point.y + ya;
-		curr_point.x = prev_point.x + xa;
+		game->camera.stepx = 1;
+		game->camera.sidedx = (game->camera.grid_x + 1
+				- (game->player.x / WALL_SIZE)) * game->camera.dx;
 	}
-	return (sqrt(pow(game->player.x - curr_point.x, 2)
-			+ pow(game->player.y - curr_point.y, 2)));
+	if (game->camera.raydiry < 0)
+	{
+		game->camera.stepy = -1;
+		game->camera.sidedy = ((game->player.y / WALL_SIZE)
+				- game->camera.grid_y) * game->camera.dy;
+	}
+	else
+	{
+		game->camera.stepy = 1;
+		game->camera.sidedy = (game->camera.grid_y + 1
+				- (game->player.y / WALL_SIZE)) * game->camera.dy;
+	}
 }
 
-/**
- * Player FOV will be 60
-*/
-void	raycasting(t_game *game)
+void	raycasting2(t_game *game)
 {
-	float	v_distance;
-	float	h_distance;
+	int	x;
 
-	game->camera.fov = 0;
-	game->camera.direction = game->player.direction - (PI / 6);
-	while (game->camera.fov < 60)
+	x = 0;
+	while (x < SCREEN_WIDTH)
 	{
-		h_distance = check_horizontal_lines(game);
-		v_distance = check_vertical_lines(game);
-		game->camera.distance = v_distance;
-		if (h_distance < v_distance)
-			game->camera.distance = h_distance;
+		game->camera.camerax = (2 * x / (double)SCREEN_WIDTH) - 1;
+		game->camera.raydirx = game->camera.directionx
+			+ game->camera.planex * game->camera.camerax;
+		game->camera.raydiry = game->camera.directiony
+			+ game->camera.planey * game->camera.camerax;
+		printf("hola: %f %f\n", game->camera.directionx, game->camera.directiony);
+		game->camera.grid_x = game->player.x / WALL_SIZE;
+		game->camera.grid_y = game->player.y / WALL_SIZE;
+		game->camera.dx = fabs(1 / game->camera.raydirx);
+		game->camera.dy = fabs(1 / game->camera.raydiry);
+		check_ray_direction2(game);
+		dda_algorithm2(game);
+		if (game->camera.offset == 0)
+			game->camera.distance = game->camera.sidedx - game->camera.dx;
+		else
+			game->camera.distance = game->camera.sidedy - game->camera.dy;
 		ft_draw_wall(game);
-		game->camera.direction += 0.00054541539;
-		game->camera.fov += 0.03125;
+		x++;
 	}
 }

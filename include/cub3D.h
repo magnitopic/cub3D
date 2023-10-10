@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/06 17:14:37 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:02:02 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void	re_draw_screen(t_game *game);
 void	raycasting(t_game *game);
 void	ft_draw_wall(t_game *game);
 void	raycasting(t_game *game);
+void	raycasting2(t_game *game);
 
 #endif

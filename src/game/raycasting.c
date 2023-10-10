@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/10 16:17:02 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:02:37 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	dda_algorithm(t_game *game)
 			game->camera.grid_y += game->camera.stepy;
 			game->camera.offset = 1;
 		}
-		if (game->map_data.map[game->camera.grid_y][game->camera.grid_x]
+		if (game->map_data.map[game->camera.grid_x][game->camera.grid_y]
 			== '1')
 			game->camera.hit = 1;
 	}
@@ -44,6 +44,7 @@ void	check_ray_direction(t_game *game)
 		game->camera.stepx = -1;
 		game->camera.sidedx = ((game->player.x / WALL_SIZE)
 				- game->camera.grid_x) * game->camera.dx;
+		printf("player: %f\n", game->player.x / WALL_SIZE);
 	}
 	else
 	{
@@ -63,6 +64,7 @@ void	check_ray_direction(t_game *game)
 		game->camera.sidedy = (game->camera.grid_y + 1
 				- (game->player.y / WALL_SIZE)) * game->camera.dy;
 	}
+	printf("oooooo: %f %f\n", game->camera.sidedx, game->camera.sidedy);
 }
 
 void	raycasting(t_game *game)
@@ -77,9 +79,10 @@ void	raycasting(t_game *game)
 			+ game->camera.planex * game->camera.camerax;
 		game->camera.raydiry = game->camera.directiony
 			+ game->camera.planey * game->camera.camerax;
-		printf("hola %f\n", game->camera.planey);
-		game->camera.grid_x = game->player.x / WALL_SIZE;
+		printf("hola %f\n", game->camera.directiony
+			+ game->camera.planey * game->camera.camerax);
 		game->camera.grid_y = game->player.y / WALL_SIZE;
+		game->camera.grid_x = game->player.x / WALL_SIZE;
 		game->camera.dx = fabs(1 / game->camera.raydirx);
 		game->camera.dy = fabs(1 / game->camera.raydiry);
 		check_ray_direction(game);
