@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/09 17:48:19 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:10:22 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_player_direction(t_game *game)
 {
-	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'N')
+	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'W')
 	{
 		game->camera.directionx = -1;
 		game->camera.directiony = 0;
@@ -22,23 +22,23 @@ void	get_player_direction(t_game *game)
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
 	}
-	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'E')
+	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'S')
 	{
-		game->camera.directionx = 0;
-		game->camera.directiony = 1;
+		game->camera.directionx = 1;
+		game->camera.directiony = 0;
 		game->player.direction = 6.2831853;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
 	}
-	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'W')
+	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'N')
 	{
-		game->camera.directionx = 0;
-		game->camera.directiony = -1;
+		game->camera.directionx = -1;
+		game->camera.directiony = 0;
 		game->player.direction = 3.14159265;
 		game->player.dx = cos(game->player.direction) * 5;
 		game->player.dy = sin(game->player.direction) * 5;
 	}
-	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'S')
+	if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE] == 'E')
 	{
 		game->camera.directionx = 1;
 		game->camera.directiony = 0;

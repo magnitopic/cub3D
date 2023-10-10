@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/09 18:14:49 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:17:02 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	dda_algorithm(t_game *game)
 	game->camera.hit = 0;
 	while (game->camera.hit == 0)
 	{
+		printf("aver: %d %d\n", game->camera.grid_x, game->camera.grid_y);
 		if (game->camera.sidedx < game->camera.sidedy)
 		{
 			game->camera.sidedx += game->camera.dx;
@@ -37,6 +38,7 @@ void	dda_algorithm(t_game *game)
 
 void	check_ray_direction(t_game *game)
 {
+	printf("eeee: %f %f\n", game->camera.raydirx, game->camera.raydiry);
 	if (game->camera.raydirx < 0)
 	{
 		game->camera.stepx = -1;
@@ -75,16 +77,11 @@ void	raycasting(t_game *game)
 			+ game->camera.planex * game->camera.camerax;
 		game->camera.raydiry = game->camera.directiony
 			+ game->camera.planey * game->camera.camerax;
+		printf("hola %f\n", game->camera.planey);
 		game->camera.grid_x = game->player.x / WALL_SIZE;
 		game->camera.grid_y = game->player.y / WALL_SIZE;
-		if (game->camera.raydirx == 0)
-			game->camera.dx = 10000000000;
-		else
-			game->camera.dx = fabs(1 / game->camera.raydirx);
-		if (game->camera.raydiry == 0)
-			game->camera.dy = 10000000000;
-		else
-			game->camera.dy = fabs(1 / game->camera.raydiry);
+		game->camera.dx = fabs(1 / game->camera.raydirx);
+		game->camera.dy = fabs(1 / game->camera.raydiry);
 		check_ray_direction(game);
 		dda_algorithm(game);
 		if (game->camera.offset == 0)
