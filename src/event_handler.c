@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/28 12:42:43 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:54:32 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	event_handler(enum e_keys key, t_game *game)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
-		game->player.x -= game->player.dx;
-		game->player.y -= game->player.dy;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE - (int)game->camera.dy][(int)game->player.x / WALL_SIZE] != '1')
+			game->player.x += game->player.dx;
+		if (game->map_data.map[(int)game->player.y / WALL_SIZE][(int)game->player.x / WALL_SIZE - (int)game->camera.dx] != '1')
+		game->player.y += game->player.dy;
 		re_draw_screen(game);
 	}
 	else if (key == A)
@@ -36,8 +38,8 @@ int	event_handler(enum e_keys key, t_game *game)
 	{
 		game->player.old_x = game->player.x;
 		game->player.old_y = game->player.y;
-		game->player.x += game->player.dx;
-		game->player.y += game->player.dy;
+		game->player.x -= game->player.dx;
+		game->player.y -= game->player.dy;
 		re_draw_screen(game);
 	}
 	else if (key == D)
