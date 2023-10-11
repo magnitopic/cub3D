@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/10 17:02:02 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:31:20 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 # define WALL_SIZE 64
+# define SPEED WALL_SIZE * 0.5
 # define PLAYER_SIZE WALL_SIZE / 3
 # define PI 3.14159265
 

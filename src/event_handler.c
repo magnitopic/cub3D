@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 15:16:51 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:03:36 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,57 @@ int	event_handler(enum e_keys key, t_game *game)
 		exit_game(game);
 	else if (key == W || key == UP)
 	{
-		game->player.old_x = game->player.x + game->player.direction.x * 32;
-		game->player.old_y = game->player.y + game->player.direction.y * 32;
+		game->player.old_x = game->player.x + game->player.direction.x * SPEED;
+		game->player.old_y = game->player.y + game->player.direction.y * SPEED;
+		if (game->player.old_y <= WALL_SIZE || (int)game->player.old_x / WALL_SIZE >= ft_get_matrix_size(game->map_data.map) - 1)
+			return (0);
+		if (game->player.old_x <= WALL_SIZE || (int)game->player.old_y / WALL_SIZE >= (int)ft_strlen(game->map_data.map[(int)game->player.old_x / WALL_SIZE]) - 1)
+			return (0);
 		if (game->map_data.map[(int)game->player.old_x / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
-			game->player.x += game->player.direction.x * 32;
+			game->player.x += game->player.direction.x * SPEED;
 		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_y / WALL_SIZE] != '1')
-			game->player.y += game->player.direction.y * 32;
+			game->player.y += game->player.direction.y * SPEED;
 	}
 	else if (key == A)
 	{
-		game->player.old_x = game->player.x - game->player.direction.x * 32;
-		game->player.old_y = game->player.y + game->player.direction.y * 32;
-		if (game->map_data.map[(int)game->player.old_x / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
-			game->player.x -= game->player.direction.x * 32;
-		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_y / WALL_SIZE] != '1')
-			game->player.y += game->player.direction.y * 32;
+		game->player.old_x = game->player.y - game->player.direction.y * SPEED;
+		game->player.old_y = game->player.x + game->player.direction.x * SPEED;
+		printf("%f\n", game->player.old_x);
+		if (game->player.old_x <= WALL_SIZE || (int)game->player.old_y / WALL_SIZE >= ft_get_matrix_size(game->map_data.map) - 1)
+			return (0);
+		if (game->player.old_y <= WALL_SIZE || (int)game->player.old_x / WALL_SIZE >= (int)ft_strlen(game->map_data.map[(int)game->player.old_y / WALL_SIZE]) - 1)
+			return (0);
+		if (game->map_data.map[(int)game->player.old_y / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
+			game->player.x -= game->player.direction.y * SPEED;
+		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_x / WALL_SIZE] != '1')
+			game->player.y += game->player.direction.x * SPEED;
 	}
 	else if (key == S || key == DOWN)
 	{
-		game->player.old_x = game->player.x - game->player.direction.x * 32;
-		game->player.old_y = game->player.y - game->player.direction.y * 32;
+		game->player.old_x = game->player.x - game->player.direction.x * SPEED;
+		game->player.old_y = game->player.y - game->player.direction.y * SPEED;
+		if (game->player.old_y <= WALL_SIZE || (int)game->player.old_x / WALL_SIZE >= ft_get_matrix_size(game->map_data.map) - 1)
+			return (0);
+		if (game->player.old_x <= WALL_SIZE || (int)game->player.old_y / WALL_SIZE >= (int)ft_strlen(game->map_data.map[(int)game->player.old_x / WALL_SIZE]) - 1)
+			return (0);
 		if (game->map_data.map[(int)game->player.old_x / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
-			game->player.x -= game->player.direction.x * 32;
+			game->player.x -= game->player.direction.x * SPEED;
 		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_y / WALL_SIZE] != '1')
-			game->player.y -= game->player.direction.y * 32;
+			game->player.y -= game->player.direction.y * SPEED;
 	}
 	else if (key == D)
 	{
-		game->player.old_x = game->player.x + game->player.direction.x * 32;
-		game->player.old_y = game->player.y - game->player.direction.y * 32;
-		if (game->map_data.map[(int)game->player.old_x / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
-			game->player.x += game->player.direction.x * 32;
-		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_y / WALL_SIZE] != '1')
-			game->player.y -= game->player.direction.y * 32;
+		game->player.old_x = game->player.y - game->player.direction.y * SPEED;
+		game->player.old_y = game->player.x - game->player.direction.x * SPEED;
+		printf("%f % f\n", game->player.old_y, game->player.old_x);
+		if (game->player.old_x <= WALL_SIZE || (int)game->player.old_y / WALL_SIZE >= ft_get_matrix_size(game->map_data.map) - 1)
+			return (0);
+		if (game->player.old_y <= WALL_SIZE || (int)game->player.old_x / WALL_SIZE >= (int)ft_strlen(game->map_data.map[(int)game->player.old_y / WALL_SIZE]) - 1)
+			return (0);
+		if (game->map_data.map[(int)game->player.old_y / WALL_SIZE][(int)game->player.y / WALL_SIZE] != '1')
+			game->player.x += game->player.direction.y * SPEED;
+		if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.old_x / WALL_SIZE] != '1')
+			game->player.y -= game->player.direction.x * SPEED;
 	}
 	else if (key == LEFT)
 	{
