@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 15:13:35 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:05:46 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	start_game(t_game *game)
 	get_player_direction(game);
 	game->player.x += WALL_SIZE / 2;
 	game->player.y += WALL_SIZE / 2;
-	printf("%f %f\n%f %f\n", game->player.x / WALL_SIZE, game->player.y / WALL_SIZE, game->player.direction.x, game->player.direction.y);
 	//exit (0);
 	raycasting(game);
 }

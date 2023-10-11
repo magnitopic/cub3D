@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 10:10:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:05:09 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	dda_algorithm2(t_game *game)
 	game->camera.hit = 0;
 	while (game->camera.hit == 0)
 	{
-		printf("aver: %d %d\n", game->camera.grid_x, game->camera.grid_y);
 		if (game->camera.sidedx < game->camera.sidedy)
 		{
 			game->camera.sidedx += game->camera.dx;
@@ -38,7 +37,6 @@ void	dda_algorithm2(t_game *game)
 
 void	check_ray_direction2(t_game *game)
 {
-	printf("eeee: %f %f\n", game->camera.raydirx, game->camera.raydiry);
 	if (game->camera.raydirx < 0)
 	{
 		game->camera.stepx = -1;
