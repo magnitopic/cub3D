@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/09 16:57:10 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:47:21 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,25 @@ void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 void	ft_draw_wall(t_game *game)
 {
 	static int	x = 0;
-	int			count;
-	int			y;
-	int			j;
+	int			start;
+	int			end;
 
-	y = 0;
-	//game->camera.distance *= cos(game->player.direction);
-	j = (int)(SCREEN_HEIGHT / game->camera.distance);
-		printf("%d\n", j);
+	game->camera.lineheight = (int)(SCREEN_HEIGHT / game->camera.distance);
+	start = -game->camera.lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (x == SCREEN_WIDTH)
 		x = 0;
-	if (j < 50)
-		j = 50;
-	y = SCREEN_HEIGHT / 2 - j / 2;
-	count = 0;
-	while (count < j)
+	if (start < 0)
+		start = 0;
+	end = SCREEN_HEIGHT / 2 + game->camera.lineheight / 2;
+	if (end >= SCREEN_HEIGHT)
+		end = SCREEN_HEIGHT - 1;
+	while (start < end)
 	{
 		if (game->camera.offset == 0)
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffffff);
+			mlx_pixel_put(game->mlx, game->win, x, start, 0xffffff);
 		else
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xffafaf);
-		count++;
-		y++;
+			mlx_pixel_put(game->mlx, game->win, x, start, 0xffafaf);
+		start++;
 	}
 	x++;
 }

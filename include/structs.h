@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/09 14:45:33 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:16:47 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_color
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_img
@@ -65,36 +65,35 @@ typedef struct s_player
 	float		dx;
 	float		dy;
 	float		camera;
-	float		direction;
+	t_vector	direction;
 }	t_player;
 
 typedef struct s_camera
 {
-	int		hit;
-	int		offset;
-	int		grid_x;
-	int		grid_y;
-	float	x;
-	float	y;
-	float	stepx;
-	float	stepy;
-	float	camerax;
-	float	directionx;
-	float	directiony;
-	float	planex;
-	float	planey;
-	float	raydirx;
-	float	raydiry;
-	float	mapx;
-	float	mapy;
-	float	dx;
-	float	dy;
-	float	sidedx;
-	float	sidedy;
-	float	inter_x;
-	float	inter_y;
-	float	distance;
-	float	lineheight;
+	int			hit;
+	int			offset;
+	int			grid_x;
+	int			grid_y;
+	float		x;
+	float		y;
+	float		stepx;
+	float		stepy;
+	float		camerax;
+	float		directionx;
+	float		directiony;
+	t_vector	plane;
+	float		raydirx;
+	float		raydiry;
+	float		mapx;
+	float		mapy;
+	float		dx;
+	float		dy;
+	float		sidedx;
+	float		sidedy;
+	float		inter_x;
+	float		inter_y;
+	float		distance;
+	float		lineheight;
 }	t_camera;
 
 typedef struct s_game

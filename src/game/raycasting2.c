@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/10 17:47:52 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:10:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	raycasting2(t_game *game)
 	{
 		game->camera.camerax = (2 * x / (double)SCREEN_WIDTH) - 1;
 		game->camera.raydirx = game->camera.directionx
-			+ game->camera.planex * game->camera.camerax;
+			+ game->camera.plane.x * game->camera.camerax;
 		game->camera.raydiry = game->camera.directiony
-			+ game->camera.planey * game->camera.camerax;
+			+ game->camera.plane.y * game->camera.camerax;
 		game->camera.grid_x = game->player.x / WALL_SIZE;
 		game->camera.grid_y = game->player.y / WALL_SIZE;
 		game->camera.dx = fabs(1 / game->camera.raydirx);
