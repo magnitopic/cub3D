@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:52:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 17:05:46 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:42:50 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,41 @@ void	get_player_direction(t_game *game)
 	}
 }
 
+void	free_matrix_int(int **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i] != NULL)
+	{
+		printf("%d\n", i);
+		free(matrix[i]);
+		printf("%d\n", i);
+		i++;
+	}
+	free(matrix);
+}
+
 void	start_game(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	get_player_direction(game);
 	game->player.x += WALL_SIZE / 2;
 	game->player.y += WALL_SIZE / 2;
-	//exit (0);
+	game->camera.buffer = malloc(WALL_SIZE * sizeof(int *));
+	if (!game->camera.buffer)
+		return ;
+	while (i < WALL_SIZE)
+	{
+		game->camera.buffer[i] = malloc(WALL_SIZE * sizeof(int));
+		if (!game->camera.buffer[i])
+		{
+			free_matrix_int(game->camera.buffer);
+			return ;
+		}
+		i++;
+	}
 	raycasting(game);
 }

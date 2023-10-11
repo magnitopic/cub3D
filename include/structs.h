@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 10:16:47 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:11:47 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_camera
 	int			offset;
 	int			grid_x;
 	int			grid_y;
+	int			**buffer;
 	float		x;
 	float		y;
 	float		stepx;
@@ -84,14 +85,10 @@ typedef struct s_camera
 	t_vector	plane;
 	float		raydirx;
 	float		raydiry;
-	float		mapx;
-	float		mapy;
 	float		dx;
 	float		dy;
 	float		sidedx;
 	float		sidedy;
-	float		inter_x;
-	float		inter_y;
 	float		distance;
 	float		lineheight;
 }	t_camera;
