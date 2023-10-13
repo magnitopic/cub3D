@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/13 15:24:49 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:57:52 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_map_data
@@ -62,8 +64,6 @@ typedef struct s_player
 	float		y;
 	float		old_x;
 	float		old_y;
-	float		dx;
-	float		dy;
 	float		camera;
 	t_vector	direction;
 }	t_player;
@@ -92,8 +92,18 @@ typedef struct s_camera
 	float		distance;
 	double		wallx;
 	double		wally;
+	double		textx;
+	double		texty;
 	float		lineheight;
+	double		increase;
+	double		textpos;
 }	t_camera;
+
+typedef struct s_texture
+{
+	t_img	img;
+	int		*text_value;
+}	t_texture;
 
 typedef struct s_game
 {
@@ -103,10 +113,10 @@ typedef struct s_game
 	t_img		img;
 	t_player	player;
 	t_camera	camera;
-	void		*textu_n;
-	void		*textu_s;
-	void		*textu_e;
-	void		*textu_w;
+	t_texture	textu_n;
+	t_texture	textu_s;
+	t_texture	textu_e;
+	t_texture	textu_w;
 }	t_game;
 
 #endif
