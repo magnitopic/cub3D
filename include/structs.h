@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 17:11:47 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:24:49 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_camera
 	float		sidedx;
 	float		sidedy;
 	float		distance;
+	double		wallx;
+	double		wally;
 	float		lineheight;
 }	t_camera;
 
@@ -101,6 +103,10 @@ typedef struct s_game
 	t_img		img;
 	t_player	player;
 	t_camera	camera;
+	void		*textu_n;
+	void		*textu_s;
+	void		*textu_e;
+	void		*textu_w;
 }	t_game;
 
 #endif

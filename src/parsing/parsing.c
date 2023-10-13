@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 13:02:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:41:49 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-void	ft_check_chars(t_game *game, char **map)
+static void	ft_check_chars(t_game *game, char **map)
 {
 	int	x;
 	int	y;

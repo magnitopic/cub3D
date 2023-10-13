@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 16:45:01 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:26:25 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ void	ft_put_pixel(t_img img, int x, int y, t_color rgb)
 		*(int *)&img.addr[((x * img.bpp) >> 3) + (y * img.line_len)] = color;
 }
 
+void	calculate_hit_pos(t_game *game)
+{
+	if (game->camera.offset == 0)
+		game->camera.wallx = game->player.y + game->camera.distance
+			* game->camera.raydiry;
+	else
+		game->camera.wallx = game->player.x + game->camera.distance
+			* game->camera.raydirx;
+	game->camera.wallx -= floor(game->camera.wallx);
+}
+
 void	ft_draw_wall(t_game *game)
 {
 	static int	x = 0;
@@ -30,6 +41,7 @@ void	ft_draw_wall(t_game *game)
 
 	game->camera.lineheight = (int)(SCREEN_HEIGHT / game->camera.distance);
 	start = -game->camera.lineheight / 2 + SCREEN_HEIGHT / 2;
+	calculate_hit_pos(game);
 	if (x == SCREEN_WIDTH)
 		x = 0;
 	if (start < 0)
@@ -40,9 +52,19 @@ void	ft_draw_wall(t_game *game)
 	while (start < end)
 	{
 		if (game->camera.offset == 0)
-			mlx_pixel_put(game->mlx, game->win, x, start, 0xffffff);
+		{
+			if (game->camera.raydirx < 0)
+				mlx_pixel_put(game->mlx, game->win, x, start, 0xff0000);
+			else
+				mlx_pixel_put(game->mlx, game->win, x, start, 0x00ff00);
+		}
 		else
-			mlx_pixel_put(game->mlx, game->win, x, start, 0xffafaf);
+		{
+			if (game->camera.raydiry < 0)
+				mlx_pixel_put(game->mlx, game->win, x, start, 0x0000ff);
+			else
+				mlx_pixel_put(game->mlx, game->win, x, start, 0xee82ee);
+		}
 		start++;
 	}
 	x++;
