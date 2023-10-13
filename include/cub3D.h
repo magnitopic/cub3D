@@ -6,7 +6,7 @@
 /*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/10 17:02:02 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:44:27 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 # define WALL_SIZE 64
+# define SPEED WALL_SIZE * 0.5
 # define PLAYER_SIZE WALL_SIZE / 3
 # define PI 3.14159265
 
@@ -63,6 +64,7 @@ int		exit_game(t_game *game);
 char	**read_file(char **argv);
 void	raise_error(char *message);
 void	check_config(t_game *game);
+void	free_matrix_int(int **matrix);
 void	check_weird_char(t_game *game);
 void	parsing(char **argv, t_game *game);
 void	run_game(t_game *game, char *map_name);
@@ -77,11 +79,10 @@ void	check_walls(t_game *game);
 /* Game */
 
 void	start_game(t_game *game);
-void	minimap(t_game *game, char **map);
-void	re_draw_screen(t_game *game);
+void	raycasting(t_game *game);
 void	raycasting(t_game *game);
 void	ft_draw_wall(t_game *game);
-void	raycasting(t_game *game);
-void	raycasting2(t_game *game);
+void	re_draw_screen(t_game *game);
+void	minimap(t_game *game, char **map);
 
 #endif

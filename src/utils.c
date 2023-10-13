@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:37:30 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/25 09:17:24 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:43:24 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exit_game(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
+	//free_matrix_int(game->camera.buffer);
 	free(game->map_data.texture_ea);
 	free(game->map_data.texture_no);
 	free(game->map_data.texture_we);
