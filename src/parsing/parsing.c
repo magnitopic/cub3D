@@ -6,45 +6,52 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/13 14:41:49 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:01:44 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-static void	ft_check_chars(t_game *game, char **map)
+static int	check_chars(t_game *game, char value, int x, int y)
+{
+	if (value != '1' && value != '0' && value != 'N'
+		&& value != 'S' && value != 'E' && value != 'W' && value != ' ')
+		raise_error("Invalid value found in map");
+	if (value == 'N' || value == 'S' || value == 'E' || value == 'W')
+	{
+		game->player.y = x * WALL_SIZE;
+		game->camera.grid_y = y;
+		game->player.x = y * WALL_SIZE;
+		game->camera.grid_x = x;
+		return (1);
+	}
+	return (0);
+}
+
+static void	check_map_chars(t_game *game, char **map)
 {
 	int	x;
 	int	y;
+	int	player_flag;
 
-	y = 0;
-	while (map[y])
+	y = -1;
+	player_flag = 0;
+	while (map[++y])
 	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] != '1' && map[y][x] != '0' && map[y][x] != 'N' &&
-				map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W' &&
-				map[y][x] != ' ')
-				raise_error("Invalid value found in map");
-			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' ||
-				map[y][x] == 'W')
-			{
-				game->player.y = x * WALL_SIZE;
-				game->camera.grid_y = y;
-				game->player.x = y * WALL_SIZE;
-				game->camera.grid_x = x;
-			}
-			x++;
-		}
-		y++;
+		x = -1;
+		while (map[y][++x])
+			player_flag += check_chars(game, map[y][x], x, y);
 	}
+	if (player_flag > 1)
+		raise_error("Mutiple players found");
+	if (!player_flag)
+		raise_error("No player position found");
 }
 
 void	check_map(t_game *game, char **map)
 {
 	ft_printmatrix(map);
-	ft_check_chars(game, map);
+	check_map_chars(game, map);
 }
 
 void	parsing(char **argv, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 12:45:39 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:04:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,35 @@ static void	check_extension(char **argv)
 		raise_error("Map with invalid extension.");
 }
 
-static char	*get_lines( int fd)
+static void	check_map_empty_line(char *line)
+{
+	static int	count = 0;
+	static int	flag_enter = 0;
+	static int	flag_exit = 0;
+
+	printf("Line: %zu\n", ft_strlen(line));
+	if (count == 6 && ft_strlen(line) > 1 && !flag_enter)
+		flag_enter = 1;
+	if (count < 6 && ft_strlen(line) > 1)
+		count++;
+	if (flag_enter && ft_strlen(line) == 1 && !flag_exit)
+		flag_exit++;
+	if ((ft_strlen(line) > 1 || *line !='\n') && flag_exit)
+		raise_error("Empty line in map");
+}
+
+static char	*get_lines(int fd)
 {
 	char	*file;
 	char	*line;
-	//int		count;
 
 	line = get_next_line(fd);
 	file = ft_calloc(1, 1);
-	//count = 0;
 	if (!file)
 		exit(1);
 	while (line != NULL)
 	{
-		/* ft_printf("%d\n", ft_strlen(line));
-		if (count < 6 || ft_strlen(line) > 1)
-			count++;
-		if (count > 6 && ft_strlen(line) == 1)
-			raise_error("Empty line in map"); */
+		check_map_empty_line(line);
 		file = ft_fstrjoin(file, line);
 		free(line);
 		line = get_next_line(fd);
