@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 10:57:11 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:05:21 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 // WALL_SIZE * 0.5
 # define SPEED 32
 // WALL_SIZE / 3
-# define PLAYER_SIZE 21.3333333333
+# define PLAYER_SIZE 21
 
 /* Enums */
 
