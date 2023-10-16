@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 12:26:19 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:47:02 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_draw_wall(t_game *game)
 
 	game->camera.lineheight = (int)(SCREEN_HEIGHT / game->camera.distance);
 	start = -game->camera.lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (x++ == SCREEN_WIDTH)
+	if (x == SCREEN_WIDTH)
 		x = 0;
 	if (start < 0)
 		start = 0;
@@ -80,6 +80,7 @@ void	ft_draw_wall(t_game *game)
 		// TODO: Add shadows to side
 		start++;
 	}
+	x++;
 }
 
 void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
