@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 11:05:21 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:31:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # define WALL_SIZE 64
 // WALL_SIZE * 0.5
 # define SPEED 32
-// WALL_SIZE / 3
-# define PLAYER_SIZE 21
 
 /* Enums */
 
@@ -83,7 +81,6 @@ void	get_values(t_game *game, char **file_con);
 void	start_game(t_game *game);
 void	raycasting(t_game *game);
 void	re_draw_screen(t_game *game);
-void	minimap(t_game *game, char **map);
 void	run_game(t_game *game, char *map_name);
 
 #endif

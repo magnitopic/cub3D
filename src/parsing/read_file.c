@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 10:48:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:45:39 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ static char	*get_lines( int fd)
 {
 	char	*file;
 	char	*line;
+	//int		count;
 
 	line = get_next_line(fd);
 	file = ft_calloc(1, 1);
+	//count = 0;
 	if (!file)
 		exit(1);
 	while (line != NULL)
 	{
+		/* ft_printf("%d\n", ft_strlen(line));
+		if (count < 6 || ft_strlen(line) > 1)
+			count++;
+		if (count > 6 && ft_strlen(line) == 1)
+			raise_error("Empty line in map"); */
 		file = ft_fstrjoin(file, line);
 		free(line);
 		line = get_next_line(fd);
