@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/13 18:01:52 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:46:24 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 void	create_textures(t_game *game)
 {
-	printf("%s\n", game->map_data.texture_ea);
-	printf("%s\n", game->map_data.texture_no);
-	printf("%s\n", game->map_data.texture_so);
-	printf("%s\n", game->map_data.texture_we);
-	game->textu_n.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data.texture_no, 
-		&game->textu_n.img.width, &game->textu_n.img.height);
-	game->textu_s.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data.texture_so, 
-		&game->textu_s.img.width, &game->textu_s.img.height);
-	game->textu_w.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data.texture_we, 
-		&game->textu_w.img.width, &game->textu_w.img.height);
-	game->textu_e.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data.texture_ea, 
-		&game->textu_e.img.width, &game->textu_e.img.height);
-	if (!game->textu_n.img.img || !game->textu_s.img.img || !game->textu_w.img.img
-		|| !game->textu_e.img.img)
-		perror("malloc") ;
+	game->textu_n.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data
+			.texture_no, &game->textu_n.img.width, &game->textu_n.img.height);
+	game->textu_s.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data
+			.texture_so, &game->textu_s.img.width, &game->textu_s.img.height);
+	game->textu_w.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data
+			.texture_we, &game->textu_w.img.width, &game->textu_w.img.height);
+	game->textu_e.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data
+			.texture_ea, &game->textu_e.img.width, &game->textu_e.img.height);
+	if (!game->textu_n.img.img || !game->textu_s.img.img
+		|| !game->textu_w.img.img || !game->textu_e.img.img)
+		raise_error("Path to textures does not exist or cannot be accessed");
 }
 
 static void	load_textures(t_game *game)
 {
 	create_textures(game);
 	game->textu_n.text_value = (int *)mlx_get_data_addr(game->textu_n.img.img,
-	&game->textu_n.img.bpp, &game->textu_n.img.line_len, &game->textu_n.img.endian);
+			&game->textu_n.img.bpp, &game->textu_n.img.line_len,
+			&game->textu_n.img.endian);
 	game->textu_s.text_value = (int *)mlx_get_data_addr(game->textu_s.img.img,
-	&game->textu_s.img.bpp, &game->textu_s.img.line_len, &game->textu_s.img.endian);
+			&game->textu_s.img.bpp, &game->textu_s.img.line_len,
+			&game->textu_s.img.endian);
 	game->textu_e.text_value = (int *)mlx_get_data_addr(game->textu_e.img.img,
-	&game->textu_e.img.bpp, &game->textu_e.img.line_len, &game->textu_e.img.endian);
+			&game->textu_e.img.bpp, &game->textu_e.img.line_len,
+			&game->textu_e.img.endian);
 	game->textu_w.text_value = (int *)mlx_get_data_addr(game->textu_w.img.img,
-	&game->textu_w.img.bpp, &game->textu_w.img.line_len, &game->textu_w.img.endian);
+			&game->textu_w.img.bpp, &game->textu_w.img.line_len,
+			&game->textu_w.img.endian);
 }
 
 void	set_graphics(t_game *game)

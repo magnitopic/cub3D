@@ -12,9 +12,6 @@ CUB3D_SRC			=	src/draw.c \
 						src/game/raycasting_utils.c \
 						src/parsing/parsing.c \
 						src/parsing/read_file.c \
-						src/parsing/check_chars.c \
-						src/parsing/check_walls.c \
-						src/parsing/check_config.c \
 						src/parsing/get_file_values.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)

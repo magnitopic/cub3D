@@ -6,27 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 10:12:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:48:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-
-int	map_width(char **map)
-{
-	int	len;
-	int	i;
-
-	i = 6;
-	len = 0;
-	while (map[i])
-	{
-		if ((int)ft_strlen(map[i]) > len)
-			len = ft_strlen(map[i]);
-		i++;
-	}
-	return (len);
-}
 
 static void	check_extension(char **argv)
 {
