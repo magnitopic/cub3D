@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 12:04:52 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:31:44 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	check_map_empty_line(char *line)
 	static int			flag_enter = 0;
 	static int			flag_exit = 0;
 
-	printf("Line: %zu\n", ft_strlen(line));
 	if (count == 6 && ft_strlen(line) > 1 && !flag_enter)
 		flag_enter = 1;
 	if (count < 6 && ft_strlen(line) > 1)

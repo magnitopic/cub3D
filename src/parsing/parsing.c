@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 12:01:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:31:34 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	check_map_chars(t_game *game, char **map)
 
 void	check_map(t_game *game, char **map)
 {
-	ft_printmatrix(map);
 	check_map_chars(game, map);
 	check_closed_walls(game, map);
 }
