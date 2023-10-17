@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/16 12:31:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:24:18 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../libft/libft.h"
 # include <math.h>
 # include <stdio.h>
+# include <limits.h>
 
 /* Defines */
 
@@ -75,6 +76,7 @@ char	**read_file(char **argv);
 void	check_walls(t_game *game);
 void	parsing(char **argv, t_game *game);
 void	get_values(t_game *game, char **file_con);
+void	check_closed_walls(t_game *game, char **map);
 
 /* Game */
 

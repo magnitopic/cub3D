@@ -11,6 +11,7 @@ CUB3D_SRC			=	src/draw.c \
 						src/parsing/parsing.c \
 						src/parsing/read_file.c \
 						src/parsing/get_file_values.c \
+						src/parsing/check_closed_walls.c \
 
 OBJS				= $(CUB3D_SRC:.c=.o)
 
