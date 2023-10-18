@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/18 15:02:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:12:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	raycasting(t_game *game)
 			game->camera.distance = game->camera.sidedx - game->camera.dx;
 		else
 			game->camera.distance = game->camera.sidedy - game->camera.dy;
+		ft_draw_wall(game);
 		x++;
 	}
 }

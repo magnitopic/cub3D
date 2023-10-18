@@ -1,7 +1,7 @@
 # cub3D
 NAME				=	cub3D
 
-CUB3D_SRC			=	src/cub3d.c \
+CUB3D_SRC			=	src/cub3D.c \
 						src/utils.c \
 						src/event_handler.c \
 						src/game/draw.c \

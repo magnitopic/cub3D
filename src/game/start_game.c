@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/18 15:43:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:11:10 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void	start_game(t_game *game, char *map_name)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, aux);
 	free(aux);
-	create_texture_imgs(game);
+	start_img(game);
+	create_textures(game);
+	allocate_buffer(game);
 	get_player_direction(game);
 	re_draw_screen(game);
 	mlx_hook(game->win, 17, 0, exit_game, game);

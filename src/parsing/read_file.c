@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:59 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 17:31:44 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:14:55 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	check_map_empty_line(char *line)
 		count++;
 	if (flag_enter && ft_strlen(line) == 1 && !flag_exit)
 		flag_exit++;
-	if ((ft_strlen(line) > 1 || *line !='\n') && flag_exit)
+	if ((ft_strlen(line) > 1 || *line != '\n') && flag_exit)
 		raise_error("Empty line in map");
 }
 

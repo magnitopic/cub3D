@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:01:20 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 14:55:29 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:54:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static void	add_og_map(char **map, char ***map_cpy)
 	int	i;
 	int	j;
 	int	map_heigh;
-	int	map_width;
 
 	map_heigh = ft_get_matrix_size(map);
-	map_width = ft_get_longest_line(map);
 	i = 0;
 	while (++i < map_heigh + 1)
 	{

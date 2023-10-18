@@ -6,13 +6,30 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:57:14 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 15:42:32 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:10:47 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-static void	add_textures_to_imgs(t_game *game)
+static void	add_info_to_textures(t_game *game)
+{
+	game->textu_n.text_value = (int *)mlx_get_data_addr(game->textu_n.img.img,
+			&game->textu_n.img.bpp, &game->textu_n.img.line_len,
+			&game->textu_n.img.endian);
+	printf("There\n");
+	game->textu_s.text_value = (int *)mlx_get_data_addr(game->textu_s.img.img,
+			&game->textu_s.img.bpp, &game->textu_s.img.line_len,
+			&game->textu_s.img.endian);
+	game->textu_e.text_value = (int *)mlx_get_data_addr(game->textu_e.img.img,
+			&game->textu_e.img.bpp, &game->textu_e.img.line_len,
+			&game->textu_e.img.endian);
+	game->textu_w.text_value = (int *)mlx_get_data_addr(game->textu_w.img.img,
+			&game->textu_w.img.bpp, &game->textu_w.img.line_len,
+			&game->textu_w.img.endian);
+}
+
+void	create_textures(t_game *game)
 {
 	game->textu_n.img.img = mlx_xpm_file_to_image(game->mlx, game->map_data
 			.texture_no, &game->textu_n.img.width, &game->textu_n.img.height);
@@ -25,21 +42,5 @@ static void	add_textures_to_imgs(t_game *game)
 	if (!game->textu_n.img.img || !game->textu_s.img.img
 		|| !game->textu_w.img.img || !game->textu_e.img.img)
 		raise_error("Path to textures does not exist or cannot be accessed");
-}
-
-void	create_texture_imgs(t_game *game)
-{
-	game->textu_n.text_value = (int *)mlx_get_data_addr(game->textu_n.img.img,
-			&game->textu_n.img.bpp, &game->textu_n.img.line_len,
-			&game->textu_n.img.endian);
-	game->textu_s.text_value = (int *)mlx_get_data_addr(game->textu_s.img.img,
-			&game->textu_s.img.bpp, &game->textu_s.img.line_len,
-			&game->textu_s.img.endian);
-	game->textu_e.text_value = (int *)mlx_get_data_addr(game->textu_e.img.img,
-			&game->textu_e.img.bpp, &game->textu_e.img.line_len,
-			&game->textu_e.img.endian);
-	game->textu_w.text_value = (int *)mlx_get_data_addr(game->textu_w.img.img,
-			&game->textu_w.img.bpp, &game->textu_w.img.line_len,
-			&game->textu_w.img.endian);
-	add_textures_to_imgs(game);
+		add_info_to_textures(game);
 }

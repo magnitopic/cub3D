@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:41:25 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/11 17:39:17 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:58:19 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (1);
 	parsing(argv, game);
-	run_game(game, argv[1]);
+	printf("Here\n");
+	start_game(game, argv[1]);
 	return (0);
 }
