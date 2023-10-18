@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:01:20 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 17:58:34 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:40:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static void	check_walls(char **map_cpy)
 					raise_error("Map must not be open");
 			}
 		}
-		map_cpy++;
 	}
 }
 
