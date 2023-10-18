@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 17:31:34 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:31:59 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	check_chars(t_game *game, char value, int x, int y)
 		raise_error("Invalid value found in map");
 	if (value == 'N' || value == 'S' || value == 'E' || value == 'W')
 	{
-		game->player.y = x * WALL_SIZE;
+		game->player.y = (x * WALL_SIZE) + WALL_SIZE / 2;
 		game->camera.grid_y = y;
-		game->player.x = y * WALL_SIZE;
+		game->player.x = (y * WALL_SIZE) + WALL_SIZE / 2;
 		game->camera.grid_x = x;
 		return (1);
 	}
@@ -48,22 +48,18 @@ static void	check_map_chars(t_game *game, char **map)
 		raise_error("No player position found");
 }
 
-void	check_map(t_game *game, char **map)
-{
-	check_map_chars(game, map);
-	check_closed_walls(game, map);
-}
-
 void	parsing(char **argv, t_game *game)
 {
 	char	**file_content;
+	char	**map;
 	//char	**aux;
 
 	file_content = read_file(argv);
 	//aux = file_content;
 	get_values(game, file_content);
-	file_content += 6;
-	check_map(game, file_content);
-	game->map_data.map = file_content;
+	map = file_content + 6;
+	check_map_chars(game, map);
+	check_closed_walls(map);
+	game->map_data.map = map;
 	//free_matrix(aux);
 }

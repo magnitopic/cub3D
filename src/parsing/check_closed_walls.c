@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:01:20 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 12:40:03 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:55:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ static char	**get_map_cpy(char **map)
 	map_heigh = ft_get_matrix_size(map);
 	map_width = ft_get_longest_line(map);
 	map_cpy = ft_calloc(map_heigh + 3, sizeof(char *));
+	if (!map_cpy)
+		exit(1);
 	i = -1;
 	while (++i < map_heigh + 2)
 	{
 		map_cpy[i] = ft_calloc(map_width + 3, sizeof(char));
+		if (!map_cpy[i])
+			exit(1);
 		j = -1;
 		while (++j < map_width + 2)
 			map_cpy[i][j] = ' ';
@@ -95,12 +99,10 @@ static void	check_walls(char **map_cpy)
 	}
 }
 
-void	check_closed_walls(t_game *game, char **map)
+void	check_closed_walls(char **map)
 {
 	char	**map_cpy;
 
-	(void)game;
 	map_cpy = get_map_cpy(map);
-	//ft_printmatrix(map_cpy);
 	check_walls(map_cpy);
 }

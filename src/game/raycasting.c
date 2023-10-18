@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/11 14:52:37 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:02:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-void	dda_algorithm(t_game *game)
+static void	dda_algorithm(t_game *game)
 {
 	game->camera.hit = 0;
 	while (game->camera.hit == 0)
@@ -35,7 +35,7 @@ void	dda_algorithm(t_game *game)
 	}
 }
 
-void	check_ray_direction(t_game *game)
+static void	check_ray_direction(t_game *game)
 {
 	if (game->camera.raydirx < 0)
 	{
@@ -85,7 +85,6 @@ void	raycasting(t_game *game)
 			game->camera.distance = game->camera.sidedx - game->camera.dx;
 		else
 			game->camera.distance = game->camera.sidedy - game->camera.dy;
-		ft_draw_wall(game);
 		x++;
 	}
 }

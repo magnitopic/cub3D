@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/17 17:32:19 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:14:11 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 /* Defines */
 
-# define PROGRAM_NAME "cub3d - "
+# define PROGRAM_NAME "cub3D - "
 # define PI 3.14159265
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
@@ -64,24 +64,21 @@ enum e_values
 
 int		exit_game(t_game *game);
 void	raise_error(char *message);
-void	ft_draw_wall(t_game *game);
-void	free_matrix_int(int **matrix);
 int		ft_rgba(int r, int g, int b, int alpha);
 int		event_handler(enum e_keys key, t_game *game);
-void	draw_ceiling_floor(t_game *game, t_color celing, t_color floor);
 
 /* Parsing */
 
 char	**read_file(char **argv);
 void	parsing(char **argv, t_game *game);
 void	get_values(t_game *game, char **file_con);
-void	check_closed_walls(t_game *game, char **map);
+void	check_closed_walls(char **map);
 
 /* Game */
 
-void	start_game(t_game *game);
 void	raycasting(t_game *game);
 void	re_draw_screen(t_game *game);
-void	run_game(t_game *game, char *map_name);
+void	start_game(t_game *game, char *map_name);
+void	start_graphics(t_game *game, char *map_name);
 
 #endif

@@ -1,13 +1,13 @@
 # cub3D
 NAME				=	cub3D
 
-CUB3D_SRC			=	src/draw.c \
-						src/cub3D.c \
+CUB3D_SRC			=	src/cub3d.c \
 						src/utils.c \
-						src/run_display.c \
 						src/event_handler.c \
-						src/game/game.c \
+						src/game/draw.c \
 						src/game/raycasting.c \
+						src/game/start_game.c \
+						src/game/create_textures.c \
 						src/parsing/parsing.c \
 						src/parsing/read_file.c \
 						src/parsing/get_file_values.c \

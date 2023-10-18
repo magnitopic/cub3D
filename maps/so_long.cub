@@ -4,7 +4,7 @@ WE ./textures/wood.xpm
 EA ./textures/bluestone.xpm
 
 F 0,50,100
-C 0,0,255
+C 0,0,0
 
 11111
 10001
