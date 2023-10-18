@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/18 16:11:10 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 static void	get_player_direction(t_game *game)
 {
-	if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'W')
+	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'W')
 	{
-		game->camera.plane.x = -0.66;
-		game->camera.plane.y = 0;
-		game->player.direction.x = 0;
-		game->player.direction.y = -1;
+		game->cam.plane.x = -0.66;
+		game->cam.plane.y = 0;
+		game->player.dir.x = 0;
+		game->player.dir.y = -1;
 	}
-	if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'S')
+	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'S')
 	{
-		game->camera.plane.y = -0.66;
-		game->camera.plane.x = 0;
-		game->player.direction.x = 1;
-		game->player.direction.y = 0;
+		game->cam.plane.y = -0.66;
+		game->cam.plane.x = 0;
+		game->player.dir.x = 1;
+		game->player.dir.y = 0;
 	}
-	if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'N')
+	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'N')
 	{
-		game->camera.plane.y = 0.66;
-		game->camera.plane.x = 0;
-		game->player.direction.x = -1;
-		game->player.direction.y = 0;
+		game->cam.plane.y = 0.66;
+		game->cam.plane.x = 0;
+		game->player.dir.x = -1;
+		game->player.dir.y = 0;
 	}
-	if (game->map_data.map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'E')
+	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'E')
 	{
-		game->camera.plane.x = 0.66;
-		game->camera.plane.y = 0;
-		game->player.direction.x = 0;
-		game->player.direction.y = 1;
+		game->cam.plane.x = 0.66;
+		game->cam.plane.y = 0;
+		game->player.dir.x = 0;
+		game->player.dir.y = 1;
 	}
 }
 
@@ -49,13 +49,13 @@ static void	allocate_buffer(t_game *game)
 	int	i;
 
 	i = 0;
-	game->camera.buffer = malloc(WALL_SIZE * sizeof(int *));
-	if (!game->camera.buffer)
+	game->cam.buffer = malloc(WALL_SIZE * sizeof(int *));
+	if (!game->cam.buffer)
 		exit(1);
 	while (i < WALL_SIZE)
 	{
-		game->camera.buffer[i] = malloc(WALL_SIZE * sizeof(int));
-		if (!game->camera.buffer[i])
+		game->cam.buffer[i] = malloc(WALL_SIZE * sizeof(int));
+		if (!game->cam.buffer[i])
 			exit(1);
 		i++;
 	}

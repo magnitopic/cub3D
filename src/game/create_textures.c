@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:57:14 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 16:10:47 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:17:05 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	add_info_to_textures(t_game *game)
 	game->textu_n.text_value = (int *)mlx_get_data_addr(game->textu_n.img.img,
 			&game->textu_n.img.bpp, &game->textu_n.img.line_len,
 			&game->textu_n.img.endian);
-	printf("There\n");
 	game->textu_s.text_value = (int *)mlx_get_data_addr(game->textu_s.img.img,
 			&game->textu_s.img.bpp, &game->textu_s.img.line_len,
 			&game->textu_s.img.endian);

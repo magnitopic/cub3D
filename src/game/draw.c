@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 16:12:55 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ static void	ft_put_pixel(t_img img, int x, int y, int color)
 
 static void	calculate_hit_pos(t_game *game, int start)
 {
-	if (game->camera.offset == 0)
-		game->camera.wallx = game->player.y + game->camera.distance
-			* game->camera.raydiry;
+	if (game->cam.offset == 0)
+		game->cam.wallx = game->player.y + game->cam.distance
+			* game->cam.raydiry;
 	else
-		game->camera.wallx = game->player.x + game->camera.distance
-			* game->camera.raydirx;
-	game->camera.wallx -= floor(game->camera.wallx);
-	game->camera.textx = (int)(game->camera.wallx * (double)(WALL_SIZE));
-	if (game->camera.offset == 0 && game->camera.raydirx > 0)
-		game->camera.textx =  WALL_SIZE -game->camera.textx - 1;
-	if (game->camera.offset == 1 && game->camera.raydiry > 0)
-		game->camera.textx =  WALL_SIZE -game->camera.textx - 1;
-	game->camera.increase = 1.0 * WALL_SIZE / game->camera.lineheight;
-	game->camera.textpos = (start - SCREEN_HEIGHT / 2 + game->camera.lineheight
-			/ 2) * game->camera.increase;
+		game->cam.wallx = game->player.x + game->cam.distance
+			* game->cam.raydirx;
+	game->cam.wallx -= floor(game->cam.wallx);
+	game->cam.textx = (int)(game->cam.wallx * (double)(WALL_SIZE));
+	if (game->cam.offset == 0 && game->cam.raydirx > 0)
+		game->cam.textx =  WALL_SIZE -game->cam.textx - 1;
+	if (game->cam.offset == 1 && game->cam.raydiry > 0)
+		game->cam.textx =  WALL_SIZE -game->cam.textx - 1;
+	game->cam.increase = 1.0 * WALL_SIZE / game->cam.lineheight;
+	game->cam.textpos = (start - SCREEN_HEIGHT / 2 + game->cam.lineheight
+			/ 2) * game->cam.increase;
 }
 
 void	ft_draw_wall(t_game *game)
@@ -44,35 +44,34 @@ void	ft_draw_wall(t_game *game)
 	int			end;
 	int			texcolor;
 
-	game->camera.lineheight = (int)(SCREEN_HEIGHT / game->camera.distance);
-	start = -game->camera.lineheight / 2 + SCREEN_HEIGHT / 2;
+	game->cam.lineheight = (int)(SCREEN_HEIGHT / game->cam.distance);
+	start = -game->cam.lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (x == SCREEN_WIDTH)
 		x = 0;
 	if (start < 0)
 		start = 0;
-	end = SCREEN_HEIGHT / 2 + game->camera.lineheight / 2;
+	end = SCREEN_HEIGHT / 2 + game->cam.lineheight / 2;
 	if (end >= SCREEN_HEIGHT)
 		end = SCREEN_HEIGHT - 1;
 	calculate_hit_pos(game, start);
 	while (start < end)
 	{
-		game->camera.texty = (int)game->camera.textpos & (WALL_SIZE - 1);
-		game->camera.textpos += game->camera.increase;
-		if (game->camera.offset == 0)
+		game->cam.texty = (int)game->cam.textpos & (WALL_SIZE - 1);
+		game->cam.textpos += game->cam.increase;
+		if (game->cam.offset == 0)
 		{
-			if (game->camera.raydirx < 0)
-				texcolor = game->textu_n.text_value[(int)(WALL_SIZE * game->camera.texty + game->camera.textx)];
+			if (game->cam.raydirx < 0)
+				texcolor = game->textu_n.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
 			else
-				texcolor = game->textu_s.text_value[(int)(WALL_SIZE * game->camera.texty + game->camera.textx)];
+				texcolor = game->textu_s.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
 		}
 		else
 		{
-			if (game->camera.raydiry < 0)
-				texcolor = game->textu_w.text_value[(int)(WALL_SIZE * game->camera.texty + game->camera.textx)];
+			if (game->cam.raydiry < 0)
+				texcolor = game->textu_w.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
 			else
-				texcolor = game->textu_e.text_value[(int)(WALL_SIZE * game->camera.texty + game->camera.textx)];
+				texcolor = game->textu_e.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
 		}
-		//mlx_pixel_put(game->mlx, game->win, x, start, texcolor);
 		ft_put_pixel(game->img, x, start, texcolor);
 		// TODO: Add shadows to side
 		start++;

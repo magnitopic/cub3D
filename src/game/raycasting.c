@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:42:16 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/18 16:12:41 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,52 @@
 
 static void	dda_algorithm(t_game *game)
 {
-	game->camera.hit = 0;
-	while (game->camera.hit == 0)
+	game->cam.hit = 0;
+	while (game->cam.hit == 0)
 	{
-		if (game->camera.sidedx < game->camera.sidedy)
+		if (game->cam.sidedx < game->cam.sidedy)
 		{
-			game->camera.sidedx += game->camera.dx;
-			game->camera.grid_x += game->camera.stepx;
-			game->camera.offset = 0;
+			game->cam.sidedx += game->cam.dx;
+			game->cam.grid_x += game->cam.stepx;
+			game->cam.offset = 0;
 		}
 		else
 		{
-			game->camera.sidedy += game->camera.dy;
-			game->camera.grid_y += game->camera.stepy;
-			game->camera.offset = 1;
+			game->cam.sidedy += game->cam.dy;
+			game->cam.grid_y += game->cam.stepy;
+			game->cam.offset = 1;
 		}
-		if (game->map_data.map[game->camera.grid_x][game->camera.grid_y]
+		if (game->map[game->cam.grid_x][game->cam.grid_y]
 			== '1')
-			game->camera.hit = 1;
+			game->cam.hit = 1;
 	}
 }
 
 static void	check_ray_direction(t_game *game)
 {
-	if (game->camera.raydirx < 0)
+	if (game->cam.raydirx < 0)
 	{
-		game->camera.stepx = -1;
-		game->camera.sidedx = ((game->player.x / WALL_SIZE)
-				- game->camera.grid_x) * game->camera.dx;
+		game->cam.stepx = -1;
+		game->cam.sidedx = ((game->player.x / WALL_SIZE)
+				- game->cam.grid_x) * game->cam.dx;
 	}
 	else
 	{
-		game->camera.stepx = 1;
-		game->camera.sidedx = (game->camera.grid_x + 1
-				- (game->player.x / WALL_SIZE)) * game->camera.dx;
+		game->cam.stepx = 1;
+		game->cam.sidedx = (game->cam.grid_x + 1
+				- (game->player.x / WALL_SIZE)) * game->cam.dx;
 	}
-	if (game->camera.raydiry < 0)
+	if (game->cam.raydiry < 0)
 	{
-		game->camera.stepy = -1;
-		game->camera.sidedy = ((game->player.y / WALL_SIZE)
-				- game->camera.grid_y) * game->camera.dy;
+		game->cam.stepy = -1;
+		game->cam.sidedy = ((game->player.y / WALL_SIZE)
+				- game->cam.grid_y) * game->cam.dy;
 	}
 	else
 	{
-		game->camera.stepy = 1;
-		game->camera.sidedy = (game->camera.grid_y + 1
-				- (game->player.y / WALL_SIZE)) * game->camera.dy;
+		game->cam.stepy = 1;
+		game->cam.sidedy = (game->cam.grid_y + 1
+				- (game->player.y / WALL_SIZE)) * game->cam.dy;
 	}
 }
 
@@ -70,21 +70,21 @@ void	raycasting(t_game *game)
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		game->camera.camerax = (2 * x / (double)SCREEN_WIDTH) - 1;
-		game->camera.raydirx = game->player.direction.x
-			+ game->camera.plane.x * game->camera.camerax;
-		game->camera.raydiry = game->player.direction.y
-			+ game->camera.plane.y * game->camera.camerax;
-		game->camera.grid_y = game->player.y / WALL_SIZE;
-		game->camera.grid_x = game->player.x / WALL_SIZE;
-		game->camera.dx = fabs(1 / game->camera.raydirx);
-		game->camera.dy = fabs(1 / game->camera.raydiry);
+		game->cam.camerax = (2 * x / (double)SCREEN_WIDTH) - 1;
+		game->cam.raydirx = game->player.dir.x
+			+ game->cam.plane.x * game->cam.camerax;
+		game->cam.raydiry = game->player.dir.y
+			+ game->cam.plane.y * game->cam.camerax;
+		game->cam.grid_y = game->player.y / WALL_SIZE;
+		game->cam.grid_x = game->player.x / WALL_SIZE;
+		game->cam.dx = fabs(1 / game->cam.raydirx);
+		game->cam.dy = fabs(1 / game->cam.raydiry);
 		check_ray_direction(game);
 		dda_algorithm(game);
-		if (game->camera.offset == 0)
-			game->camera.distance = game->camera.sidedx - game->camera.dx;
+		if (game->cam.offset == 0)
+			game->cam.distance = game->cam.sidedx - game->cam.dx;
 		else
-			game->camera.distance = game->camera.sidedy - game->camera.dy;
+			game->cam.distance = game->cam.sidedy - game->cam.dy;
 		ft_draw_wall(game);
 		x++;
 	}
