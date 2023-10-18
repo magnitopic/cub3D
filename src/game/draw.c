@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:26:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	calculate_hit_pos(t_game *game, int start)
 	game->cam.wallx -= floor(game->cam.wallx);
 	game->cam.textx = (int)(game->cam.wallx * (double)(WALL_SIZE));
 	if (game->cam.offset == 0 && game->cam.raydirx > 0)
-		game->cam.textx =  WALL_SIZE -game->cam.textx - 1;
+		game->cam.textx = WALL_SIZE - game->cam.textx - 1;
 	if (game->cam.offset == 1 && game->cam.raydiry > 0)
-		game->cam.textx =  WALL_SIZE -game->cam.textx - 1;
+		game->cam.textx = WALL_SIZE - game->cam.textx - 1;
 	game->cam.increase = 1.0 * WALL_SIZE / game->cam.lineheight;
 	game->cam.textpos = (start - SCREEN_HEIGHT / 2 + game->cam.lineheight
 			/ 2) * game->cam.increase;

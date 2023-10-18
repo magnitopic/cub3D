@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:50:34 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 19:18:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:23:40 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_for_walls(t_game *game, double x, double y)
 	if (x <= WALL_SIZE || (int)x / WALL_SIZE
 		>= ft_get_matrix_size(game->map))
 		return (0);
-	if (y <= WALL_SIZE|| (int)y / WALL_SIZE
+	if (y <= WALL_SIZE || (int)y / WALL_SIZE
 		>= (int)ft_strlen(game->map[(int)x / WALL_SIZE]))
 		return (0);
 	if (game->map[(int)x / WALL_SIZE][(int)y / WALL_SIZE] != '1')
@@ -104,7 +104,6 @@ static void	move_side_to_side(t_game *game, enum e_keys key)
 
 int	event_handler(enum e_keys key, t_game *game)
 {
-
 	if (key == ESC)
 		exit_game(game);
 	if (key == LEFT || key == RIGHT)

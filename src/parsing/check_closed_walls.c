@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:01:20 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 15:54:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:36:16 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void	check_closed_walls(char **map)
 
 	map_cpy = get_map_cpy(map);
 	check_walls(map_cpy);
+	free_matrix(map_cpy);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:57:14 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 16:17:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:24:42 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	create_textures(t_game *game)
 	if (!game->textu_n.img.img || !game->textu_s.img.img
 		|| !game->textu_w.img.img || !game->textu_e.img.img)
 		raise_error("Path to textures does not exist or cannot be accessed");
-		add_info_to_textures(game);
+	add_info_to_textures(game);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:18:28 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:30:57 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,11 @@ void	parsing(char **argv, t_game *game)
 {
 	char	**file_content;
 	char	**map;
-	//char	**aux;
 
 	file_content = read_file(argv);
-	//aux = file_content;
 	get_values(game, file_content);
 	map = file_content + 6;
 	check_map_chars(game, map);
 	check_closed_walls(map);
 	game->map = map;
-	//free_matrix(aux);
 }

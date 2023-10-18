@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 09:37:11 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 19:07:17 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:25:01 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	char	**map;
+	char		**map;
 	t_map_data	map_data;
 	t_img		img;
 	t_player	player;
