@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/19 16:09:32 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:49:05 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	calculate_hit_pos(t_game *game, int start)
 			/ 2) * game->cam.increase;
 }
 
-static void	get_texture_color(t_game *game, int x, int start)
+static void	draw_texture_color(t_game *game, int x, int start)
 {
 	int			texcolor;
 
@@ -76,7 +76,7 @@ void	ft_draw_wall(t_game *game)
 	calculate_hit_pos(game, start);
 	while (start < end)
 	{
-		get_texture_color(game, x, start);
+		draw_texture_color(game, x, start);
 		start++;
 	}
 	x++;

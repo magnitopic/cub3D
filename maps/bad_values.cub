@@ -1,11 +1,12 @@
-WE ./path_to_the_west_texture
+WE ./textures/bluestone.xpm
 C 225,155,0
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
+NO ./textures/redbrick.xpm
+SO ./textures/colorstone.xpm
 110101010N
 F 10,30 ,40
-EA ./path_to_the_east_texture
+EA ./textures/wrong.xpm
 
-111
+101
 1N1
+
 111

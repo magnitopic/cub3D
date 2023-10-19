@@ -1,7 +1,7 @@
-NO ./textures/mossy.xpm
-SO ./textures/mossy.xpm
-WE ./textures/mossy.xpm
-EA ./textures/mossy.xpm
+NO textures/wood.xpm
+SO textures/redbrick.xpm
+WE textures/greystone.xpm
+EA textures/colorstone.xpm
 
 F 0,50,100
 C 0,0,255
