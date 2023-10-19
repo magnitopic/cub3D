@@ -6,17 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 19:26:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:09:32 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-
-static void	ft_put_pixel(t_img img, int x, int y, int color)
-{
-	if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
-		*(int *)&img.addr[((x * img.bpp) >> 3) + (y * img.line_len)] = color;
-}
 
 static void	calculate_hit_pos(t_game *game, int start)
 {
@@ -37,12 +31,38 @@ static void	calculate_hit_pos(t_game *game, int start)
 			/ 2) * game->cam.increase;
 }
 
+static void	get_texture_color(t_game *game, int x, int start)
+{
+	int			texcolor;
+
+	game->cam.texty = (int)game->cam.textpos & (WALL_SIZE - 1);
+	game->cam.textpos += game->cam.increase;
+	if (game->cam.offset == 0)
+	{
+		if (game->cam.raydirx < 0)
+			texcolor = game->textu_n.text_value
+			[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
+		else
+			texcolor = game->textu_s.text_value
+			[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
+	}
+	else
+	{
+		if (game->cam.raydiry < 0)
+			texcolor = game->textu_w.text_value
+			[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
+		else
+			texcolor = game->textu_e.text_value
+			[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
+	}
+	ft_put_pixel(game->img, x, start, texcolor);
+}
+
 void	ft_draw_wall(t_game *game)
 {
 	static int	x = 0;
 	int			start;
 	int			end;
-	int			texcolor;
 
 	game->cam.lineheight = (int)(SCREEN_HEIGHT / game->cam.distance);
 	start = -game->cam.lineheight / 2 + SCREEN_HEIGHT / 2;
@@ -56,24 +76,7 @@ void	ft_draw_wall(t_game *game)
 	calculate_hit_pos(game, start);
 	while (start < end)
 	{
-		game->cam.texty = (int)game->cam.textpos & (WALL_SIZE - 1);
-		game->cam.textpos += game->cam.increase;
-		if (game->cam.offset == 0)
-		{
-			if (game->cam.raydirx < 0)
-				texcolor = game->textu_n.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
-			else
-				texcolor = game->textu_s.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
-		}
-		else
-		{
-			if (game->cam.raydiry < 0)
-				texcolor = game->textu_w.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
-			else
-				texcolor = game->textu_e.text_value[(int)(WALL_SIZE * game->cam.texty + game->cam.textx)];
-		}
-		ft_put_pixel(game->img, x, start, texcolor);
-		// TODO: Add shadows to side
+		get_texture_color(game, x, start);
 		start++;
 	}
 	x++;
@@ -108,7 +111,7 @@ static void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
  * ceiling colour and the other half will be the floor color, since the walls
  * will be drawn from the middle it'll give the illusion of floor and ceiling.
  * 
- * Next Raycasging will do all the necessary calculations to mesure the distance
+ * Next Raycasting will do all the necessary calculations to mesure the distance
  * to each wall. That distance will determine the height of each segment of wall
  * and we'll draw them accordingly.
  * 

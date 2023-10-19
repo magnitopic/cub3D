@@ -6,42 +6,52 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:35:00 by jsarabia          #+#    #+#             */
-/*   Updated: 2023/10/18 19:05:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:05:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-static void	get_player_direction(t_game *game)
+static void	get_player_direction2(t_game *game)
 {
-	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'W')
-	{
-		game->cam.plane.x = -0.66;
-		game->cam.plane.y = 0;
-		game->player.dir.x = 0;
-		game->player.dir.y = -1;
-	}
-	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'S')
-	{
-		game->cam.plane.y = -0.66;
-		game->cam.plane.x = 0;
-		game->player.dir.x = 1;
-		game->player.dir.y = 0;
-	}
-	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'N')
+	if (game->map[(int)game->player.x / WALL_SIZE]
+		[(int)game->player.y / WALL_SIZE] == 'N')
 	{
 		game->cam.plane.y = 0.66;
 		game->cam.plane.x = 0;
 		game->player.dir.x = -1;
 		game->player.dir.y = 0;
 	}
-	if (game->map[(int)game->player.x / WALL_SIZE][(int)game->player.y / WALL_SIZE] == 'E')
+	else if (game->map[(int)game->player.x / WALL_SIZE]
+		[(int)game->player.y / WALL_SIZE] == 'E')
 	{
 		game->cam.plane.x = 0.66;
 		game->cam.plane.y = 0;
 		game->player.dir.x = 0;
 		game->player.dir.y = 1;
 	}
+}
+
+static void	get_player_direction(t_game *game)
+{
+	if (game->map[(int)game->player.x / WALL_SIZE]
+		[(int)game->player.y / WALL_SIZE] == 'W')
+	{
+		game->cam.plane.x = -0.66;
+		game->cam.plane.y = 0;
+		game->player.dir.x = 0;
+		game->player.dir.y = -1;
+	}
+	else if (game->map[(int)game->player.x / WALL_SIZE]
+		[(int)game->player.y / WALL_SIZE] == 'S')
+	{
+		game->cam.plane.y = -0.66;
+		game->cam.plane.x = 0;
+		game->player.dir.x = 1;
+		game->player.dir.y = 0;
+	}
+	else
+		get_player_direction2(game);
 }
 
 static void	allocate_buffer(t_game *game)

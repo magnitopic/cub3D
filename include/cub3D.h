@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 08:50:47 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/18 16:13:11 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:12:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		exit_game(t_game *game);
 void	raise_error(char *message);
 int		ft_rgba(int r, int g, int b, int alpha);
 int		event_handler(enum e_keys key, t_game *game);
+void	ft_put_pixel(t_img img, int x, int y, int color);
 
 /* Parsing */
 
