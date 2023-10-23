@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/23 13:07:50 by jsarabia         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:05:35 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ static void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 		while (x++ < SCREEN_WIDTH)
 		{
 			if (y < SCREEN_HEIGHT / 2)
-				ft_put_pixel(game->img, x, y, ft_rgba(floor.red, floor.green,
-						floor.blue, 0));
-			else
 				ft_put_pixel(game->img, x, y, ft_rgba(ceiling.red,
 						ceiling.green, ceiling.blue, 0));
+			else
+				ft_put_pixel(game->img, x, y, ft_rgba(floor.red, floor.green,
+						floor.blue, 0));
 		}
 	}
 }
