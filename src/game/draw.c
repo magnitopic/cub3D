@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/19 20:49:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/23 13:07:50 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void	calculate_hit_pos(t_game *game, int start)
 {
 	if (game->cam.offset == 0)
-		game->cam.wallx = game->player.y + game->cam.distance
+		game->cam.wallx = (game->player.y / WALL_SIZE) + game->cam.distance
 			* game->cam.raydiry;
 	else
-		game->cam.wallx = game->player.x + game->cam.distance
+		game->cam.wallx = (game->player.x / WALL_SIZE) + game->cam.distance
 			* game->cam.raydirx;
 	game->cam.wallx -= floor(game->cam.wallx);
 	game->cam.textx = (int)(game->cam.wallx * (double)(WALL_SIZE));
 	if (game->cam.offset == 0 && game->cam.raydirx > 0)
 		game->cam.textx = WALL_SIZE - game->cam.textx - 1;
-	if (game->cam.offset == 1 && game->cam.raydiry > 0)
+	if (game->cam.offset == 1 && game->cam.raydiry < 0)
 		game->cam.textx = WALL_SIZE - game->cam.textx - 1;
 	game->cam.increase = 1.0 * WALL_SIZE / game->cam.lineheight;
 	game->cam.textpos = (start - SCREEN_HEIGHT / 2 + game->cam.lineheight
@@ -35,7 +35,9 @@ static void	draw_texture_color(t_game *game, int x, int start)
 {
 	int			texcolor;
 
-	game->cam.texty = (int)game->cam.textpos & (WALL_SIZE - 1);
+	game->cam.texty = (int)(game->cam.textpos);
+	if (game->cam.texty >= WALL_SIZE)
+		game->cam.texty = WALL_SIZE - 1;
 	game->cam.textpos += game->cam.increase;
 	if (game->cam.offset == 0)
 	{
@@ -106,15 +108,15 @@ static void	draw_ceiling_floor(t_game *game, t_color ceiling, t_color floor)
 /**
  * At the start of the game and when any movement key is pressed the screen is
  * re-drawn.
- * 
+ *
  * First the floor and ceiling is drawn. Half of the screen will be drawn the
  * ceiling colour and the other half will be the floor color, since the walls
  * will be drawn from the middle it'll give the illusion of floor and ceiling.
- * 
+ *
  * Next Raycasting will do all the necessary calculations to mesure the distance
  * to each wall. That distance will determine the height of each segment of wall
  * and we'll draw them accordingly.
- * 
+ *
  * Finally the with every pixel placed in the image, it is put on the screen.
 */
 void	re_draw_screen(t_game *game)
