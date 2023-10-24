@@ -2,7 +2,9 @@
 
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you’ll have to find your way.
 
-https://github.com/magnitopic/cub3D/assets/21156058/f727be63-5ce5-4778-8160-b0b30a8454a8
+https://github.com/magnitopic/cub3D/assets/21156058/6b2e78cb-c995-4a24-b821-4925d13def0a
+
+> Video of the game on YouTube: [https://youtu.be/1Xx0P1S180M](https://youtu.be/1Xx0P1S180M)
 
 # Team work 💪
 
