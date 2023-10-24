@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsarabia <jsarabia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 10:01:04 by alaparic          #+#    #+#             */
-/*   Updated: 2023/10/23 16:05:35 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/10/24 11:59:10 by jsarabia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static void	draw_texture_color(t_game *game, int x, int start)
 {
 	int			texcolor;
 
-	game->cam.texty = (int)(game->cam.textpos);
-	if (game->cam.texty >= WALL_SIZE)
-		game->cam.texty = WALL_SIZE - 1;
-	game->cam.textpos += game->cam.increase;
+	if (game->cam.texty < 0)
+		game->cam.texty *= -1;
+	if (game->cam.textx < 0)
+		game->cam.textx *= -1;
 	if (game->cam.offset == 0)
 	{
 		if (game->cam.raydirx < 0)
@@ -78,6 +78,10 @@ void	ft_draw_wall(t_game *game)
 	calculate_hit_pos(game, start);
 	while (start < end)
 	{
+		game->cam.texty = (int)(game->cam.textpos);
+		if (game->cam.texty >= WALL_SIZE)
+			game->cam.texty = WALL_SIZE - 1;
+		game->cam.textpos += game->cam.increase;
 		draw_texture_color(game, x, start);
 		start++;
 	}
