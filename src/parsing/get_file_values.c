@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:50:52 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/20 21:25:44 by alaparic         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:56:42 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	get_values(t_game *game, char **file_con)
 	i = -1;
 	while (++i < 6)
 	{
+		if (!file_con[i])
+			raise_error("Missing values for textures and colors");
 		value_type = identify_line_value(file_con[i]);
 		if (value_type == ERROR)
 			raise_error("Invalid value for textures and colors");
